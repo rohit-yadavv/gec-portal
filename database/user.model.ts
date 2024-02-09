@@ -17,7 +17,7 @@ const UserSchema = new Schema({
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true },
-  admin: {type: Boolean, default: false},
+  admin: {type: Boolean},
   password: { type: String }, 
   picture: { type: String, required: true },  
   saved: [{ type: Schema.Types.ObjectId, ref: "Question" }],

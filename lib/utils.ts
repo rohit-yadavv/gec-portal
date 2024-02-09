@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function checkAdminEligibility(email: string): boolean {
-  if (email.endsWith("@cuh.ac.in")) {
+  if (email.endsWith("@gmail.com")) {
       return true;
   } else {
       return false;
