@@ -96,6 +96,7 @@ export interface CreateUserParams {
   username: string;
   email: string;
   picture: string;
+  admin: boolean;
 }
 export interface GetUserByIdParams {
   userId: string;

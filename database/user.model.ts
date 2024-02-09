@@ -5,12 +5,9 @@ export interface IUser extends Document {
   name: string;
   username: string;
   email: number;
+  admin: boolean;
   password?: string;
-  bio?: string;
-  picture: string;
-  location?: string | undefined; // Adjusted type here
-  portfolioWebsite?: string;
-  reputation?: number;
+  picture: string;   
   saved: Schema.Types.ObjectId[];
   joinedAt: Date;
 }
@@ -20,12 +17,9 @@ const UserSchema = new Schema({
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true },
-  password: { type: String },
-  bio: { type: String },
-  picture: { type: String, required: true },
-  location: { type: String }, // This line can also be { type: String | undefined }
-  portfolioWebsite: { type: String },
-  reputation: { type: Number, default: 0 },
+  admin: {type: Boolean, default: false},
+  password: { type: String }, 
+  picture: { type: String, required: true },  
   saved: [{ type: Schema.Types.ObjectId, ref: "Question" }],
   joinedAt: { type: Date, default: Date.now },
 });

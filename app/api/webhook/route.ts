@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
+import { checkAdminEligibility } from "@/lib/utils";
  
 export async function POST(req: Request) {
  
@@ -66,6 +67,7 @@ export async function POST(req: Request) {
       username: username!,
       email: email_addresses[0].email_address,
       picture: image_url,
+      admin: checkAdminEligibility(email_addresses[0].email_address)
     });
     console.log("created")
     return NextResponse.json({ message: "OK", user: mongoUser });
