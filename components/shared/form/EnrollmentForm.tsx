@@ -29,15 +29,13 @@ import { updateUser } from "@/lib/actions/user.action";
 import { Textarea } from "@/components/ui/textarea";
 import { createEvent } from "@/lib/actions/enrollment.action";
 
-interface Params {
-  clerkId: string;
-  user: string;
+
+interface Props{ 
+  onSubmitSuccess:()=>void;
 }
 
-const EnrollmentForm = ({ clerkId, user }: Params) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
-  const parsedUser = JSON.parse(user);
+const EnrollmentForm = ({onSubmitSuccess}:Props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false); 
   const path = usePathname();
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
@@ -54,11 +52,6 @@ const EnrollmentForm = ({ clerkId, user }: Params) => {
       courseCredit: 0,
     },
   });
-
-  if (!parsedUser?.admin) {
-    router.back();
-    return;
-  }
 
   async function onSubmit(values: z.infer<typeof EventSchema>) {
     setIsSubmitting(true);
@@ -79,6 +72,7 @@ const EnrollmentForm = ({ clerkId, user }: Params) => {
         },
       });
       toast("Event has been created.");
+      onSubmitSuccess();
     } catch (error) {
       console.log(error);
     } finally {
@@ -302,7 +296,7 @@ const EnrollmentForm = ({ clerkId, user }: Params) => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> 
         <div className="mt-7 flex justify-end">
           <Button
             disabled={isSubmitting}
