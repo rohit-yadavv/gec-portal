@@ -5,6 +5,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { Metadata } from "next";
 import "./globals.css";  
 import { ThemeProvider } from "@/context/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "WebOverflow",
   description:
-    "A community driven platform for asking and answeing programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more. ",
+    "A community driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more. ",
   icons: {
     icon: "/assets/images/full-logo.png",
   },
@@ -48,9 +49,13 @@ export default function RootLayout({
         <html lang="en">
           <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
             {children}
+            <Toaster />
           </body>
         </html>
       </ThemeProvider>
     </ClerkProvider>
   );
 }
+
+
+ 

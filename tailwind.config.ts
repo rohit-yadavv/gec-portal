@@ -18,11 +18,11 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          500: "#FF7000",
-          100: "#FFF1E6",
+          500: "#FF7000", 
+          100: "#FFF1E6",  
         },
         dark: {
-          100: "#000000",
+          100: "#09090B",
           200: "#0F1117",
           300: "#151821",
           400: "#212734",
@@ -38,6 +38,33 @@ const config: Config = {
         },
         "accent-blue": "#1DA1F2",
       },
+    
+      
+      // colors: {
+      //   primary: {
+      //     500: "#3182CE", 
+      //     100: "#DBEAFE", 
+      //   },
+      //   dark: {
+      //     100: "#000000", 
+      //     200: "#1A202C",
+      //     300: "#2D3748",
+      //     400: "#4A5568",
+      //     500: "#1F2937",
+      //   },
+      //   light: {
+      //     900: "#FFFFFF",
+      //     800: "#EDF2F7", 
+      //     850: "#F7FAFC", 
+      //     700: "#BEE3F8", 
+      //     500: "#4299E1", 
+      //     400: "#718096", 
+      //   },
+      //   accentBlue: "#2C5282",  
+      // },
+
+      
+
       fontFamily: {
         inter: ["var(--font-inter)"],
         spaceGrotesk: ["var(--font-spaceGrotesk)"],

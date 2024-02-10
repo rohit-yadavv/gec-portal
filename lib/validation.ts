@@ -16,4 +16,17 @@ export const ProfileSchema = z.object({
   bio: z.string().min(10).max(150),
   portfolioWebsite: z.string().url(),
   location: z.string().min(5).max(50),
+}) 
+
+export const EventSchema = z.object({
+  type: z.string().min(2),
+  courseCode: z.string().min(2),
+  courseName: z.string().min(2),
+  desc: z.string().min(2),
+  department: z.string().min(2),
+  teacher: z.string().min(2),
+  sem: z.number().positive(),
+  eligible: z.string().min(2),
+  seats: z.number().positive(),
+  courseCredit: z.number().positive(),
 })

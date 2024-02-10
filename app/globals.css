@@ -5,6 +5,8 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;
@@ -40,7 +42,11 @@ body {
   }
   .primary-gradient {
     background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
-  }
+  } 
+  /* .primary-gradient {
+    background: linear-gradient(129deg, #3182CE 0%, #4299E1 100%);
+  } */
+  
   .dark-gradient {
     background: linear-gradient(
       232deg,
@@ -71,7 +77,14 @@ body {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
+  } 
+  /* .primary-text-gradient {
+    background: linear-gradient(129deg, #3182CE 0%, #4299E1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  } */
+  
   .custom-scrollbar::-webkit-scrollbar {
     width: 3px;
     height: 3px;
