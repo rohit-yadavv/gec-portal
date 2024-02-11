@@ -1,13 +1,9 @@
 "use server";
 import Enrollment, { IEnrollment } from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
-import { revalidatePath } from "next/cache";
-import { auth } from "@clerk/nextjs";
-import { getUserById } from "./user.action";
+import { revalidatePath } from "next/cache"; 
 
-const {userId} = auth(); //clerkId 
-
-interface Props {
+interface Props { 
   path: string;
   eventData: {
     type: string;

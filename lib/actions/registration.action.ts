@@ -1,17 +1,14 @@
-"use server";
-import Enrollment, { IEnrollment } from "@/database/enrollment.model";
+"use server"; 
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs";
 import { Schema } from "mongoose";
-import Registration from "@/database/registered.model";
-
-const { userId } = auth(); //clerkId
+import Registration from "@/database/registered.model"; 
 
 interface Props {
   path: string;
   registrationData: {
-    name: string;
+    name: string; 
     rollNo: number;
     department: string;
     course: string;
