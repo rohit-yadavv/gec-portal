@@ -5,16 +5,14 @@ import { getUserById } from "@/lib/actions/user.action";
 import EnrollmentDialog from "./EnrollmentDialog";
 
 const Enrollment = async() => {
-    const {userId} = auth();
-    const mongoUser=await getUserById({userId});  
-    // if(!userId) return null;
-
+    const {userId} = auth() ?? {userId:''}  //clerkId 
+    const mongoUser=await getUserById({userId});   
     
   if (!mongoUser?.admin) { 
     return;
   }
   return (
-    <EnrollmentDialog user={JSON.stringify(mongoUser)}/>
+    <EnrollmentDialog userId={userId}/>
   );
 };
 

@@ -24,19 +24,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { EventSchema } from "@/lib/validation";
-import { usePathname, useRouter } from "next/navigation";
-import { updateUser } from "@/lib/actions/user.action";
+import { usePathname } from "next/navigation"; 
 import { Textarea } from "@/components/ui/textarea";
-import { createEvent } from "@/lib/actions/enrollment.action";
+import { createEvent } from "@/lib/actions/enrollment.action"; 
 
 
 interface Props{ 
-  onSubmitSuccess:()=>void;
+  onSubmitSuccess:()=>void; 
+  userId:string;
 }
 
-const EnrollmentForm = ({onSubmitSuccess}:Props) => {
+const EnrollmentForm = ({onSubmitSuccess, userId}:Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  const path = usePathname();
+  const path = usePathname(); 
   const form = useForm<z.infer<typeof EventSchema>>({
     resolver: zodResolver(EventSchema),
     defaultValues: {
@@ -68,7 +68,8 @@ const EnrollmentForm = ({onSubmitSuccess}:Props) => {
           sem: values?.sem,
           eligible: values?.eligible,
           seats: values?.seats,
-          courseCredit: values?.courseCredit,
+          courseCredit: values?.courseCredit, 
+          uploadedByClerkId: userId,
         },
       });
       toast("Event has been created.");

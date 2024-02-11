@@ -1,50 +1,41 @@
 import Enrollment from "@/components/shared/Enrollment";
 import NoResult from "@/components/shared/NoResult";
-import CourseCard from "@/components/shared/card/CourseCard";
-import { Button } from "@/components/ui/button";
-import { getAllEvents } from "@/lib/actions/enrollment.action";
-import { gec } from "@/temp";
+import CourseCard from "@/components/shared/card/CourseCard"; 
+import { getAllEvents } from "@/lib/actions/enrollment.action"; 
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
-import { Metadata } from "next";
-import Link from "next/link";
-import result from "postcss/lib/result";
-import { title } from "process";
+import { Metadata } from "next";  
 
 export const metadata: Metadata = {
   title: "Home | Web Overflow",
   description:
     "A community driven platform for asking and answeing programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
 };
+  // {
+  //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
+  //   type: 'vac',
+  //   desc: 'its an vac',
+  //   courseCode: 'bt cs 302',
+  //   courseName: 'vac for oops',
+  //   department: 'cse',
+  //   teacher: 'anant sir',
+  //   sem: 2,
+  //   eligible: 'pg',
+  //   seats: '20',
+  //   applicant: [],
+  //   uploadedAt: 2024-02-11T10:23:43.921Z,
+  //   __v: 0
+  // }
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const { userId } = auth();
-  let result;
-  // if (searchParams?.filter === "recommended") {
-  //   if (userId) {
-  //     result = await getRecommendedQuestions({
-  //       userId,
-  //       searchQuery: searchParams.q,
-  //       page: searchParams.page ? +searchParams.page : 1,
-  //     });
-  //   } else {
-  //     result = {
-  //       questions: [],
-  //       isNext: false,
-  //     };
-  // }
-  // } else {
-  result = await getAllEvents();
+  const { userId } = auth(); 
+  let result = JSON.parse(await getAllEvents()); 
 
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="h1-bold text-dark100_light900">Opportunities</h1>
-        {/* <Link className="flex justify-end max-sm:w-full" href="/ask-question"> */}
+        <h1 className="h1-bold text-dark100_light900">Opportunities</h1> 
         <div className="flex justify-end max-sm:w-full">
-          {/* <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
-            Ask a Question
-          </Button> */}
           <Enrollment />
         </div>
       </div>
@@ -64,15 +55,10 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
       HomeFilters
       <div className="mt-10 flex w-full flex-col gap-6">
-        {result.length > 0 ? (
-          result.map((item) => (
+        {result?.length > 0 ? (
+          result?.map((item:any) => (
             <>
-              <CourseCard
-                key={item.courseCode}
-                courseName={item.courseName}
-                department={item.department}
-                courseCode={item.courseCode}
-              />
+              <CourseCard event={item} />
             </>
           ))
         ) : (

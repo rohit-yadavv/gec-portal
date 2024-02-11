@@ -2,8 +2,10 @@
 import Enrollment, { IEnrollment } from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
-import path from "path";
-import events from "events";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "./user.action";
+
+const {userId} = auth(); //clerkId 
 
 interface Props {
   path: string;
@@ -18,17 +20,17 @@ interface Props {
     eligible: string;
     seats: number;
     courseCredit: number;
+    uploadedByClerkId:string;
   };
 }
 
 
 export async function createEvent(enrollmentData: Props) {
-  try {
-    const { path, eventData } = enrollmentData;
-    connectToDatabase();
+  try { 
+    const { path, eventData } = enrollmentData; 
+    connectToDatabase(); 
     const newEnrollment = await Enrollment.create(eventData);
-    revalidatePath(path);
-    return newEnrollment;
+    revalidatePath(path); 
   } catch (error) {
     console.log(error);
     throw error;
@@ -42,7 +44,8 @@ export async function getAllEvents() {
       .sort() 
       .limit(5);
       
-    return events;
+    const data = JSON.stringify(events)
+    return data;
   } catch (error) {
     console.log(error);
     throw error;

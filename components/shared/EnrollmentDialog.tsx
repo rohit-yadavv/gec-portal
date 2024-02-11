@@ -10,7 +10,7 @@ import {
 import EnrollmentForm from "./form/EnrollmentForm";
 import { useState } from "react";
 
-const EnrollmentDialog = ({ user }: { user: string }) => {
+const EnrollmentDialog = ({userId}:{userId:string}) => {
   const [open, setOpen] = useState(false);
 
   const handleFormSubmitSuccess = () => {
@@ -29,7 +29,7 @@ const EnrollmentDialog = ({ user }: { user: string }) => {
         <DialogHeader>
           <DialogTitle>Fill Form</DialogTitle>
           <DialogDescription>
-            <EnrollmentForm onSubmitSuccess={handleFormSubmitSuccess} />
+            <EnrollmentForm onSubmitSuccess={handleFormSubmitSuccess} userId={userId}/>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
