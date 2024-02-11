@@ -2,6 +2,8 @@
 import Enrollment, { IEnrollment } from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
+import path from "path";
+import events from "events";
 
 interface Props {
   path: string;
@@ -27,6 +29,20 @@ export async function createEvent(enrollmentData: Props) {
     const newEnrollment = await Enrollment.create(eventData);
     revalidatePath(path);
     return newEnrollment;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getAllEvents() {
+  try { 
+    connectToDatabase();
+    const events = await Enrollment.find()
+      .sort() 
+      .limit(5);
+      
+    return events;
   } catch (error) {
     console.log(error);
     throw error;

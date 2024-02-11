@@ -21,11 +21,21 @@ export const sidebarLinks: SidebarLink[] = [
     route: "/applied",
     label: "Applied",
   }, 
-  // {
-  //   imgURL: "/assets/icons/tag.svg",
-  //   route: "/tags",
-  //   label: "Tags",
-  // },
+  {
+    imgURL: "/assets/icons/tag.svg",
+    route: "/tags",
+    label: "All GECs",
+  },
+  {
+    imgURL: "/assets/icons/tag.svg",
+    route: "/tags",
+    label: "All VACs",
+  },
+  {
+    imgURL: "/assets/icons/tag.svg",
+    route: "/tags",
+    label: "All Events",
+  },
   {
     imgURL: "/assets/icons/user.svg",
     route: "/profile",

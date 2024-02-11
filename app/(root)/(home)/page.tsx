@@ -1,11 +1,15 @@
-import Enrollment from "@/components/shared/Enrollment"; 
+import Enrollment from "@/components/shared/Enrollment";
+import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard";
 import { Button } from "@/components/ui/button";
+import { getAllEvents } from "@/lib/actions/enrollment.action";
 import { gec } from "@/temp";
 import { SearchParamsProps } from "@/types";
-import { auth } from "@clerk/nextjs"; 
+import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
 import Link from "next/link";
+import result from "postcss/lib/result";
+import { title } from "process";
 
 export const metadata: Metadata = {
   title: "Home | Web Overflow",
@@ -15,27 +19,22 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
-//   let result;
-//   if (searchParams?.filter === "recommended") {
-//     if (userId) {
-//       result = await getRecommendedQuestions({
-//         userId,
-//         searchQuery: searchParams.q,
-//         page: searchParams.page ? +searchParams.page : 1,
-//       });
-//     } else {
-//       result = {
-//         questions: [],
-//         isNext: false,
-//       };
-//     }
-//   } else {
-//     result = await getQuestions({
-//       searchQuery: searchParams.q,
-//       filter: searchParams.filter,
-//       page: searchParams.page ? +searchParams.page : 1,
-//     });
-//   }
+  let result;
+  // if (searchParams?.filter === "recommended") {
+  //   if (userId) {
+  //     result = await getRecommendedQuestions({
+  //       userId,
+  //       searchQuery: searchParams.q,
+  //       page: searchParams.page ? +searchParams.page : 1,
+  //     });
+  //   } else {
+  //     result = {
+  //       questions: [],
+  //       isNext: false,
+  //     };
+  // }
+  // } else {
+  result = await getAllEvents();
 
   return (
     <>
@@ -46,7 +45,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           {/* <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
             Ask a Question
           </Button> */}
-          <Enrollment/>
+          <Enrollment />
         </div>
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -63,39 +62,25 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           containerClasses="hidden max-md:flex"
         /> */}
       </div>
-      HomeFilters 
+      HomeFilters
       <div className="mt-10 flex w-full flex-col gap-6">
-        {/* {result.questions.length > 0 ? (
-          result.questions.map((question) => (
+        {result.length > 0 ? (
+          result.map((item) => (
             <>
-              <QuestionCard
-                key={question._id}
-                _id={question._id}
-                title={question.title}
-                tags={question.tags}
-                author={question.author}
-                upvotes={question.upvotes}
-                views={question.views}
-                answers={question.answers}
-                createdAt={question.createdAt}
+              <CourseCard
+                key={item.courseCode}
+                courseName={item.courseName}
+                department={item.department}
+                courseCode={item.courseCode}
               />
             </>
           ))
         ) : (
           <NoResult
-            title="There are no question to show"
-            desc="Be the first to break the silence! 🚀 Ask a Question and kickstart the
-          discussion. our query could be the next big thing others learn from. Get
-          involved! 💡"
-            link="/ask-question"
-            linkTitle="Ask a Question"
+            title="Nothing to Show 🙄"
+            desc="Currently There is no GEC, VAC or any Event available to register"
           />
-        )} */}
-        {
-          gec.map((item)=>( 
-            <CourseCard key={item.courseCode} courseName={item.courseName} department={item.department} courseCode={item.courseCode}/>
-          ))
-        }
+        )}
       </div>
       <div className="mt-10">
         {/* <Pagination

@@ -3,7 +3,7 @@ import Navbar from "@/components/shared/navbar/Navbar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="background-light850_dark100 relative">
+    <main className="background-light900_dark100 relative">
       <Navbar />
       <div className="flex">
         <LeftSideBar/>
