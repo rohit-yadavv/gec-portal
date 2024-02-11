@@ -302,7 +302,7 @@ const EnrollmentForm = ({onSubmitSuccess, userId}:Props) => {
           <Button
             disabled={isSubmitting}
             type="submit"
-            className="primary-gradient w-fit"
+            className="primary-gradient w-fit !text-light-900"
           >
             {isSubmitting ? "Saving..." : "Save"}
           </Button>

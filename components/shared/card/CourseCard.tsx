@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,6 +10,7 @@ import {
 import { getUserById } from "@/lib/actions/user.action";
 import { getTimeStamp } from "@/lib/utils";
 import Image from "next/image";
+import ApplyDialog from "../ApplyDialog";
 // {
 //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
 //   type: 'vac',
@@ -49,8 +51,8 @@ const CourseCard = async ({ event }: Props) => {
     uploadedByClerkId,
     uploadedAt,
   } = event;
-  
-  const user = await getUserById({ userId:uploadedByClerkId }); 
+
+  const user = await getUserById({ userId: uploadedByClerkId });
 
   return (
     <Card>
@@ -65,19 +67,22 @@ const CourseCard = async ({ event }: Props) => {
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative">
-
-        <p className="flex items-center gap-1">
-        <Image
-          src={user?.picture}
-          width={16}
-          height={16}
-          alt='profile pic'
-          className="object-contain rounded-full"
-        />
-          <span className="small-regular line-clamp-1 max-sm:hidden">
-            posted {getTimeStamp(uploadedAt)} by {user?.name} ({user?.email})
+        <p className="flex items-center gap-1 body-regular">
+          <Image
+            src={user?.picture}
+            width={16}
+            height={16}
+            alt="profile pic"
+            className="object-contain rounded-full"
+          />{" "}
+          {user?.name} ({user?.email})
+          <span className="small-regular line-clamp-1 max-sm:hidden text-dark100_light900">
+            - {getTimeStamp(uploadedAt)}
           </span>
         </p>
+        <div className="absolute right-5">
+          <ApplyDialog />
+        </div>
       </CardFooter>
     </Card>
   );

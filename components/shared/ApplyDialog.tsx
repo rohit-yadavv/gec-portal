@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import EnrollmentForm from "./form/EnrollmentForm";
 import { useState } from "react";
+import ApplyForm from "./form/ApplyForm";
 
-const EnrollmentDialog = ({userId}:any) => {
+const ApplyDialog = ({userId}:any) => {
   const [open, setOpen] = useState(false);
 
   const handleFormSubmitSuccess = () => {
@@ -22,14 +23,14 @@ const EnrollmentDialog = ({userId}:any) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <div className="rounded-lg primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
-          Post Event
+          Apply Now
         </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Fill Form</DialogTitle>
+          <DialogTitle>Fill Details to Apply</DialogTitle>
           <DialogDescription>
-            <EnrollmentForm onSubmitSuccess={handleFormSubmitSuccess} userId={userId}/>
+            <ApplyForm onSubmitSuccess={handleFormSubmitSuccess} userId={userId}/>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
@@ -37,4 +38,4 @@ const EnrollmentDialog = ({userId}:any) => {
   );
 };
 
-export default EnrollmentDialog;
+export default ApplyDialog;

@@ -30,3 +30,18 @@ export const EventSchema = z.object({
   seats: z.number().positive(),
   courseCredit: z.number().positive(),
 })
+
+// name?: string;
+// rollNo?: string;
+// department?: string;
+// course?: string;
+// sem?: number;  
+
+export const RegistrationSchema = z.object({
+  name: z.string().min(2),
+  rollNo: z.number(), 
+  department: z.string().min(2),
+  course: z.string().min(2),
+  sem: z.number(), 
+})
+

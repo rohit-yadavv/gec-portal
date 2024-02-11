@@ -1,7 +1,9 @@
-import Enrollment from "@/components/shared/Enrollment";
+// import Enrollment from "@/components/shared/Enrollment";
+import EnrollmentDialog from "@/components/shared/EnrollmentDialog";
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard"; 
 import { getAllEvents } from "@/lib/actions/enrollment.action"; 
+import { getUserById } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";  
@@ -29,14 +31,18 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth(); 
-  let result = JSON.parse(await getAllEvents()); 
+  const mongoUser=await getUserById({userId});   
+  console.log(mongoUser)
+
+  let result = JSON.parse(await getAllEvents());  
 
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">Opportunities</h1> 
         <div className="flex justify-end max-sm:w-full">
-          <Enrollment />
+          {/* <Enrollment /> */}
+          {mongoUser?.admin && <EnrollmentDialog userId={userId}/>}
         </div>
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
