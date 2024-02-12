@@ -62,7 +62,8 @@ export async function POST(req: Request) {
       evt.data; 
     const mongoUser = await createUser({
       clerkId: id, 
-      name: `${first_name ? `${first_name} ${last_name ? `${last_name}` : ""}` : "user"}`,
+      name: `${first_name ? `${first_name}` : "user"} ${last_name ? `${last_name}` : ""}`, 
+
       email: email_addresses[0].email_address,
       picture: image_url,
       admin: checkAdminEligibility(email_addresses[0].email_address)
