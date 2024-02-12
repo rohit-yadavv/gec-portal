@@ -79,46 +79,46 @@ export async function deleteUser(params: DeleteUserParams) {
   }
 }
 
-export async function getAllUser(params: GetAllUsersParams) {
-  try {
-    connectToDatabase();
-    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
+// export async function getAllUser(params: GetAllUsersParams) {
+//   try {
+//     connectToDatabase();
+//     const { searchQuery, filter, page = 1, pageSize = 20 } = params;
 
-    const skipAmount = (page - 1) * pageSize;
+//     const skipAmount = (page - 1) * pageSize;
 
-    const query: FilterQuery<typeof User> = {};
-    if (searchQuery) {
-      query.$or = [
-        { name: { $regex: new RegExp(searchQuery, "i") } },
-        { username: { $regex: new RegExp(searchQuery, "i") } },
-      ];
-    }
-    let sortOptions = {};
+//     const query: FilterQuery<typeof User> = {};
+//     if (searchQuery) {
+//       query.$or = [
+//         { name: { $regex: new RegExp(searchQuery, "i") } },
+//         { username: { $regex: new RegExp(searchQuery, "i") } },
+//       ];
+//     }
+//     let sortOptions = {};
 
-    switch (filter) {
-      case "new_users":
-        sortOptions = { joinedAt: -1 };
-        break;
-      case "old_users":
-        sortOptions = { joinedAt: 1 };
-        break;
-      case "top_contributers":
-        sortOptions = { reputation: -1 };
-        break;
-    }
-    // const{page =1 , pageSize = 20, filter, searchQuery} = params;
-    const users = await User.find(query)
-      .sort(sortOptions)
-      .skip(skipAmount)
-      .limit(pageSize);
-    const totalUsers = await User.countDocuments(query);
-    const isNext = totalUsers > skipAmount + users.length;
-    return { users, isNext };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
+//     switch (filter) {
+//       case "new_users":
+//         sortOptions = { joinedAt: -1 };
+//         break;
+//       case "old_users":
+//         sortOptions = { joinedAt: 1 };
+//         break;
+//       case "top_contributers":
+//         sortOptions = { reputation: -1 };
+//         break;
+//     }
+//     // const{page =1 , pageSize = 20, filter, searchQuery} = params;
+//     const users = await User.find(query)
+//       .sort(sortOptions)
+//       .skip(skipAmount)
+//       .limit(pageSize);
+//     const totalUsers = await User.countDocuments(query);
+//     const isNext = totalUsers > skipAmount + users.length;
+//     return { users, isNext };
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
 
 // export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
 //   try {
