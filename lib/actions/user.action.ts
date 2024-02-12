@@ -5,6 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams, 
+  UpdateUserParams, 
   saveEventData,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
@@ -126,6 +127,22 @@ export async function deleteUser(params: DeleteUserParams) {
     } 
     const deletedUser = await User.findByIdAndDelete(user._id);
     return deletedUser;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+
+
+export async function updateUser(params: UpdateUserParams) {
+  try {
+    connectToDatabase();
+    const { clerkId, updateData, path } = params;
+    await User.findOneAndUpdate({ clerkId }, updateData, {
+      new: true,
+    });
+    revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;
