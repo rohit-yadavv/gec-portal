@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import { checkAdminEligibility, checkAdminEligibility } from "@/lib/utils";
+import { checkAdminEligibility } from "@/lib/utils";
  
 export async function POST(req: Request) {
  
