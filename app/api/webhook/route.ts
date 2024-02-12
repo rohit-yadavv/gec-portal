@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import { checkAdminEligibility } from "@/lib/utils";
+import { checkAdminEligibility, checkAdminEligibility } from "@/lib/utils";
  
 export async function POST(req: Request) {
  
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       evt.data; 
     const mongoUser = await createUser({
       clerkId: id, 
-      name: `${first_name ? `${first_name}` : "user"} ${last_name ? `${last_name}` : ""}`,
+      name = `${first_name ? `${first_name} ${last_name ? `${last_name}` : ""}` : "user"}`,
       email: email_addresses[0].email_address,
       picture: image_url,
       admin: checkAdminEligibility(email_addresses[0].email_address)
