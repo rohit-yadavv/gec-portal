@@ -20,9 +20,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "WebOverflow",
+  title: "Gec Portal",
   description:
-    "A community driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more. ",
+    "Portal to register for gec designed for cuh students",
   icons: {
     icon: "/assets/images/full-logo.png",
   },
