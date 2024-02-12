@@ -32,9 +32,7 @@ export const metadata: Metadata = {
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth(); 
   const mongoUser=await getUserById({userId});   
-  console.log(mongoUser)
-
-  let result = JSON.parse(await getAllEvents());  
+  let result = JSON.parse(await getAllEvents());   
 
   return (
     <>
@@ -42,7 +40,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <h1 className="h1-bold text-dark100_light900">Opportunities</h1> 
         <div className="flex justify-end max-sm:w-full">
           {/* <Enrollment /> */}
-          {mongoUser?.admin && <EnrollmentDialog userId={userId}/>}
+          {mongoUser?.admin && <EnrollmentDialog userId={mongoUser._id}/>} 
         </div>
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
@@ -64,7 +62,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         {result?.length > 0 ? (
           result?.map((item:any) => (
             <>
-              <CourseCard event={item} />
+              <CourseCard event={item}/>
             </>
           ))
         ) : (

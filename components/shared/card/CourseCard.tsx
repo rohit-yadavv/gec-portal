@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,12 +5,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { getUserById } from "@/lib/actions/user.action";
+} from "@/components/ui/card"; 
 import { getTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import ApplyDialog from "../ApplyDialog";
-// {
+import { ObjectId } from "mongoose";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "@/lib/actions/user.action"; 
+import BookMark from "../BookMark";
+
+// { 
 //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
 //   type: 'vac',
 //   desc: 'its an vac',
@@ -26,8 +29,10 @@ import ApplyDialog from "../ApplyDialog";
 //   uploadedAt: 2024-02-11T10:23:43.921Z,
 //   __v: 0
 // }
+
 interface Props {
   event: {
+    _id:ObjectId;
     courseName: string;
     courseCode: string;
     department: string;
@@ -35,53 +40,67 @@ interface Props {
     desc?: string;
     eligible: string;
     sem: string;
-    uploadedByClerkId: string;
+    uploadedBy: { 
+      name: string;
+      picture: string;
+      email: string;
+    },
     uploadedAt: Date;
   };
 }
-const CourseCard = async ({ event }: Props) => {
-  const {
-    courseName,
-    courseCode,
-    department,
-    desc,
-    teacher,
-    eligible,
-    sem,
-    uploadedByClerkId,
-    uploadedAt,
-  } = event;
 
-  const user = await getUserById({ userId: uploadedByClerkId });
+const CourseCard = async ({ event }: Props) => {
+    
+  const {
+    _id,
+      courseName,
+      courseCode,
+      department,
+      desc,
+      teacher,
+      eligible,
+      sem, 
+      uploadedBy,
+      uploadedAt,
+    } = event;
+    console.log(event)
+  const {userId} = auth();
+  const mongoUser = await getUserById({userId}) 
+  let hasSaved = mongoUser?.saved.includes(_id);
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{courseName}</CardTitle>
+      <CardHeader className="flex justify-between flex-row">
+        <CardTitle>
+          {courseName} 
+        </CardTitle>
+          <BookMark userId={mongoUser?._id} hasSaved={hasSaved} enrollmentId={_id}/>
+      </CardHeader>
+      <CardContent>
         <CardDescription>{courseCode}</CardDescription>
         <CardDescription>
           Offered by: {department} for {eligible} students of {sem} semester
         </CardDescription>
-      </CardHeader>
-      <CardContent>
+        <CardDescription> 
+        </CardDescription>
         <CardDescription>{desc}</CardDescription>
       </CardContent>
-      <CardFooter className="relative">
+      <CardFooter className="relative flex flex-wrap justify-between gap-3">
         <p className="flex items-center gap-1 body-regular">
           <Image
-            src={user?.picture}
+            src={uploadedBy?.picture}
             width={16}
             height={16}
             alt="profile pic"
             className="object-contain rounded-full"
           />{" "}
-          {user?.name} ({user?.email})
+          {uploadedBy?.name} ({uploadedBy?.email})
           <span className="small-regular line-clamp-1 max-sm:hidden text-dark100_light900">
             - {getTimeStamp(uploadedAt)}
           </span>
         </p>
-        <div className="absolute right-5">
-          <ApplyDialog />
+        <div >
+          <ApplyDialog registerFor={_id} userId={mongoUser?._id}  />
         </div>
       </CardFooter>
     </Card>

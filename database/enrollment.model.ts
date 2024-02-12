@@ -1,4 +1,4 @@
-import { Schema, model, models, Document } from "mongoose";
+import { Schema, model, models, Document, ObjectId } from "mongoose";
 
 export interface IEnrollment extends Document {
   type?: string;
@@ -11,7 +11,7 @@ export interface IEnrollment extends Document {
   sem?: number;
   eligible?: string;
   seats?: number;
-  uploadedByClerkId: string;
+  uploadedBy: ObjectId;
   applicant: Schema.Types.ObjectId[];
   uploadedAt: Date;
 }
@@ -24,11 +24,11 @@ const EnrollmentSchema = new Schema({
   CourseCredit: { type: Number },
   department: { type: String },
   teacher: { type: String },
-  uploadedByClerkId: { type: String, required:true },
   sem: { type: Number },
   eligible: { type: String },
   seats: { type: String },
   applicant: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  uploadedBy: { type: Schema.Types.ObjectId, ref: "User" },
   uploadedAt: { type: Date, default: Date.now()}, 
 });
 

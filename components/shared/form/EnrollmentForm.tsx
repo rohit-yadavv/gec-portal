@@ -27,11 +27,12 @@ import { EventSchema } from "@/lib/validation";
 import { usePathname } from "next/navigation"; 
 import { Textarea } from "@/components/ui/textarea";
 import { createEvent } from "@/lib/actions/enrollment.action"; 
+import { ObjectId } from "mongoose";
 
 
 interface Props{ 
   onSubmitSuccess:()=>void; 
-  userId:string;
+  userId:ObjectId;
 }
 
 const EnrollmentForm = ({onSubmitSuccess, userId}:Props) => {
@@ -69,7 +70,7 @@ const EnrollmentForm = ({onSubmitSuccess, userId}:Props) => {
           eligible: values?.eligible,
           seats: values?.seats,
           courseCredit: values?.courseCredit, 
-          uploadedByClerkId: userId,
+          uploadedBy: userId,
         },
       });
       toast("Event has been created.");

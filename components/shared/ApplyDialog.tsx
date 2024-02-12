@@ -6,12 +6,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import EnrollmentForm from "./form/EnrollmentForm";
+} from "@/components/ui/dialog"; 
 import { useState } from "react";
 import ApplyForm from "./form/ApplyForm";
 
-const ApplyDialog = ({userId}:any) => {
+const ApplyDialog = ({userId, registerFor, enrollmentId}:any) => {
   const [open, setOpen] = useState(false);
 
   const handleFormSubmitSuccess = () => {
@@ -30,7 +29,7 @@ const ApplyDialog = ({userId}:any) => {
         <DialogHeader>
           <DialogTitle>Fill Details to Apply</DialogTitle>
           <DialogDescription>
-            <ApplyForm onSubmitSuccess={handleFormSubmitSuccess} userId={userId}/>
+            <ApplyForm onSubmitSuccess={handleFormSubmitSuccess} userId={userId} registerFor={registerFor} />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

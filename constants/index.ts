@@ -13,7 +13,7 @@ export const sidebarLinks: SidebarLink[] = [
   }, 
   {
     imgURL: "/assets/icons/star.svg",
-    route: "/bookmarks",
+    route: "/saved",
     label: "Bookmarks",
   },
   {
@@ -23,23 +23,18 @@ export const sidebarLinks: SidebarLink[] = [
   }, 
   {
     imgURL: "/assets/icons/tag.svg",
-    route: "/tags",
+    route: "/gec",
     label: "All GECs",
   },
   {
     imgURL: "/assets/icons/tag.svg",
-    route: "/tags",
+    route: "/vac",
     label: "All VACs",
   },
   {
     imgURL: "/assets/icons/tag.svg",
-    route: "/tags",
+    route: "/event",
     label: "All Events",
-  },
-  {
-    imgURL: "/assets/icons/user.svg",
-    route: "/profile",
-    label: "Profile",
   }, 
   // {
   //   imgURL: "/assets/icons/question.svg",

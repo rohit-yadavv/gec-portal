@@ -6,7 +6,7 @@ export interface IRegistered extends Document {
   department: string;
   course: string;
   sem: number; 
-  registratedFor?: Schema.Types.ObjectId;
+  registerFor?: Schema.Types.ObjectId;
   registeredAt: Date;
 }
 // name: "",
@@ -21,7 +21,7 @@ const RegistrationSchema = new Schema({
   department: { type: String },
   course: { type: String },
   sem: { type: Number },
-  registeredFor: { type: Schema.Types.ObjectId, ref: "Enrollment" },
+  registerFor: { type: Schema.Types.ObjectId, ref: "Enrollment" },
   registeredAt: { type: Date, default: Date.now()}, 
 });
 

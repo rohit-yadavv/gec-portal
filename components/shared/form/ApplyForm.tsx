@@ -18,21 +18,23 @@ import { useState } from "react";
 import { RegistrationSchema } from "@/lib/validation";
 import { usePathname } from "next/navigation"; 
 import { createRegistration } from "@/lib/actions/registration.action";
+import { ObjectId } from "mongoose";
 
 interface Props {
   onSubmitSuccess: () => void;
-  userId: string;
+  userId: ObjectId; 
+  registerFor:ObjectId;
 }
 
-// name
-// rollNo
-// department
-// course
-// sem
-// registratedFor
-// registeredAt
+// name: { type: String },
+// rollNo: { type: Number },
+// department: { type: String },
+// course: { type: String },
+// sem: { type: Number },
+// registerFor: { type: Schema.Types.ObjectId, ref: "Enrollment" },
+// registeredAt: { type: Date, default: Date.now()}, 
 
-const ApplyForm = ({ onSubmitSuccess, userId }: Props) => {
+const ApplyForm = ({ onSubmitSuccess, userId, registerFor }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const path = usePathname();
 
@@ -49,15 +51,17 @@ const ApplyForm = ({ onSubmitSuccess, userId }: Props) => {
   
   async function onSubmit(values: z.infer<typeof RegistrationSchema>) {
     setIsSubmitting(true);
-    try {
+    try { 
       await createRegistration({
         path,
+        userId:userId, 
         registrationData: {
-          name: values?.name,
+          name: values?.name, 
           rollNo: values?.rollNo,
           department: values?.department,
           course: values?.course,
           sem: values?.sem,
+          registerFor:registerFor,
         },
       });
       toast("Event has been created.");
@@ -71,6 +75,7 @@ const ApplyForm = ({ onSubmitSuccess, userId }: Props) => {
 
   return (
     <Form {...form}>
+
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="mt-9 flex w-full flex-col gap-9"
@@ -189,6 +194,7 @@ const ApplyForm = ({ onSubmitSuccess, userId }: Props) => {
           </Button>
         </div>
       </form>
+    
     </Form>
   );
 };

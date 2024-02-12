@@ -1,9 +1,11 @@
 "use server";
 import Enrollment, { IEnrollment } from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
-import { revalidatePath } from "next/cache"; 
+import { revalidatePath } from "next/cache";
+import { ObjectId } from "mongoose";
+import User from "@/database/user.model";
 
-interface Props { 
+interface Props {
   path: string;
   eventData: {
     type: string;
@@ -16,17 +18,16 @@ interface Props {
     eligible: string;
     seats: number;
     courseCredit: number;
-    uploadedByClerkId:string;
+    uploadedBy: ObjectId;
   };
 }
 
-
 export async function createEvent(enrollmentData: Props) {
-  try { 
-    const { path, eventData } = enrollmentData; 
-    connectToDatabase(); 
+  try {
+    const { path, eventData } = enrollmentData;
+    connectToDatabase();
     const newEnrollment = await Enrollment.create(eventData);
-    revalidatePath(path); 
+    revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;
@@ -34,14 +35,51 @@ export async function createEvent(enrollmentData: Props) {
 }
 
 export async function getAllEvents() {
-  try { 
+  try {
     connectToDatabase();
     const events = await Enrollment.find()
-      .sort() 
+      .populate({ path: "uploadedBy", model: User })
+      .sort()
       .limit(5);
-      
-    const data = JSON.stringify(events)
+
+    const data = JSON.stringify(events);
     return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getOnlyGec() {
+  try {
+    connectToDatabase();
+    const events = await Enrollment.find({ type: 'gec' })
+    .populate({ path: "uploadedBy", model: User })
+    return JSON.stringify(events);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getOnlyVac() {
+  try {
+    connectToDatabase();
+    const events = await Enrollment.find({ type: 'vac' })
+    .populate({ path: "uploadedBy", model: User })
+    return JSON.stringify(events);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getOnlyEvents() {
+  try {
+    connectToDatabase();
+    const events = await Enrollment.find({ type: 'event' })
+    .populate({ path: "uploadedBy", model: User })
+    return JSON.stringify(events);
   } catch (error) {
     console.log(error);
     throw error;

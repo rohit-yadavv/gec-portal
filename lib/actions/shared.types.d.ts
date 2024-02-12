@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { ObjectId, Schema } from "mongoose";
 import { IUser } from "@/mongodb";
 export interface CreateAnswerParams {
   content: string;
@@ -92,11 +92,20 @@ export interface GetTopInteractedTagsParams {
 }
 export interface CreateUserParams {
   clerkId: string;
-  name: string; 
+  name: string;
   email: string;
   picture: string;
   admin: boolean;
 }
+
+export interface saveEventData {
+  path: string;
+  data: {
+    userId: ObjectId;
+    enrollmentId: ObjectId;
+  };
+}
+
 export interface GetUserByIdParams {
   userId: string;
 }
@@ -117,11 +126,7 @@ export interface ToggleSaveQuestionParams {
   path: string;
 }
 export interface GetSavedQuestionsParams {
-  clerkId: string;
-  page?: number;
-  pageSize?: number;
-  filter?: string;
-  searchQuery?: string;
+  clerkId: any; 
 }
 export interface GetUserStatsParams {
   userId: string;
