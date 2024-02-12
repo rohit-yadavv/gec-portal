@@ -1,23 +1,15 @@
 "use server";
 
 import User from "@/database/user.model";
-import { connectToDatabase } from "../mongoose";
-import { FilterQuery, ObjectId } from "mongoose";
+import { connectToDatabase } from "../mongoose"; 
 import {
   CreateUserParams,
-  DeleteUserParams,
-  GetAllUsersParams,
-  GetSavedQuestionsParams,
-  GetUserByIdParams,
-  GetUserStatsParams,
-  ToggleSaveQuestionParams,
-  UpdateUserParams,
+  DeleteUserParams, 
   saveEventData,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import path from "path";
-import Enrollment from "@/database/enrollment.model";
-import { sanitizeAuthObject } from "@clerk/nextjs/server";
+import Enrollment from "@/database/enrollment.model"; 
 import Registration from "@/database/registered.model";
 
 export async function getUserById(params: any) {
@@ -131,17 +123,7 @@ export async function deleteUser(params: DeleteUserParams) {
     const user = await User.findOneAndDelete({ clerkId });
     if (!user) {
       throw new Error("User Not found");
-    }
-    // get user questions ids
-    // const userQuestionIds = await Question.find({ author: user._id }).distinct(
-    //   "_id"
-    // );
-
-    // delete user question
-    await Question.deleteMany({ author: user._id });
-
-    // delete user comments answers
-
+    } 
     const deletedUser = await User.findByIdAndDelete(user._id);
     return deletedUser;
   } catch (error) {
