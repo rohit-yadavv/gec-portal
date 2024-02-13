@@ -96,6 +96,7 @@ export interface CreateUserParams {
   email: string;
   picture: string;
   admin: boolean;
+  isProfileComplete: boolean;
 }
 
 export interface saveEventData {

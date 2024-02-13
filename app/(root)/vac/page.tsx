@@ -22,7 +22,7 @@ const page = async () => {
         ) : (
           <NoResult
             title="Nothing to Show 🙄"
-            desc="Currently There is no GEC, VAC or any Event available to register"
+            desc="Currently There is no Value Added Course to Apply"
           />
         )}
       </div> 

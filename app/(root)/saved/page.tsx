@@ -24,7 +24,7 @@ const page = async () => {
         ) : (
           <NoResult
             title="Nothing to Show 🙄"
-            desc="Currently There is no GEC, VAC or any Event available to register"
+            desc="Click on Star to saved events for later"
           />
         )}
       </div> 

@@ -1,11 +1,18 @@
+ 
 import NoResult from "@/components/shared/NoResult";
-import CourseCard from "@/components/shared/card/CourseCard"; 
+import CourseCard from "@/components/shared/card/CourseCard";
 import { getAppliedEnrollments } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 
 const page = async () => {
   const { userId } = auth();
-  const savedEvents = await getAppliedEnrollments({ clerkId: userId });    
+  const appliedEvents = await getAppliedEnrollments({ clerkId: userId });    
+  if(!userId){
+    <NoResult
+    title="Nothing to Show 🙄"
+    desc="Login to Apply"
+  />
+  }
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -15,18 +22,18 @@ const page = async () => {
       </div>
       HomeFilters
       <div className="mt-10 flex w-full flex-col gap-6">
-        {savedEvents?.length > 0 ? (
-          savedEvents?.map((item: any) => (
+        {appliedEvents?.length > 0 ? (
+          appliedEvents?.map((item: any) => (
             <>
-              <CourseCard event={item.registerFor} />
+              <CourseCard event={item?.registerFor} />
             </>
           ))
         ) : (
           <NoResult
             title="Nothing to Show 🙄"
-            desc="Currently There is no GEC, VAC or any Event available to register"
+            desc="Applied Events by you will be shown here "
           />
-        )}
+        )} 
       </div> 
     </>
   );

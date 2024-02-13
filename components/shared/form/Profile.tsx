@@ -1,71 +1,63 @@
 "use client";
 import * as z from "zod";
-import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl, 
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"; 
-
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { RegistrationSchema } from "@/lib/validation";
-import { usePathname } from "next/navigation"; 
-import { createRegistration } from "@/lib/actions/registration.action";
-import { ObjectId } from "mongoose";
+import { usePathname, useRouter } from "next/navigation";
+import { updateUser } from "@/lib/actions/user.action"; 
+import { toast } from "sonner";
 
-interface Props {
-  onSubmitSuccess: () => void;
-  userId: ObjectId; 
-  registerFor:ObjectId;
+interface Params {
+  clerkId: string;
+  user: string; 
 }
 
-// name: { type: String },
-// rollNo: { type: Number },
-// department: { type: String },
-// course: { type: String },
-// sem: { type: Number },
-// registerFor: { type: Schema.Types.ObjectId, ref: "Enrollment" },
-// registeredAt: { type: Date, default: Date.now()}, 
-
-const ApplyForm = ({ onSubmitSuccess, userId, registerFor }: Props) => {
+const Profile = ({ clerkId, user }: Params) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const path = usePathname();
+  const parsedUser = JSON.parse(user);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof RegistrationSchema>>({
     resolver: zodResolver(RegistrationSchema),
     defaultValues: {
-      name: "",
-      rollNo: 0,
-      department: "",
-      course: "",
-      sem: 0,
+      name: parsedUser?.name || "",
+      rollNo:  parsedUser?.name || 0,
+      department:  parsedUser?.department || "",
+      course:  parsedUser?.course || "",
+      sem:  parsedUser?.sem || 0,
     },
   });
-  
+
   async function onSubmit(values: z.infer<typeof RegistrationSchema>) {
     setIsSubmitting(true);
-    try { 
-      await createRegistration({
-        path,
-        userId:userId, 
-        registrationData: {
-          name: values?.name, 
+    try {
+      console.log("first")
+      await updateUser({
+        clerkId,
+        updateData: {
+          name: values?.name,
           rollNo: values?.rollNo,
           department: values?.department,
           course: values?.course,
-          sem: values?.sem,
-          registerFor:registerFor,
+          sem: values?.sem, 
+          isProfileComplete: true,
         },
+        path: pathname,
       });
-      toast("Event has been created.");
-      onSubmitSuccess();
+      toast("Profile Updated");
+      router.back();
     } catch (error) {
       console.log(error);
     } finally {
@@ -75,7 +67,6 @@ const ApplyForm = ({ onSubmitSuccess, userId, registerFor }: Props) => {
 
   return (
     <Form {...form}>
-
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="mt-9 flex w-full flex-col gap-9"
@@ -194,9 +185,8 @@ const ApplyForm = ({ onSubmitSuccess, userId, registerFor }: Props) => {
           </Button>
         </div>
       </form>
-    
     </Form>
   );
 };
 
-export default ApplyForm;
+export default Profile;

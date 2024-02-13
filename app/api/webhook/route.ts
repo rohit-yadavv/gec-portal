@@ -66,7 +66,8 @@ export async function POST(req: Request) {
 
       email: email_addresses[0].email_address,
       picture: image_url,
-      admin: checkAdminEligibility(email_addresses[0].email_address)
+      admin: checkAdminEligibility(email_addresses[0].email_address),
+      isProfileComplete: false,
     });
     console.log("created")
     return NextResponse.json({ message: "OK", user: mongoUser });

@@ -9,30 +9,17 @@ import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";  
 
 export const metadata: Metadata = {
-  title: "Home | Web Overflow",
+  title: "Home | Gec-Portal",
   description:
-    "A community driven platform for asking and answeing programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
-};
-  // {
-  //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
-  //   type: 'vac',
-  //   desc: 'its an vac',
-  //   courseCode: 'bt cs 302',
-  //   courseName: 'vac for oops',
-  //   department: 'cse',
-  //   teacher: 'anant sir',
-  //   sem: 2,
-  //   eligible: 'pg',
-  //   seats: '20',
-  //   applicant: [],
-  //   uploadedAt: 2024-02-11T10:23:43.921Z,
-  //   __v: 0
-  // }
+    "Portal to register for gec designed for cuh students",
+}; 
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth(); 
-  const mongoUser=await getUserById({userId});   
-  let result = JSON.parse(await getAllEvents());   
+  const mongoUser = await getUserById({userId});   
+  const result = await getAllEvents();   
+   
+  // let hasSaved = mongoUser?.saved.includes(_id);
 
   return (
     <>
@@ -62,7 +49,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         {result?.length > 0 ? (
           result?.map((item:any) => (
             <>
-              <CourseCard event={item}/>
+              <CourseCard event={item}  />
             </>
           ))
         ) : (
@@ -72,11 +59,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
-      <div className="mt-10">
-        {/* <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        /> */}
+      <div className="mt-10"> 
       </div>
     </>
   );
