@@ -72,7 +72,4 @@ export function capitalize(inputString: string): string {
 
   return resultString;
 }
-
-export async function temp(userId, enrollmentId) {
-  await registerForEvent({ enrollmentId, userId });
-}
+ 
