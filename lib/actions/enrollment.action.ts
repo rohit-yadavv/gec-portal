@@ -41,10 +41,11 @@ export async function getAllEvents() {
     connectToDatabase();
     const events = await Enrollment.find()
       .populate({ path: "uploadedBy", model: User })
+      .populate({ path: "applicant", model: User })
       .sort({ uploadedAt: -1 })
       .limit(5);
 
-    return events;
+    return JSON.stringify(events);
   } catch (error) {
     console.log(error);
     throw error;
@@ -94,22 +95,22 @@ export async function getOnlyEvents() {
 }
 
 interface registerProps {
+  path:string;
   enrollmentId: ObjectId;
   userId: ObjectId;
 }
 
-export async function registerForEvent({ enrollmentId, userId }: registerProps) {
+export async function registerForEvent({ path,enrollmentId, userId }: registerProps) {
   try {
     connectToDatabase(); 
     const events = await Enrollment.findByIdAndUpdate(enrollmentId, {
-      $push: { applicant: userId },
+      $addToSet: { applicant: userId },
     });
 
     const user = await User.findByIdAndUpdate(userId, {
-      $push: { appliedGec: enrollmentId },
+      $addToSet: { appliedGec: enrollmentId },
     });
-
-    return;
+    revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;

@@ -72,4 +72,14 @@ export function capitalize(inputString: string): string {
 
   return resultString;
 }
+
+export function formatDate(mongoDateString: Date): string {
+  const mongoDate = new Date(mongoDateString);
+  
+  const options:any = { day: 'numeric', month: 'long', year: 'numeric' as const };
+  const formattedDate = mongoDate.toLocaleDateString('en-US', options);
+  
+  return formattedDate;
+}
+
  

@@ -6,14 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { capitalizeFirstLetter, getTimeStamp } from "@/lib/utils";
-import Image from "next/image"; 
+import { capitalizeFirstLetter, formatDate, getTimeStamp } from "@/lib/utils";
+import Image from "next/image";
 import { ObjectId } from "mongoose";
 import { auth } from "@clerk/nextjs";
 import { getUserById, updateUser } from "@/lib/actions/user.action";
 import BookMark from "../BookMark";
-import { Badge } from "@/components/ui/badge"; 
+import { Badge } from "@/components/ui/badge";
 import ApplyButton from "./ApplyButton";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import CountCard from "./CountCard";
+import CardBadge from "./CardBadge";
 // {
 //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
 //   type: 'vac',
@@ -46,6 +50,9 @@ interface Props {
       email: string;
     };
     uploadedAt: Date;
+    applyBy: Date;
+    applicant: any;
+    seats: number;
   };
 }
 const CourseCard = async ({ event }: Props) => {
@@ -61,10 +68,14 @@ const CourseCard = async ({ event }: Props) => {
     sem,
     uploadedBy,
     uploadedAt,
+    applyBy,
+    applicant,
+    seats,
   } = event;
 
   const { userId } = auth();
   const mongoUser = await getUserById({ userId });
+  const appliedCount = applicant.length;
 
   let hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
@@ -72,7 +83,7 @@ const CourseCard = async ({ event }: Props) => {
   return (
     <Card>
       <CardHeader className="flex justify-between flex-row">
-        <div className="flex flex-row gap-3 items-center">
+        <div className="flex flex-row gap-4 items-center">
           <Image
             src={uploadedBy?.picture}
             width={45}
@@ -80,10 +91,11 @@ const CourseCard = async ({ event }: Props) => {
             alt="profile pic"
             className="object-contain rounded-full"
           />
-          <div>
+          <div className="flex flex-col gap-1">
             <CardTitle>{capitalizeFirstLetter(courseName)}</CardTitle>
-            <p className="text-light400_light500">
-              {uploadedBy?.name} | {uploadedBy?.email}
+            <p className="text-dark400_light800 text-sm">
+              <span className="text-dark500_light500">{uploadedBy?.name} </span>{" "}
+              | {uploadedBy?.email}
             </p>
           </div>
         </div>
@@ -93,41 +105,36 @@ const CourseCard = async ({ event }: Props) => {
           enrollmentId={_id}
         />
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-5">
         <div className="flex flex-wrap gap-3">
-          <Badge
-            key={"eligible"}
-            className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-          >
-            for {eligible}
-          </Badge>
-          <Badge
-            key={"sem"}
-            className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-          >
-            for sem {sem}
-          </Badge>
-          <Badge
-            key={"tag"}
-            className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-          >
-            seats {}
-          </Badge>
+          <CardBadge value={courseCode} desc={`course code - ${courseCode}`} />
+          <CardBadge value={department} desc={`Offered by department of ${department}`}  />
+          <CardBadge value={eligible} desc={`only for ${eligible} students`} />
+          <CardBadge value={sem} desc={`only for sem ${sem} students`} />
         </div>
-
-        <CardDescription>{courseCode}</CardDescription>
-        <CardDescription>Offered by department of {department}</CardDescription>
-        <CardDescription></CardDescription>
+        <div className="flex flex-row flex-wrap gap-3">
+          <CountCard label="Total Seats" count={seats} isFirst={true} />
+          <CountCard
+            label="Total Applied"
+            count={appliedCount}
+            isFirst={false}
+          />
+          <CountCard
+            label="Seats Left"
+            count={seats - appliedCount}
+            isFirst={false}
+          />
+        </div>
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
-        <p className="flex items-center gap-1 body-regular">
-          <span className="small-regular line-clamp-1 max-sm:hidden text-dark100_light900">
-            - posted {getTimeStamp(uploadedAt)}
+        <p className="text-dark500_light500 flex items-center gap-1 body-regular">
+          <span className="text-dark500_light700  small-regular line-clamp-1 max-sm:hidden text-dark100_light900">
+            Apply by {formatDate(applyBy)} - posted {getTimeStamp(uploadedAt)}
           </span>
         </p>
         <div>
-          <ApplyButton 
+          <ApplyButton
             userId={mongoUser?._id}
             enrollmentId={_id}
             hasApplied={hasApplied}

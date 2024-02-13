@@ -17,9 +17,7 @@ export const metadata: Metadata = {
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth(); 
   const mongoUser = await getUserById({userId});   
-  const result = await getAllEvents();   
-   
-  // let hasSaved = mongoUser?.saved.includes(_id);
+  const result = JSON.parse(await getAllEvents());  
 
   return (
     <>
@@ -49,7 +47,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         {result?.length > 0 ? (
           result?.map((item:any) => (
             <>
-              <CourseCard event={item}  />
+              <CourseCard event={item} /> 
             </>
           ))
         ) : (

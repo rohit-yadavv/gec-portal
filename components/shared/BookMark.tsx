@@ -22,8 +22,8 @@ const BookMark = ({ userId, enrollmentId, hasSaved }: Props) => {
         return;
     }
     if (!hasSaved) {
-      await saveEvent({ path, data });
       hasSaved = !hasSaved;
+      await saveEvent({ path, data });
       toast("Event successfully saved in your collection");
     } else {
       await removeSaveEvent({ path, data });

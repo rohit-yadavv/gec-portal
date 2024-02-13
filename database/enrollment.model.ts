@@ -5,7 +5,7 @@ export interface IEnrollment extends Document {
   desc?: string;
   courseCode?: string;
   courseName?: string;
-  CourseCredit?: number;
+  courseCredit?: number;
   department?: string;
   teacher?: string;
   sem?: number;
@@ -22,7 +22,7 @@ const EnrollmentSchema = new Schema({
   desc: { type: String },
   courseCode: { type: String },
   courseName: { type: String },
-  CourseCredit: { type: Number },
+  courseCredit: { type: Number },
   department: { type: String },
   teacher: { type: String },
   sem: { type: Number },

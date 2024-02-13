@@ -118,7 +118,14 @@ export interface GetAllUsersParams {
 }
 export interface UpdateUserParams {
   clerkId: string;
-  updateData: Partial<IUser>;
+  updateData: {
+    name: string,
+    rollNo: number,
+    department: string,
+    course: string,
+    sem: number,
+    isProfileComplete: boolean,
+  }
   path: string;
 }
 export interface ToggleSaveQuestionParams {

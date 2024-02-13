@@ -15,12 +15,12 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { RegistrationSchema } from "@/lib/validation";
 import { usePathname, useRouter } from "next/navigation";
-import { updateUser } from "@/lib/actions/user.action"; 
+import { updateUser } from "@/lib/actions/user.action";
 import { toast } from "sonner";
 
 interface Params {
   clerkId: string;
-  user: string; 
+  user: string;
 }
 
 const Profile = ({ clerkId, user }: Params) => {
@@ -33,17 +33,16 @@ const Profile = ({ clerkId, user }: Params) => {
     resolver: zodResolver(RegistrationSchema),
     defaultValues: {
       name: parsedUser?.name || "",
-      rollNo:  parsedUser?.name || 0,
-      department:  parsedUser?.department || "",
-      course:  parsedUser?.course || "",
-      sem:  parsedUser?.sem || 0,
+      rollNo: parsedUser?.rollNo || 0,
+      department: parsedUser?.department || "",
+      course: parsedUser?.course || "",
+      sem: parsedUser?.sem || 0,
     },
   });
 
   async function onSubmit(values: z.infer<typeof RegistrationSchema>) {
     setIsSubmitting(true);
     try {
-      console.log("first")
       await updateUser({
         clerkId,
         updateData: {
@@ -51,7 +50,7 @@ const Profile = ({ clerkId, user }: Params) => {
           rollNo: values?.rollNo,
           department: values?.department,
           course: values?.course,
-          sem: values?.sem, 
+          sem: values?.sem,
           isProfileComplete: true,
         },
         path: pathname,
@@ -77,7 +76,7 @@ const Profile = ({ clerkId, user }: Params) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Name
+                Name <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -96,7 +95,7 @@ const Profile = ({ clerkId, user }: Params) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Roll No
+                Roll No <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -119,7 +118,7 @@ const Profile = ({ clerkId, user }: Params) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Department
+                Department <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -138,7 +137,7 @@ const Profile = ({ clerkId, user }: Params) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Course
+                Course <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -157,7 +156,7 @@ const Profile = ({ clerkId, user }: Params) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Sem
+                Sem <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input

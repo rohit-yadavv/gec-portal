@@ -38,11 +38,22 @@ export const EventSchema = z.object({
 // course?: string;
 // sem?: number;  
 
+// rollNo: z.number().min(6).max(6), 
 export const RegistrationSchema = z.object({
-  name: z.string().min(2),
-  rollNo: z.number(), 
-  department: z.string().min(2),
-  course: z.string().min(2),
-  sem: z.number(), 
-  isProfileComplete: z.boolean(),
+  name: z.string().min(3).max(50),
+  rollNo: z
+  .number()
+  .int()
+  .refine((value) => value >= 100000 && value <= 999999, {
+    message: 'Roll number must be a 6-digit number',
+  }), 
+  department: z.string().min(2).max(100),
+  course: z.string().min(2).max(50), 
+  sem: z
+  .number()
+  .int()
+  .refine((value) => value > 0 && value <= 10, {
+    message: 'Write Semester in 1 digit',
+  }), 
 }) 
+
