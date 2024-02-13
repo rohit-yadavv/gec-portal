@@ -2,7 +2,7 @@
 import Enrollment, { IEnrollment } from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
-import { Date, ObjectId } from "mongoose";
+import {  ObjectId } from "mongoose";
 import User from "@/database/user.model";
 
 interface Props {
