@@ -58,3 +58,17 @@ export const getTimeStamp = (createdAtTemp: Date): string => {
   }
 };
 
+
+export function capitalizeFirstLetter(inputString:string) {
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+}
+
+export function capitalize(inputString: string): string { 
+  let words: string[] = inputString.split(' ');
+ 
+  let capitalizedWords: string[] = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+ 
+  let resultString: string = capitalizedWords.join(' ');
+
+  return resultString;
+}

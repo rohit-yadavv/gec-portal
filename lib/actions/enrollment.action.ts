@@ -39,7 +39,7 @@ export async function getAllEvents() {
     connectToDatabase();
     const events = await Enrollment.find()
       .populate({ path: "uploadedBy", model: User })
-      .sort()
+      .sort({"uploadedAt":-1})
       .limit(5);
 
     const data = JSON.stringify(events);
