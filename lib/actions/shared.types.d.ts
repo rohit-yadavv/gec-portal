@@ -119,10 +119,15 @@ export interface GetAllUsersParams {
 export interface UpdateUserParams {
   clerkId: string;
   updateData: {
-    name: string,
-    email:string; 
-    picture:string; 
-  }
+    name?: string;
+    email?: string;
+    picture?: string;
+    rollNo?: number;
+    department?: string;
+    course?: string;
+    sem?: number;
+    isProfileComplete?: boolean;
+  };
   path: string;
 }
 export interface ToggleSaveQuestionParams {
@@ -131,7 +136,7 @@ export interface ToggleSaveQuestionParams {
   path: string;
 }
 export interface GetSavedQuestionsParams {
-  clerkId: any; 
+  clerkId: any;
 }
 export interface GetUserStatsParams {
   userId: string;
