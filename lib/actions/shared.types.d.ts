@@ -120,11 +120,8 @@ export interface UpdateUserParams {
   clerkId: string;
   updateData: {
     name: string,
-    rollNo: number,
-    department: string,
-    course: string,
-    sem: number,
-    isProfileComplete: boolean,
+    email:string; 
+    picture:string; 
   }
   path: string;
 }
