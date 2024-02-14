@@ -93,10 +93,9 @@ const CourseCard = async ({ event }: Props) => {
           />
           <div className="flex flex-col gap-1">
             <CardTitle>{capitalizeFirstLetter(courseName)}</CardTitle>
-            <p className="text-dark400_light800 text-sm">
-              <span className="text-dark500_light500">{uploadedBy?.name} </span>{" "}
-              | {uploadedBy?.email}
-            </p>
+            <Link href={`mailto:${uploadedBy?.email}`} className="text-sm cursor-pointer">
+              {uploadedBy?.name} | <span className="text-light-500"> {uploadedBy?.email} </span>
+            </Link>
           </div>
         </div>
         <BookMark
@@ -108,7 +107,10 @@ const CourseCard = async ({ event }: Props) => {
       <CardContent className="flex flex-col gap-5">
         <div className="flex flex-wrap gap-3">
           <CardBadge value={courseCode} desc={`course code - ${courseCode}`} />
-          <CardBadge value={department} desc={`Offered by department of ${department}`}  />
+          <CardBadge
+            value={department}
+            desc={`Offered by department of ${department}`}
+          />
           <CardBadge value={eligible} desc={`only for ${eligible} students`} />
           <CardBadge value={sem} desc={`only for sem ${sem} students`} />
         </div>
