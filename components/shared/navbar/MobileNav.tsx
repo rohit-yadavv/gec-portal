@@ -56,7 +56,7 @@ const MobileNav = () => {
     <Sheet>
       <SheetTrigger asChild>
         <Image
-          className="invert-colors sm:hidden"
+          className="invert dark:invert-0 sm:hidden"
           src="/assets/icons/hamburger.svg"
           width={36}
           height={36}
