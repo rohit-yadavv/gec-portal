@@ -14,7 +14,7 @@ const SideBarLinks = () => {
           (pathName.includes(item.route) && item.route.length > 1) ||
           pathName === item.route;
 
-        return (
+        return ( 
           <Link
             key={item.route}
             href={item.route}
@@ -29,12 +29,12 @@ const SideBarLinks = () => {
               alt={item.label}
               width={20}
               height={20}
-              className={`${isActive ? "" : "invert-colors"}`}
+              className={`${isActive ? "" : "invert dark:invert-0"}`}
             />
             <p
               className={`${
-                isActive ? "base-bold" : "base-medium"
-              } max-lg:hidden`}
+                isActive ? "text-[18px] font-bold leading-[140%]" : "text-[18px] font-medium leading-[25.2px]"
+              } max-lg:hidden `}
             >
               {item.label}
             </p>

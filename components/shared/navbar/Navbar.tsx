@@ -6,10 +6,10 @@ import MobileNav from "./MobileNav";
 
 const Navbar = () => {
   return (
-    <nav className="flex-between background-light900_dark100 light-border border-b shadow-light-300  fixed z-50 flex w-full gap-5 p-4 dark:border-stone-800 dark:shadow-none sm:px-12">
+    <nav className="flex-between  bg-light-900 dark:bg-dark-100 light-border border-b shadow-light-300  fixed z-50 flex w-full gap-5 p-4 dark:border-stone-800 dark:shadow-none sm:px-12">
       <Link href="/" className="flex items-center gap-1">
         <Image
-          width={33}
+          width={33} 
           height={33}
           alt="WebOverflow"
           src="/assets/images/site-logo.svg"

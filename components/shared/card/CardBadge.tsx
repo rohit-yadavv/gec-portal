@@ -11,14 +11,14 @@ interface Props{
     value:string;
 }
 
-const CardBadge = ({value, desc}:Props) => {
+const CardBadge = ({value, desc}:Props) => { 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
         <Badge
             key={value}
-            className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
+            className="subtle-medium bg-light-800 hover:bg-light-700 dark:bg-dark-300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 uppercase"
           >
             {value}
           </Badge>
