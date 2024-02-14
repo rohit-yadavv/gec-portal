@@ -7,6 +7,7 @@ import { auth } from "@clerk/nextjs";
 const page = async () => {
   const { userId } = auth();
   const appliedEvents = await getAppliedEnrollments({ clerkId: userId });    
+  // console.log(appliedEvents)
   if(!userId){
     <NoResult
     title="Nothing to Show 🙄"
@@ -25,7 +26,7 @@ const page = async () => {
         {appliedEvents?.length > 0 ? (
           appliedEvents?.map((item: any) => (
             <>
-              <CourseCard event={item?.registerFor} />
+              <CourseCard event={item} />
             </>
           ))
         ) : (

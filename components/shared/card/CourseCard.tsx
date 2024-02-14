@@ -10,15 +10,12 @@ import { capitalizeFirstLetter, formatDate, getTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import { ObjectId } from "mongoose";
 import { auth } from "@clerk/nextjs";
-import { getUserById, updateUser } from "@/lib/actions/user.action";
+import { getUserById } from "@/lib/actions/user.action";
 import BookMark from "../BookMark";
-import { Badge } from "@/components/ui/badge";
 import ApplyButton from "./ApplyButton";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import CountCard from "./CountCard";
 import CardBadge from "./CardBadge";
-import Badges from "./Badges";
+import OtherDetails from "./OtherDetails";
 
 // {
 //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
@@ -45,7 +42,7 @@ interface Props {
     teacher: string;
     desc?: string;
     eligible: string;
-    sem: string;
+    sem: number;
     uploadedBy: {
       name: string;
       picture: string;
@@ -54,6 +51,7 @@ interface Props {
     uploadedAt: Date;
     applyBy: Date;
     applicant: any;
+    courseCredit:number;
     seats: number;
     type: string;
   };
@@ -70,6 +68,7 @@ const CourseCard = async ({ event }: Props) => {
     teacher,
     eligible,
     sem,
+    courseCredit,
     uploadedBy,
     uploadedAt,
     applyBy,
@@ -106,11 +105,14 @@ const CourseCard = async ({ event }: Props) => {
             </Link>
           </div>
         </div>
-        <BookMark
-          userId={mongoUser?._id}
-          hasSaved={hasSaved}
-          enrollmentId={_id}
-        />
+        <div className="sm:block hidden">
+          <BookMark
+            userId={mongoUser?._id}
+            hasSaved={hasSaved}
+            enrollmentId={_id}
+            size={20}
+          />
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         <div className="flex flex-wrap gap-3">
@@ -121,9 +123,9 @@ const CourseCard = async ({ event }: Props) => {
           />
           <CardBadge value={eligible} desc={`only for ${eligible} students`} />
           <CardBadge value={type} desc={`it is a ${type}`} />
-            <CardBadge value={teacher} desc={`teacher - ${teacher}`} />
+          <CardBadge value={teacher} desc={`teacher - ${teacher}`} />
         </div>
-        <Badges seats={seats} appliedCount={appliedCount}/> 
+        <OtherDetails seats={seats} appliedCount={appliedCount} sem={sem} credit={courseCredit}/>
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
@@ -132,7 +134,21 @@ const CourseCard = async ({ event }: Props) => {
             Apply by {formatDate(applyBy)} - posted {getTimeStamp(uploadedAt)}
           </span>
         </p>
-        <div>
+        <div className="sm:inline hidden">
+          <ApplyButton
+            userId={mongoUser?._id}
+            enrollmentId={_id}
+            hasApplied={hasApplied}
+            isProfileComplete={mongoUser?.isProfileComplete}
+          />
+        </div>
+        <div className="sm:hidden flex flex-row items-center w-full justify-between"> 
+            <BookMark
+              userId={mongoUser?._id}
+              hasSaved={hasSaved}
+              enrollmentId={_id}
+              size={25}
+            /> 
           <ApplyButton
             userId={mongoUser?._id}
             enrollmentId={_id}

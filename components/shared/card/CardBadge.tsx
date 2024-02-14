@@ -18,7 +18,7 @@ const CardBadge = ({value, desc}:Props) => {
         <TooltipTrigger>
         <Badge 
             key={value}
-            className="subtle-medium bg-light-800 hover:bg-light-700 dark:bg-dark-400 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 uppercase"
+            className="text-[10px] font-medium leading-[13px] bg-light-800 hover:bg-light-700 dark:bg-dark-400 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 uppercase"
           >
             {value}
           </Badge>

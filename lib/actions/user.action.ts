@@ -99,13 +99,13 @@ export async function getAppliedEnrollments({
     // uploadedAt: Date;
     const user = await User.findOne({ clerkId }).populate({
       path: "appliedGec",
-      model: User,
+      model: Enrollment,
       populate: [
         { path: "uploadedBy", model: User, select: "name email picture" },
       ],
     }); 
-    
-    const enrollments = user ? user.appliedGec : [];
+
+    const enrollments = user ? user.appliedGec : []; 
     return enrollments;
   } catch (error) {
     console.error(error);
