@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import CountCard from "./CountCard";
 import CardBadge from "./CardBadge";
+import Badges from "./Badges";
+
 // {
 //   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
 //   type: 'vac',
@@ -53,12 +55,14 @@ interface Props {
     applyBy: Date;
     applicant: any;
     seats: number;
+    type: string;
   };
 }
 const CourseCard = async ({ event }: Props) => {
   if (!event) return;
   const {
     _id,
+    type,
     courseName,
     courseCode,
     department,
@@ -93,8 +97,12 @@ const CourseCard = async ({ event }: Props) => {
           />
           <div className="flex flex-col gap-1">
             <CardTitle>{capitalizeFirstLetter(courseName)}</CardTitle>
-            <Link href={`mailto:${uploadedBy?.email}`} className="text-sm cursor-pointer">
-              {uploadedBy?.name} | <span className="text-light-500"> {uploadedBy?.email} </span>
+            <Link
+              href={`mailto:${uploadedBy?.email}`}
+              className="text-sm cursor-pointer"
+            >
+              {uploadedBy?.name} |{" "}
+              <span className="text-light-500"> {uploadedBy?.email} </span>
             </Link>
           </div>
         </div>
@@ -112,21 +120,10 @@ const CourseCard = async ({ event }: Props) => {
             desc={`Offered by department of ${department}`}
           />
           <CardBadge value={eligible} desc={`only for ${eligible} students`} />
-          <CardBadge value={sem} desc={`only for sem ${sem} students`} />
+          <CardBadge value={type} desc={`it is a ${type}`} />
+            <CardBadge value={teacher} desc={`teacher - ${teacher}`} />
         </div>
-        <div className="flex flex-row flex-wrap gap-3">
-          <CountCard label="Total Seats" count={seats} isFirst={true} />
-          <CountCard
-            label="Total Applied"
-            count={appliedCount}
-            isFirst={false}
-          />
-          <CountCard
-            label="Seats Left"
-            count={seats - appliedCount}
-            isFirst={false}
-          />
-        </div>
+        <Badges seats={seats} appliedCount={appliedCount}/> 
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">

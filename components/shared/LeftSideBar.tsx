@@ -17,8 +17,8 @@ const LeftSideBar = () => {
       <SignedOut>
         <div className="flex flex-col gap-3 pt-3">
           <Link href="/sign-in">
-            <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-4 shadow-none">
-              <Image
+            <Button className="small-medium bg-light-800 hover:bg-light-700 dark:bg-dark-400 btn-secondary min-h-[41px] w-full rounded-lg px-4 py-4 shadow-none">
+              <Image 
                 src="/assets/icons/account.svg"
                 width={20}
                 height={20}
@@ -31,7 +31,7 @@ const LeftSideBar = () => {
             </Button>
           </Link>
           <Link href="/sign-up">
-            <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-3 py-3 shadow-none ">
+            <Button className="small-medium bg-dark-500 dark:bg-dark-400 light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-3 py-3 shadow-none ">
               <Image
                 src="/assets/icons/sign-up.svg"
                 width={20}

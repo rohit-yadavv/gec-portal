@@ -40,12 +40,7 @@ export const sidebarLinks: SidebarLink[] = [
     imgURL: "/assets/icons/tag.svg",
     route: "/event",
     label: "All Events",
-  }, 
-  // {
-  //   imgURL: "/assets/icons/question.svg",
-  //   route: "/ask-question",
-  //   label: "Ask a question",
-  // },
+  },  
 ];
 export const BADGE_CRITERIA = {
   QUESTION_COUNT: {

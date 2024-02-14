@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-        <h1 className="h1-bold text-dark100_light900">Opportunities</h1> 
+        <h1 className=" text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">Opportunities</h1> 
         <div className="flex justify-end max-sm:w-full">
           {/* <Enrollment /> */}
           {mongoUser?.admin && <EnrollmentDialog userId={mongoUser._id}/>} 
