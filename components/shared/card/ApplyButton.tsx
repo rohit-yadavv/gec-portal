@@ -45,7 +45,7 @@ const ApplyButton = ({
         </Button>
       </Link>
     );
-  }
+  } 
 
   if (hasApplied) {
     return (

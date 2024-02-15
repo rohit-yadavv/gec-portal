@@ -16,23 +16,8 @@ import ApplyButton from "./ApplyButton";
 import Link from "next/link";
 import CardBadge from "./CardBadge";
 import OtherDetails from "./OtherDetails";
-
-// {
-//   _id: new ObjectId('65c8a02f25bc80c7e0f69df5'),
-//   type: 'vac',
-//   desc: 'its an vac',
-//   courseCode: 'bt cs 302',
-//   courseName: 'vac for oops',
-//   department: 'cse',
-//   teacher: 'anant sir',
-//   sem: 2,
-//   eligible: 'pg',
-//   seats: '20',
-//   applicant: [],
-//   uploadedAt: 2024-02-11T10:23:43.921Z,
-//   __v: 0
-// }
-
+import ViewApplicant from "../applicantsTable/ViewApplicant";
+ 
 interface Props {
   event: {
     _id: ObjectId;
@@ -51,7 +36,7 @@ interface Props {
     uploadedAt: Date;
     applyBy: Date;
     applicant: any;
-    courseCredit:number;
+    courseCredit: number;
     seats: number;
     type: string;
   };
@@ -125,7 +110,12 @@ const CourseCard = async ({ event }: Props) => {
           <CardBadge value={type} desc={`it is a ${type}`} />
           <CardBadge value={teacher} desc={`teacher - ${teacher}`} />
         </div>
-        <OtherDetails seats={seats} appliedCount={appliedCount} sem={sem} credit={courseCredit}/>
+        <OtherDetails
+          seats={seats}
+          appliedCount={appliedCount}
+          sem={sem}
+          credit={courseCredit}
+        />
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
@@ -134,7 +124,10 @@ const CourseCard = async ({ event }: Props) => {
             Apply by {formatDate(applyBy)} - posted {getTimeStamp(uploadedAt)}
           </span>
         </p>
-        <div className="sm:inline hidden">
+        <div className="sm:flex gap-3 hidden">
+
+          <ViewApplicant applicant={applicant} />
+          
           <ApplyButton
             userId={mongoUser?._id}
             enrollmentId={_id}
@@ -142,19 +135,20 @@ const CourseCard = async ({ event }: Props) => {
             isProfileComplete={mongoUser?.isProfileComplete}
           />
         </div>
-        <div className="sm:hidden flex flex-row items-center w-full justify-between"> 
-            <BookMark
-              userId={mongoUser?._id}
-              hasSaved={hasSaved}
-              enrollmentId={_id}
-              size={25}
-            /> 
+        <div className="sm:hidden flex flex-row items-center w-full justify-between">
+          <BookMark
+            userId={mongoUser?._id}
+            hasSaved={hasSaved}
+            enrollmentId={_id}
+            size={25}
+          />
           <ApplyButton
             userId={mongoUser?._id}
             enrollmentId={_id}
             hasApplied={hasApplied}
             isProfileComplete={mongoUser?.isProfileComplete}
           />
+          <ViewApplicant applicant={applicant} />
         </div>
       </CardFooter>
     </Card>
