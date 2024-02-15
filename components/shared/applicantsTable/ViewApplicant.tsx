@@ -53,7 +53,7 @@ const ViewApplicant = ({ applicant }: Props) => {
         </DrawerHeader>
         <DrawerFooter>
           <DrawerClose>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Close</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

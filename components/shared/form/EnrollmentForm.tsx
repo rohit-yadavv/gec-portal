@@ -295,7 +295,7 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
               <FormControl>
                 <Textarea
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
-                  placeholder="What's special about you?"
+                  placeholder="Write something about course?"
                   {...field}
                 />
               </FormControl>
