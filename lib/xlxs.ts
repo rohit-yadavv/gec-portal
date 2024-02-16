@@ -15,7 +15,7 @@ export function downloadToExcel(data:any) {
     },
   ];
   const settings = {
-    fileName: "people Excel",
+    fileName: "All Applicants",
   };
   xlsx(columns, settings);
 }

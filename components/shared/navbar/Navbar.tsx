@@ -6,7 +6,7 @@ import MobileNav from "./MobileNav";
 
 const Navbar = () => {
   return (
-    <nav className="flex-between  light-border fixed z-50 flex  w-full gap-5 border-b bg-light-900 p-4 dark:border-stone-800 dark:bg-dark-100 dark:shadow-none sm:px-12">
+    <nav className="light-border fixed z-50 flex w-full items-center  justify-between gap-5 border-b bg-light-900 p-4 dark:border-stone-800 dark:bg-dark-100 dark:shadow-none sm:px-12">
       <Link href="/" className="flex items-center gap-1">
         <Image
           width={33} 
@@ -19,7 +19,7 @@ const Navbar = () => {
         </p>
       </Link>
       GlobalSearch
-      <div className="flex-between gap-5">
+      <div className="flex items-center justify-between gap-5">
         <Theme />
         <SignedIn>
           <UserButton

@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import {
@@ -30,17 +31,20 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { downloadToExcel } from "@/lib/xlxs"; 
+import { downloadToExcel } from "@/lib/xlxs";   
+import { ObjectId } from "mongoose";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  enrollmentId:ObjectId;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  enrollmentId
+}: DataTableProps<TData, TValue>) { 
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -52,6 +56,7 @@ export function DataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
+    enrollmentId,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
@@ -70,7 +75,7 @@ export function DataTable<TData, TValue>({
       },
     },
   });
-console.log(data)
+  
   return (
     <>
       <div className="flex items-center justify-between">
@@ -87,7 +92,7 @@ console.log(data)
         </div>
 
         <Button className="ml-4" onClick={() => downloadToExcel(data)}>
-          Export to excel
+          Download Excel Sheet
         </Button>
         {/* for column visibility  */}
         <DropdownMenu>
@@ -143,7 +148,7 @@ console.log(data)
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && "selected"} 
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -170,7 +175,6 @@ console.log(data)
       </div>
 
       {/* pagination */}
-
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"

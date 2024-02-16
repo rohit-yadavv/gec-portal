@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { registerForEvent } from "@/lib/actions/enrollment.action";
+import { registerForEvent } from "@/lib/actions/enrollment.action"; 
 import { ObjectId } from "mongoose";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -25,27 +25,16 @@ const ApplyButton = ({
     await registerForEvent({ path, userId, enrollmentId });
     toast("Applied Successfully");
   };
-
-  if (!userId) {
-    return (
-      <Link href="/sign-in">
-        <Button className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
-          Login To Apply
-        </Button>
-      </Link>
-    );
-  }
+ 
   if (!isProfileComplete) {
     return (
       <Link href="/details">
-        <Button 
-          className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
-        >
+        <Button className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
           Complete Your Profile to Apply
         </Button>
       </Link>
     );
-  } 
+  }
 
   if (hasApplied) {
     return (

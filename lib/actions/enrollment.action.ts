@@ -1,29 +1,12 @@
 "use server";
+
 import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
-import { revalidatePath } from "next/cache";
-import {  ObjectId } from "mongoose";
+import { revalidatePath } from "next/cache"; 
 import User from "@/database/user.model";
-
-interface Props {
-  path: string;
-  eventData: {
-    type: string;
-    courseCode: string;
-    courseName: string;
-    desc: string;
-    department: string;
-    teacher: string;
-    sem: number;
-    eligible: string;
-    seats: number;
-    courseCredit: number;
-    uploadedBy: ObjectId;
-    applyBy: Date;
-  };
-}
-
-export async function createEvent(enrollmentData: Props) {
+import { acceptEnrollmentProps, createEnrollmentProps, registerProps, userInEnrollmentProps } from "./shared.types";
+ 
+export async function createEvent(enrollmentData: createEnrollmentProps) {
   try {
     const { path, eventData } = enrollmentData;
     console.log(eventData);
@@ -93,13 +76,7 @@ export async function getOnlyEvents() {
     throw error;
   }
 }
-
-interface registerProps {
-  path:string;
-  enrollmentId: ObjectId;
-  userId: ObjectId;
-}
-
+ 
 export async function registerForEvent({ path,enrollmentId, userId }: registerProps) {
   try {
     connectToDatabase(); 
@@ -115,4 +92,24 @@ export async function registerForEvent({ path,enrollmentId, userId }: registerPr
     console.log(error);
     throw error;
   }
+}
+
+export async function acceptEnrollment({path, userId, enrollmentId}:acceptEnrollmentProps){  
+  await Enrollment.findByIdAndUpdate(enrollmentId, {
+    $addToSet: { selected: userId },
+  });
+  revalidatePath(path)
+}
+
+export async function rejectEnrollment({path, userId, enrollmentId}:acceptEnrollmentProps){  
+  await Enrollment.findByIdAndUpdate(enrollmentId, {
+    $pull: { selected: userId },
+  });
+revalidatePath(path)
+}
+
+export async function isUserSelectedInEnrollment({userId, enrollmentId}:userInEnrollmentProps){
+  const res = await Enrollment.findById(enrollmentId)
+  const data = res.selected.includes(userId) 
+  return data;
 }

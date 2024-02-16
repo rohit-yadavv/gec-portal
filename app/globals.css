@@ -72,7 +72,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border m-0 p-0 box-border;
   }
   body {
     @apply bg-background text-foreground;
@@ -80,15 +80,18 @@ body {
 }
 
 @layer utilities {
-  .flex-center {
-    @apply flex justify-center items-center;
+  .primary-gradient {
+    background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
   }
-  .flex-between {
-    @apply flex justify-between items-center;
+
+  .dark-gradient {
+    background: linear-gradient(
+      232deg,
+      rgba(23, 28, 35, 0.41) 0%,
+      rgba(19, 22, 28, 0.7) 100%
+    );
   }
-  .flex-start {
-    @apply flex justify-start items-center;
-  } 
+
   .card-wrapper {
     @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100;
     --tw-shadow: 0px 12px 20px 0px hsla(0, 0%, 72%, 0.03),
@@ -100,33 +103,7 @@ body {
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
       var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
-  .btn {
-    @apply bg-light-800 dark:bg-dark-300 !important;
-  }
-  .btn-secondary {
-    @apply bg-light-800 dark:bg-dark-400 !important;
-  }
-  .btn-tertiary {
-    @apply bg-light-700 dark:bg-dark-300 !important;
-  }
-  .markdown {
-    @apply max-w-full prose dark:prose-p:text-light-700;
-  }
-  .primary-gradient {
-    background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
-  }
-  /* .primary-gradient {
-    background: linear-gradient(129deg, #3182CE 0%, #4299E1 100%);
-  } */
-  
-  .dark-gradient {
-    background: linear-gradient(
-      232deg,
-      rgba(23, 28, 35, 0.41) 0%,
-      rgba(19, 22, 28, 0.7) 100%
-    );
-  }
- 
+
   .no-focus {
     @apply focus-visible:ring-0 focus-visible:ring-transparent;
   }
@@ -147,13 +124,6 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  /* .primary-text-gradient {
-    background: linear-gradient(129deg, #3182CE 0%, #4299E1 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  } */
-
   .custom-scrollbar::-webkit-scrollbar {
     width: 3px;
     height: 3px;
@@ -179,13 +149,12 @@ body {
     padding-bottom: 140px;
     display: block;
   }
-  /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
+    /* Hide scrollbar for Chrome, Safari and Opera */
     display: none;
   }
-  /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /*Hide scrollbar for IE and Edge */
+    scrollbar-width: none; /*Hide scrollbar for Firefox */
   }
 }

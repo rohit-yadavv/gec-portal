@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/drawer";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { ObjectId } from "mongoose";
 
 
 // {
@@ -27,6 +28,7 @@ import { columns } from "./columns";
 // }
 
 interface Props {
+  enrollmentId:ObjectId;
   applicant:{
     name: string;
     rollNo:string;
@@ -36,7 +38,7 @@ interface Props {
   }[]
 }
 
-const ViewApplicant = ({ applicant }: Props) => { 
+const ViewApplicant = ({ applicant, enrollmentId }: Props) => { 
   return (
     <Drawer>
       <DrawerTrigger>
@@ -48,7 +50,7 @@ const ViewApplicant = ({ applicant }: Props) => {
         <DrawerHeader>
           <DrawerTitle>All Applicants</DrawerTitle>
           <DrawerDescription>
-            <DataTable columns={columns} data={applicant} />
+            <DataTable columns={columns} data={applicant} enrollmentId={enrollmentId} />
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>

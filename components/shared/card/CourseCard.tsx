@@ -9,7 +9,7 @@ import {
 import { capitalizeFirstLetter, formatDate, getTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import { ObjectId } from "mongoose";
-import { auth } from "@clerk/nextjs";
+import { SignedIn, SignedOut, auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import BookMark from "../BookMark";
 import ApplyButton from "./ApplyButton";
@@ -17,7 +17,8 @@ import Link from "next/link";
 import CardBadge from "./CardBadge";
 import OtherDetails from "./OtherDetails";
 import ViewApplicant from "../applicantsTable/ViewApplicant";
- 
+import { Button } from "@/components/ui/button";
+
 interface Props {
   event: {
     _id: ObjectId;
@@ -119,21 +120,33 @@ const CourseCard = async ({ event }: Props) => {
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
-        <p className="text-dark500_light500 body-regular flex items-center gap-1">
+        <p className="flex items-center gap-1">
           <span className="text-dark500_light700  small-regular text-dark100_light900 line-clamp-1 max-sm:hidden">
             Apply by {formatDate(applyBy)} - posted {getTimeStamp(uploadedAt)}
           </span>
         </p>
         <div className="hidden gap-3 sm:flex">
-
-          <ViewApplicant applicant={applicant} />
-          
-          <ApplyButton
-            userId={mongoUser?._id}
-            enrollmentId={_id}
-            hasApplied={hasApplied}
-            isProfileComplete={mongoUser?.isProfileComplete}
-          />
+          {mongoUser?.admin ? (
+            <ViewApplicant enrollmentId={_id} applicant={applicant} />
+          ) : (
+            <>
+              <SignedOut>
+                <Link href="/sign-in">
+                  <Button className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
+                    Login To Apply
+                  </Button>
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <ApplyButton
+                  userId={mongoUser?._id}
+                  enrollmentId={_id}
+                  hasApplied={hasApplied}
+                  isProfileComplete={mongoUser?.isProfileComplete}
+                />
+              </SignedIn>
+            </>
+          )}
         </div>
         <div className="flex w-full flex-row items-center justify-between sm:hidden">
           <BookMark
@@ -148,7 +161,7 @@ const CourseCard = async ({ event }: Props) => {
             hasApplied={hasApplied}
             isProfileComplete={mongoUser?.isProfileComplete}
           />
-          <ViewApplicant applicant={applicant} />
+          <ViewApplicant enrollmentId={_id} applicant={applicant} />
         </div>
       </CardFooter>
     </Card>

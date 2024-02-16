@@ -41,7 +41,7 @@ export async function saveEvent({ path, data }: saveEventData) {
     const { userId, enrollmentId } = data;
 
     await User.findByIdAndUpdate(userId, {
-      $push: { saved: enrollmentId },
+      $addToSet: { saved: enrollmentId },
     });
     revalidatePath(path);
   } catch (error) {

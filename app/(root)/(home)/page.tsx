@@ -3,8 +3,7 @@ import EnrollmentDialog from "@/components/shared/EnrollmentDialog";
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard"; 
 import { getAllEvents } from "@/lib/actions/enrollment.action"; 
-import { getUserById } from "@/lib/actions/user.action";
-import { SearchParamsProps } from "@/types";
+import { getUserById } from "@/lib/actions/user.action"; 
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";  
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
     "Portal to register for gec designed for cuh students",
 }; 
 
-export default async function Home({ searchParams }: SearchParamsProps) {
+export default async function Home() {
   const { userId } = auth(); 
   const mongoUser = await getUserById({userId});   
   const result = JSON.parse(await getAllEvents());  

@@ -13,6 +13,7 @@ export interface IEnrollment extends Document {
   seats?: number;
   uploadedBy: ObjectId;
   applicant: Schema.Types.ObjectId[];
+  selected: Schema.Types.ObjectId[];
   applyBy: Date;
   uploadedAt: Date;
 }
@@ -29,9 +30,10 @@ const EnrollmentSchema = new Schema({
   eligible: { type: String },
   seats: { type: String },
   applicant: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  selected: [{ type: Schema.Types.ObjectId, ref: "User" }],
   uploadedBy: { type: Schema.Types.ObjectId, ref: "User" },
-  applyBy: { type: Date}, 
-  uploadedAt: { type: Date, default: Date.now()}, 
+  applyBy: { type: Date },
+  uploadedAt: { type: Date, default: Date.now() },
 });
 
 const Enrollment = models.Enrollment || model("Enrollment", EnrollmentSchema);
