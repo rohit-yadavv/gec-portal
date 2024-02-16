@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { registerForEvent } from "./actions/enrollment.action";
+import { twMerge } from "tailwind-merge"; 
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -62,13 +61,13 @@ export function capitalizeFirstLetter(inputString: string) {
 }
 
 export function capitalize(inputString: string): string {
-  let words: string[] = inputString.split(" ");
+  const words: string[] = inputString.split(" ");
 
-  let capitalizedWords: string[] = words.map(
+  const capitalizedWords: string[] = words.map(
     (word) => word.charAt(0).toUpperCase() + word.slice(1)
   );
 
-  let resultString: string = capitalizedWords.join(" ");
+  const resultString: string = capitalizedWords.join(" ");
 
   return resultString;
 }

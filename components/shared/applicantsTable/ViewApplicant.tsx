@@ -40,7 +40,7 @@ const ViewApplicant = ({ applicant }: Props) => {
   return (
     <Drawer>
       <DrawerTrigger>
-        <div className="rounded-lg primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
+        <div className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
           View Applicants
         </div>
       </DrawerTrigger>

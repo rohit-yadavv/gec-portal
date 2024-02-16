@@ -1,4 +1,4 @@
-import Image from 'next/image'
+ 
 import React from 'react'
 
 interface Props{
@@ -8,8 +8,8 @@ interface Props{
 }
 const CountCard = ({count, label, isFirst}:Props) => {
   return (
-    <div className={`gap-1 ${isFirst?"": 'sm:px-3 sm:border-l'}`}> 
-        <p className='text-dark400_light700 text-opacity-80 text-sm sm:text-base'>{label} - {count}</p>
+    <div className={`gap-1 ${isFirst?"": 'sm:border-l sm:px-3'}`}> 
+        <p className='text-dark400_light700 text-sm text-opacity-80 sm:text-base'>{label} - {count}</p>
         {/* <p>{count}</p> */}
     </div>
   )

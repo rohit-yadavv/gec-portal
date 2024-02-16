@@ -29,7 +29,7 @@ const ApplyButton = ({
   if (!userId) {
     return (
       <Link href="/sign-in">
-        <Button className="rounded-lg primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
+        <Button className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
           Login To Apply
         </Button>
       </Link>
@@ -39,7 +39,7 @@ const ApplyButton = ({
     return (
       <Link href="/details">
         <Button 
-          className="rounded-lg primary-gradient min-h-[46px] px-4 py-3 !text-light-900"
+          className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
         >
           Complete Your Profile to Apply
         </Button>
@@ -52,7 +52,7 @@ const ApplyButton = ({
       <div className="cursor-not-allowed">
         <Button
           disabled
-          className="rounded-lg primary-gradient min-h-[46px] px-4 py-3 !text-light-900"
+          className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
         >
           Applied
         </Button>
@@ -62,7 +62,7 @@ const ApplyButton = ({
   return (
     <Button
       onClick={applyNow}
-      className="rounded-lg primary-gradient min-h-[46px] px-4 py-3 !text-light-900"
+      className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
     >
       Apply Now
     </Button>

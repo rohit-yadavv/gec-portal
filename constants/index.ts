@@ -10,22 +10,7 @@ export const sidebarLinks: SidebarLink[] = [
     imgURL: "/assets/icons/home.svg",
     route: "/",
     label: "Home", 
-  }, 
-  {
-    imgURL: "/assets/icons/user.svg",
-    route: "/details",
-    label: "Your Details", 
-  }, 
-  {
-    imgURL: "/assets/icons/star.svg",
-    route: "/saved",
-    label: "Bookmarks",
-  },
-  {
-    imgURL: "/assets/icons/applied.svg",
-    route: "/applied",
-    label: "Applied",
-  }, 
+  },  
   {
     imgURL: "/assets/icons/tag.svg",
     route: "/gec",
@@ -42,30 +27,21 @@ export const sidebarLinks: SidebarLink[] = [
     label: "All Events",
   },  
 ];
-export const BADGE_CRITERIA = {
-  QUESTION_COUNT: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
+ 
+export const userSideLinks: SidebarLink[] = [
+  {
+    imgURL: "/assets/icons/user.svg",
+    route: "/details",
+    label: "Your Details", 
+  }, 
+  {
+    imgURL: "/assets/icons/star.svg",
+    route: "/saved",
+    label: "Bookmarks",
   },
-  ANSWER_COUNT: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  QUESTION_UPVOTES: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  ANSWER_UPVOTES: {
-    BRONZE: 10,
-    SILVER: 50,
-    GOLD: 100,
-  },
-  TOTAL_VIEWS: {
-    BRONZE: 1000,
-    SILVER: 10000,
-    GOLD: 100000,
-  },
-};
+  {
+    imgURL: "/assets/icons/applied.svg",
+    route: "/applied",
+    label: "Applied",
+  }, 
+]

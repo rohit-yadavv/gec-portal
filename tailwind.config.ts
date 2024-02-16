@@ -1,12 +1,10 @@
-import type { Config } from "tailwindcss"
-
 const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,34 +16,33 @@ const config = {
     },
     extend: {
       colors: {
-        
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: { 
-            500: "#FF7000", 
-            100: "#FFF1E6",   
+        primary: {
+          500: "#FF7000",
+          100: "#FFF1E6",
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
         dark: {
-          // 100: "#09090B",  
+          // 100: "#09090B",
           100: "#020817",
           200: "#1A1B1E",
-          300: "#020817", 
+          300: "#020817",
           400: "#9eaab7",
-          500: "#1F2937", 
+          500: "#1F2937",
         },
         light: {
           900: "#FFFFFF",
-          800: "#F2F2F3", 
-          850: "#F7FAFC", 
-          700: "#BEE3F8",   
-          500: "#445ee2", 
+          800: "#F2F2F3",
+          850: "#F7FAFC",
+          700: "#BEE3F8",
+          500: "#445ee2",
         },
-        accentBlue: "#2C5282", 
+        accentBlue: "#2C5282",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -93,6 +90,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} 
+};
 
-export default config
+export default config;

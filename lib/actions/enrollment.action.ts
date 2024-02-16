@@ -1,5 +1,5 @@
 "use server";
-import Enrollment, { IEnrollment } from "@/database/enrollment.model";
+import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import {  ObjectId } from "mongoose";
@@ -28,7 +28,7 @@ export async function createEvent(enrollmentData: Props) {
     const { path, eventData } = enrollmentData;
     console.log(eventData);
     connectToDatabase();
-    const newEnrollment = await Enrollment.create(eventData);
+    await Enrollment.create(eventData);
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -103,11 +103,11 @@ interface registerProps {
 export async function registerForEvent({ path,enrollmentId, userId }: registerProps) {
   try {
     connectToDatabase(); 
-    const events = await Enrollment.findByIdAndUpdate(enrollmentId, {
+    await Enrollment.findByIdAndUpdate(enrollmentId, {
       $addToSet: { applicant: userId },
     });
 
-    const user = await User.findByIdAndUpdate(userId, {
+    await User.findByIdAndUpdate(userId, {
       $addToSet: { appliedGec: enrollmentId },
     });
     revalidatePath(path);

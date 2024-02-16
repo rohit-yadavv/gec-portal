@@ -133,7 +133,7 @@
   }
   .subtle-regular {
     @apply text-[10px] font-normal leading-[13px];
-  }
+  } 
  
   .invert-colors {
     @apply invert dark:invert-0;

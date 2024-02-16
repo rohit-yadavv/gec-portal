@@ -65,32 +65,32 @@ const CourseCard = async ({ event }: Props) => {
   const mongoUser = await getUserById({ userId });
   const appliedCount = applicant.length;
 
-  let hasSaved = mongoUser?.saved.includes(_id);
+  const hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
 
   return (
     <Card>
-      <CardHeader className="flex justify-between flex-row">
-        <div className="flex flex-row gap-4 items-center">
+      <CardHeader className="flex flex-row justify-between">
+        <div className="flex flex-row items-center gap-4">
           <Image
             src={uploadedBy?.picture}
             width={45}
             height={45}
             alt="profile pic"
-            className="object-contain rounded-full"
+            className="rounded-full object-contain"
           />
           <div className="flex flex-col gap-1">
             <CardTitle>{capitalizeFirstLetter(courseName)}</CardTitle>
             <Link
               href={`mailto:${uploadedBy?.email}`}
-              className="text-sm cursor-pointer"
+              className="cursor-pointer text-sm"
             >
               {uploadedBy?.name} |{" "}
               <span className="text-light-500"> {uploadedBy?.email} </span>
             </Link>
           </div>
         </div>
-        <div className="sm:block hidden">
+        <div className="hidden sm:block">
           <BookMark
             userId={mongoUser?._id}
             hasSaved={hasSaved}
@@ -119,12 +119,12 @@ const CourseCard = async ({ event }: Props) => {
         <CardDescription>{desc}</CardDescription>
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
-        <p className="text-dark500_light500 flex items-center gap-1 body-regular">
-          <span className="text-dark500_light700  small-regular line-clamp-1 max-sm:hidden text-dark100_light900">
+        <p className="text-dark500_light500 body-regular flex items-center gap-1">
+          <span className="text-dark500_light700  small-regular text-dark100_light900 line-clamp-1 max-sm:hidden">
             Apply by {formatDate(applyBy)} - posted {getTimeStamp(uploadedAt)}
           </span>
         </p>
-        <div className="sm:flex gap-3 hidden">
+        <div className="hidden gap-3 sm:flex">
 
           <ViewApplicant applicant={applicant} />
           
@@ -135,7 +135,7 @@ const CourseCard = async ({ event }: Props) => {
             isProfileComplete={mongoUser?.isProfileComplete}
           />
         </div>
-        <div className="sm:hidden flex flex-row items-center w-full justify-between">
+        <div className="flex w-full flex-row items-center justify-between sm:hidden">
           <BookMark
             userId={mongoUser?._id}
             hasSaved={hasSaved}

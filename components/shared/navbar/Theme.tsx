@@ -20,7 +20,7 @@ const Theme = () => {
           {mode === "light" ? (
             <Image
               className="active-theme"
-              src="/assets/icons/sun.svg"
+              src="/assets/icons/sun.svg" 
               alt="sun"
               width={25}
               height={25}

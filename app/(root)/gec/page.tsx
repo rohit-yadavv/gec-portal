@@ -1,7 +1,6 @@
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard";  
-import { getOnlyGec } from "@/lib/actions/enrollment.action"; 
-import { auth } from "@clerk/nextjs";
+import { getOnlyGec } from "@/lib/actions/enrollment.action";  
 
 const page = async () => { 
   const result = JSON.parse(await getOnlyGec());    

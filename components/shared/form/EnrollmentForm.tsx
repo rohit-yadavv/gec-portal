@@ -7,8 +7,7 @@ import { format } from "date-fns"
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
-  FormDescription,
+  FormControl, 
   FormField,
   FormItem,
   FormLabel,
@@ -38,7 +37,7 @@ interface Props {
 }
 
 const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const path = usePathname();
   const form = useForm<z.infer<typeof EventSchema>>({
@@ -325,7 +324,7 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
                       ) : (
                         <span>Pick a date</span>
                       )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      <CalendarIcon className="ml-auto size-4 opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>

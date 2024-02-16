@@ -1,7 +1,7 @@
 import xlsx, { IJsonSheet } from "json-as-xlsx";
 export function downloadToExcel(data:any) {
   
-  let columns: IJsonSheet[] = [
+  const columns: IJsonSheet[] = [
     {
       sheet: "users",
       columns: [ 
@@ -14,7 +14,7 @@ export function downloadToExcel(data:any) {
       content: data,
     },
   ];
-  let settings = {
+  const settings = {
     fileName: "people Excel",
   };
   xlsx(columns, settings);
