@@ -69,7 +69,7 @@ const CourseCard = async ({ event }: Props) => {
   const hasApplied = mongoUser?.appliedGec.includes(_id);
 
   return (
-    <Card>
+    <Card className="card-wrapper">
       <CardHeader className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-4">
           <Image

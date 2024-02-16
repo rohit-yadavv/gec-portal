@@ -18,7 +18,7 @@ const LeftSideBar = () => {
                 width={16}
                 height={16}
                 className="invert dark:invert-0"
-                alt="login"
+                alt="login" 
               />
               <span className="primary-text-gradient text-[14px] max-lg:hidden">Sign In</span>
             </Button>

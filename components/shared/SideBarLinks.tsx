@@ -23,7 +23,7 @@ const SideBarLinks = () => {
               isActive
                 ? "primary-gradient text-light-900"
                 : "text-dark-300 dark:text-light-900"
-            } bg-transparent11 flex items-center justify-start gap-4 rounded-lg p-4 hover:border`}
+            } flex items-center justify-start gap-4 rounded-lg border border-transparent bg-transparent p-4 hover:border-[#FF7000]`}
           >
             <Image
               src={item.imgURL}
@@ -57,7 +57,7 @@ const SideBarLinks = () => {
                 isActive
                   ? "primary-gradient text-light-900"
                   : "text-dark-300 dark:text-light-900"
-              } flex items-center justify-start gap-4 rounded-lg border-red-500 bg-transparent p-4 hover:border-black`}
+              } flex items-center justify-start gap-4 rounded-lg border border-transparent bg-transparent p-4 hover:border-[#FF7000]`}
             >
               <Image
                 src={item.imgURL}
