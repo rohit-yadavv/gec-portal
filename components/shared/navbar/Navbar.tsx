@@ -6,7 +6,7 @@ import MobileNav from "./MobileNav";
 
 const Navbar = () => {
   return (
-    <nav className="flex-between  bg-light-900 dark:bg-dark-100 light-border border-b shadow-light-300  fixed z-50 flex w-full gap-5 p-4 dark:border-stone-800 dark:shadow-none sm:px-12">
+    <nav className="flex-between  light-border fixed z-50 flex  w-full gap-5 border-b bg-light-900 p-4 dark:border-stone-800 dark:bg-dark-100 dark:shadow-none sm:px-12">
       <Link href="/" className="flex items-center gap-1">
         <Image
           width={33} 
@@ -14,7 +14,7 @@ const Navbar = () => {
           alt="WebOverflow"
           src="/assets/images/site-logo.svg"
         />
-        <p className="h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">
+        <p className="h2-bold text-dark-100 dark:text-light-900 max-sm:hidden">
           GEC <span className="text-primary-500">Portal</span>
         </p>
       </Link>

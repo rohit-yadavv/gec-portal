@@ -17,7 +17,7 @@ import React from "react";
 const NavContent = () => {
   const pathName = usePathname();
   return (
-    <section className="flex h-full flex-col gap-6 pt-16 background-light900_dark100">
+    <section className="flex h-full flex-col gap-6 bg-light-900  pt-16 dark:bg-dark-100">
       {sidebarLinks.map((item) => {
         const isActive =
           (pathName.includes(item.route) && item.route.length > 1) ||
@@ -65,7 +65,7 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-none"
+        className=" border-none bg-light-900 dark:bg-dark-100"
       >
         <Link href="/" className="flex items-center gap-1">
           <Image
@@ -74,25 +74,35 @@ const MobileNav = () => {
             height={33}
             alt="WebOverflow"
           />
-          <p className="h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">
-            Web <span className="text-primary-500">OverFlow</span>
+          <p className="h2-bold text-dark-100 dark:text-light-900 max-sm:hidden">
+            Gec <span className="text-primary-500">Portal</span>
           </p>
         </Link>
         <div>
           <NavContent />
           <SignedOut>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 py-3">
               <SheetClose asChild>
                 <Link href="/sign-in">
-                  <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
-                    <span className="primary-text-gradient">Log In</span>
+                  <Button
+                    className="flex  min-h-[41px] w-full flex-row
+            items-center justify-center gap-1 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
+                  >
+                    <span className="primary-text-gradient text-[16px] font-medium leading-[15.6px] ">
+                      Log In
+                    </span>
                   </Button>
                 </Link>
               </SheetClose>
               <SheetClose asChild>
                 <Link href="/sign-up">
-                  <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
-                    Sign Up
+                  <Button
+                    className="flex  min-h-[41px] w-full flex-row
+            items-center justify-center gap-1 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
+                  >
+                    <span className="primary-text-gradient text-[16px] font-medium  leading-[15.6px]">
+                      Sign Up
+                    </span>
                   </Button>
                 </Link>
               </SheetClose>
