@@ -16,13 +16,13 @@ export async function getUserById(params: any) {
     connectToDatabase();
     const { userId } = params;
     const user = await User.findOne({ clerkId: userId });
-    return user;
+    return JSON.stringify(user);
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
- 
+
 export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
@@ -90,7 +90,7 @@ export async function getAppliedEnrollments({
   clerkId?: string | null;
 }) {
   try {
-    await connectToDatabase(); 
+    await connectToDatabase();
     // uploadedBy: {
     //   name: string;
     //   picture: string;
@@ -103,9 +103,9 @@ export async function getAppliedEnrollments({
       populate: [
         { path: "uploadedBy", model: User, select: "name email picture" },
       ],
-    }); 
+    });
 
-    const enrollments = user ? user.appliedGec : []; 
+    const enrollments = user ? user.appliedGec : [];
     return enrollments;
   } catch (error) {
     console.error(error);

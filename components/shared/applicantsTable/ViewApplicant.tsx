@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button"; 
 import {
   Drawer,
@@ -38,7 +36,7 @@ interface Props {
   }[]
 }
 
-const ViewApplicant = ({ applicant, enrollmentId }: Props) => { 
+const ViewApplicant = ({ applicant, enrollmentId }: Props) => {  
   return (
     <Drawer>
       <DrawerTrigger>

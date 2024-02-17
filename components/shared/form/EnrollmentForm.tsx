@@ -3,11 +3,11 @@ import * as z from "zod";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { format } from "date-fns"
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl, 
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -29,15 +29,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { createEvent } from "@/lib/actions/enrollment.action";
 import { ObjectId } from "mongoose";
 import { CalendarIcon } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 interface Props {
   onSubmitSuccess: () => void;
   userId: ObjectId;
 }
 
 const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const path = usePathname();
   const form = useForm<z.infer<typeof EventSchema>>({
@@ -96,7 +99,7 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="type"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Form for <span className="text-primary-500">*</span>
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -108,7 +111,7 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
                 <SelectContent>
                   <SelectItem value="gec">General Elective Course</SelectItem>
                   <SelectItem value="vac">Value Added Course</SelectItem>
-                  <SelectItem value="event">Event</SelectItem>
+                  {/* <SelectItem value="event">Event</SelectItem> */}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -120,12 +123,12 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="courseCode"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Course Code
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter Course Code"
                   {...field}
                 />
@@ -139,12 +142,12 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="courseName"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Course Name
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter Course Name"
                   {...field}
                 />
@@ -158,12 +161,12 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="department"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Department
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter Department"
                   {...field}
                 />
@@ -177,12 +180,12 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="teacher"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Faculty
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter Faculy Name"
                   {...field}
                 />
@@ -196,13 +199,13 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="sem"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 For Semester
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter Eligible Semester"
                   value={field.value}
                   onChange={(event) =>
@@ -219,7 +222,7 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="eligible"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Eligible (Ug/Pg)
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -242,13 +245,13 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="seats"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Seats
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter total no of seats"
                   value={field.value}
                   onChange={(event) =>
@@ -265,13 +268,13 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="courseCredit"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Course Credit
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Enter total no of credits"
                   value={field.value}
                   onChange={(event) =>
@@ -288,12 +291,12 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
           name="desc"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
                 Description
               </FormLabel>
               <FormControl>
                 <Textarea
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus  min-h-[56px] border"
                   placeholder="Write something about course?"
                   {...field}
                 />
@@ -333,13 +336,11 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>
-                      date < new Date()
-                    }
+                    disabled={(date) => date < new Date()}
                     initialFocus
                   />
                 </PopoverContent>
-              </Popover> 
+              </Popover>
               <FormMessage />
             </FormItem>
           )}

@@ -21,11 +21,11 @@ export const sidebarLinks: SidebarLink[] = [
     route: "/vac",
     label: "All VACs",
   },
-  {
-    imgURL: "/assets/icons/tag.svg",
-    route: "/event",
-    label: "All Events",
-  },  
+  // {
+  //   imgURL: "/assets/icons/tag.svg",
+  //   route: "/event",
+  //   label: "All Events",
+  // },  
 ];
  
 export const userSideLinks: SidebarLink[] = [
@@ -39,9 +39,5 @@ export const userSideLinks: SidebarLink[] = [
     route: "/saved",
     label: "Bookmarks",
   },
-  {
-    imgURL: "/assets/icons/applied.svg",
-    route: "/applied",
-    label: "Applied",
-  }, 
+
 ]

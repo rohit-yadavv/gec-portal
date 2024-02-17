@@ -41,8 +41,12 @@ interface Props {
     seats: number;
     type: string;
   };
+  viewApplicants: boolean;
 }
-const CourseCard = async ({ event }: Props) => {
+
+const CourseCard = async ({ event, viewApplicants }: Props) => {
+
+  
   if (!event) return;
   const {
     _id,
@@ -61,10 +65,10 @@ const CourseCard = async ({ event }: Props) => {
     applicant,
     seats,
   } = event;
-
+  
   const { userId } = auth();
-  const mongoUser = await getUserById({ userId });
-  const appliedCount = applicant.length;
+  const mongoUser = JSON.parse(await getUserById({ userId }));
+  const appliedCount = applicant.length; 
 
   const hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
@@ -121,13 +125,13 @@ const CourseCard = async ({ event }: Props) => {
       </CardContent>
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
         <p className="flex items-center gap-1">
-          <span className="text-dark500_light700  small-regular text-dark100_light900 line-clamp-1 max-sm:hidden">
-            Apply by {formatDate(applyBy)} - posted {getTimeStamp(uploadedAt)}
+          <span className=" line-clamp-1 text-sm max-sm:hidden">
+            Apply by {formatDate(applyBy)} <span className="text-xs text-dark-500 dark:text-light-700"> - posted {getTimeStamp(uploadedAt)}</span>
           </span>
         </p>
         <div className="hidden gap-3 sm:flex">
           {mongoUser?.admin ? (
-            <ViewApplicant enrollmentId={_id} applicant={applicant} />
+            viewApplicants&& <ViewApplicant enrollmentId={_id} applicant={applicant} />
           ) : (
             <>
               <SignedOut>
@@ -142,7 +146,7 @@ const CourseCard = async ({ event }: Props) => {
                   userId={mongoUser?._id}
                   enrollmentId={_id}
                   hasApplied={hasApplied}
-                  isProfileComplete={mongoUser?.isProfileComplete}
+                  isProfileComplete={mongoUser?.isProfileComplete} 
                 />
               </SignedIn>
             </>
@@ -161,7 +165,7 @@ const CourseCard = async ({ event }: Props) => {
             hasApplied={hasApplied}
             isProfileComplete={mongoUser?.isProfileComplete}
           />
-          <ViewApplicant enrollmentId={_id} applicant={applicant} />
+          {viewApplicants && <ViewApplicant enrollmentId={_id} applicant={applicant} />}
         </div>
       </CardFooter>
     </Card>

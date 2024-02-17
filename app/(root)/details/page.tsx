@@ -10,7 +10,7 @@ const page = async() => {
   
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Profile</h1>
+      <h1 className="text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">Profile</h1>
 
       <div className="mt-9">
         <Profile 

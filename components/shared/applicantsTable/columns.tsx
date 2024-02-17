@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
  
-import Action from "./Action";
+import Action from "./Action"; 
 // import { acceptEnrollment } from "@/lib/actions/enrollment.action";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -19,7 +19,7 @@ export type ApplicantData = {
 };
 
 // const [selected, setSelected] = useState();
-export const columns: ColumnDef<ApplicantData>[] = [
+export const columns: ColumnDef<ApplicantData>[] = [ 
   {
     accessorKey: "sno",
     header: ({ column }) => {

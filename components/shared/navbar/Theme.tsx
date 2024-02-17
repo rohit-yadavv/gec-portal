@@ -16,10 +16,10 @@ const Theme = () => {
   return (
     <Menubar className="relative border-none bg-transparent shadow-none">
       <MenubarMenu>
-        <MenubarTrigger className=" focus:bg-light-900 data-[state-open]:bg-light-900 dark:focus:bg-dark-200 dark:data-[state-open]:bg-dark-200">
+        <MenubarTrigger className="focus:bg-light-900 data-[state-open]:bg-light-900 dark:focus:bg-dark-200 dark:data-[state-open]:bg-dark-200">
           {mode === "light" ? (
             <Image
-              className="active-theme"
+              className="active-theme cursor-pointer"
               src="/assets/icons/sun.svg" 
               alt="sun"
               width={25}
@@ -27,7 +27,7 @@ const Theme = () => {
             />
           ) : mode === "dark" ? (
             <Image
-              className="active-theme"
+              className="active-theme cursor-pointer"
               src="/assets/icons/moon.svg"
               alt="moon"
               width={20}
@@ -35,7 +35,7 @@ const Theme = () => {
             />
           ) : (
             <Image
-              className="active-theme"
+              className="active-theme cursor-pointer"
               src="/assets/icons/computer.svg"
               alt="moon"
               width={25}
@@ -65,10 +65,10 @@ const Theme = () => {
                 className={`${mode === item.value && "active-theme"}`}
               />
               <p
-                className={`body-semibold text-light-500 ${
+                className={` text-light-500 ${
                   mode === item.value
                     ? "text-primary-500"
-                    : "text-dark100_light900"
+                    : "text-dark-100 dark:text-light-900"
                 }`}
               >
                 {item.label}

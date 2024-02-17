@@ -7,7 +7,7 @@ import { SignedIn } from "@clerk/nextjs";
 
 const SideBarLinks = () => {
   const pathName = usePathname();
-
+  
   return (
     <div className="flex flex-1 flex-col gap-6">
       {sidebarLinks.map((item) => {

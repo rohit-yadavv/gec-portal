@@ -2,10 +2,11 @@
 
 import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
-import { revalidatePath } from "next/cache"; 
+import { revalidatePath } from "next/cache";
 import User from "@/database/user.model";
-import { acceptEnrollmentProps, createEnrollmentProps, registerProps, userInEnrollmentProps } from "./shared.types";
- 
+import { acceptEnrollmentProps, createEnrollmentProps, registerProps, userInEnrollmentProps } from "./shared.types"; 
+import { getUserById } from "./user.action";
+
 export async function createEvent(enrollmentData: createEnrollmentProps) {
   try {
     const { path, eventData } = enrollmentData;
@@ -28,7 +29,7 @@ export async function getAllEvents() {
       .sort({ uploadedAt: -1 })
       .limit(5);
 
-    return JSON.stringify(events);
+    return events;
   } catch (error) {
     console.log(error);
     throw error;
@@ -76,10 +77,10 @@ export async function getOnlyEvents() {
     throw error;
   }
 }
- 
-export async function registerForEvent({ path,enrollmentId, userId }: registerProps) {
+
+export async function registerForEvent({ path, enrollmentId, userId }: registerProps) {
   try {
-    connectToDatabase(); 
+    connectToDatabase();
     await Enrollment.findByIdAndUpdate(enrollmentId, {
       $addToSet: { applicant: userId },
     });
@@ -94,22 +95,57 @@ export async function registerForEvent({ path,enrollmentId, userId }: registerPr
   }
 }
 
-export async function acceptEnrollment({path, userId, enrollmentId}:acceptEnrollmentProps){  
-  await Enrollment.findByIdAndUpdate(enrollmentId, {
-    $addToSet: { selected: userId },
-  });
-  revalidatePath(path)
+export async function acceptEnrollment({ path, userId, enrollmentId }: acceptEnrollmentProps) {
+  try {
+    connectToDatabase();
+    await Enrollment.findByIdAndUpdate(enrollmentId, {
+      $addToSet: { selected: userId },
+    });
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
-export async function rejectEnrollment({path, userId, enrollmentId}:acceptEnrollmentProps){  
-  await Enrollment.findByIdAndUpdate(enrollmentId, {
-    $pull: { selected: userId },
-  });
-revalidatePath(path)
+export async function rejectEnrollment({ path, userId, enrollmentId }: acceptEnrollmentProps) {
+  try {
+    connectToDatabase();
+    await Enrollment.findByIdAndUpdate(enrollmentId, {
+      $pull: { selected: userId },
+    });
+    revalidatePath(path)
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
-export async function isUserSelectedInEnrollment({userId, enrollmentId}:userInEnrollmentProps){
-  const res = await Enrollment.findById(enrollmentId)
-  const data = res.selected.includes(userId) 
-  return data;
+export async function isUserSelectedInEnrollment({ userId, enrollmentId }: userInEnrollmentProps) {
+  try {
+    connectToDatabase();
+    const res = await Enrollment.findById(enrollmentId)
+    const data = res.selected.includes(userId)
+    return data;
+
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+interface Props {
+  clerkId: string | null;
+}
+export async function getUserForm({ clerkId }: Props) {
+  try {
+    connectToDatabase();
+    const user = JSON.parse(await getUserById({userId:clerkId}))
+    const enrollments = await Enrollment.find({ uploadedBy: user._id }) 
+    .populate({ path: "uploadedBy", model: User }) 
+    .populate({ path: "applicant", model: User }); 
+    return JSON.stringify(enrollments);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
