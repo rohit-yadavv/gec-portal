@@ -6,6 +6,7 @@ import ApplyButton from "./ApplyButton";
 import Accepted from "../acceptedTable/Accepted";
 import BookMark from "../BookMark";
 import ViewApplicant from "../applicantsTable/ViewApplicant";
+import DeleteForm from "./DeleteForm";
 
 const CardButtons = ({
   enrollmentId,
@@ -13,13 +14,14 @@ const CardButtons = ({
   viewApplicants,
   user,
   applicant,
-  hasSaved, hasApplied,
-}: any) => { 
+  hasSaved,
+  hasApplied,
+}: any) => {
   const mongoUser = JSON.parse(user);
 
   return (
     <>
-      <div className="hidden gap-3 sm:flex"> 
+      <div className="hidden gap-3 sm:flex">
         {mongoUser?.admin ? (
           viewApplicants && (
             <>
@@ -28,6 +30,7 @@ const CardButtons = ({
                 applicant={applicant}
               />
               <Accepted selected={selected} />
+              <DeleteForm enrollmentId={enrollmentId} /> 
             </>
           )
         ) : (
@@ -56,7 +59,7 @@ const CardButtons = ({
       {/* for mobile  */}
       {/* ==================================================================================== */}
       <div className="flex w-full flex-row items-center justify-between sm:hidden">
-      <BookMark
+        <BookMark
           userId={mongoUser?._id}
           hasSaved={hasSaved}
           enrollmentId={enrollmentId}
@@ -82,7 +85,7 @@ const CardButtons = ({
               </Link>
             </SignedOut>
             <SignedIn>
-              <ApplyButton 
+              <ApplyButton
                 userId={mongoUser?._id}
                 enrollmentId={enrollmentId}
                 hasApplied={hasApplied}

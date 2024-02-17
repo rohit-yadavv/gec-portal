@@ -4,7 +4,7 @@ import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import User from "@/database/user.model";
-import { acceptEnrollmentProps, createEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
+import { acceptEnrollmentProps, createEnrollmentProps, deleteEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
 import { getUserById } from "./user.action";
 
 export async function createEvent(enrollmentData: createEnrollmentProps) {
@@ -18,6 +18,30 @@ export async function createEvent(enrollmentData: createEnrollmentProps) {
     console.log(error);
     throw error;
   }
+}
+
+export async function deleteEvent({path, enrollmentId}: deleteEnrollmentProps) { 
+    try {
+      connectToDatabase();  
+      const enrollment = await Enrollment.findById(enrollmentId);
+
+      // Check if the enrollment exists
+      if (!enrollment) {
+        throw new Error('Enrollment not found');
+      }
+ 
+      await User.updateMany( 
+        { _id: { $in: enrollment.applicant } }, // _id which is in the array enrollment.applicant.
+        { $pull: { appliedGec: enrollmentId } } // remove enrollmentId from appliedGec of user with _id 
+      );
+      
+      await Enrollment.deleteOne({ _id: enrollmentId });
+      revalidatePath(path)
+  } catch (error) {
+    console.log(error);
+  }
+
+
 }
 
 export async function getAllEvents() {

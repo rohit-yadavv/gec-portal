@@ -58,6 +58,11 @@ export interface createEnrollmentProps {
   };
 }
 
+export interface deleteEnrollmentProps {
+  path: string;
+  enrollmentId:string;
+}
+
 export interface registerProps {
   path: string;
   enrollmentId: string;
