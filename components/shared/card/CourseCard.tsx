@@ -102,7 +102,7 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
             </Link>
           </div>
         </div>
-        <div>
+        <div className="hidden sm:flex">
           <BookMark
             userId={mongoUser?._id}
             hasSaved={hasSaved}

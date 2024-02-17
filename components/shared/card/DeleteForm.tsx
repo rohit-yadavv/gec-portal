@@ -19,7 +19,7 @@ const DeleteForm = ({ enrollmentId }: { enrollmentId: string }) => {
   const deleteFormNow = async () => {
     console.log("deleted");
     await deleteEvent({ path, enrollmentId });
-    toast("Unregister Successfull");
+    toast("Unregister Successful");
   };
   return (
     <AlertDialog>
