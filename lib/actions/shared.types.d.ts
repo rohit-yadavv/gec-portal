@@ -74,3 +74,7 @@ export interface userInEnrollmentProps{
   userId:ObjectId;
   enrollmentId:ObjectId;
 }
+
+export interface userFormsProps{
+    clerkId: string | null;
+}

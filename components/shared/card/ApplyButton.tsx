@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { registerForEvent } from "@/lib/actions/enrollment.action";  
+import { registerForEvent, unRegisterForEvent } from "@/lib/actions/enrollment.action";  
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
@@ -24,6 +24,10 @@ const ApplyButton = ({
     await registerForEvent({ path, userId, enrollmentId });
     toast("Applied Successfully");
   };
+  const unregisterNow = async () => { 
+    await unRegisterForEvent({ path, userId, enrollmentId });
+    toast("Unregister Successfull");
+  };
  
   if (!isProfileComplete) {
     return (
@@ -36,13 +40,13 @@ const ApplyButton = ({
   }
 
   if (hasApplied) {
-    return (
+    return ( 
       <div className="cursor-not-allowed">
         <Button
-          disabled
+          onClick={unregisterNow}
           className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
         >
-          Applied
+          Unregister
         </Button>
       </div>
     );

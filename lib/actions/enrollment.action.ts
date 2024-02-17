@@ -4,7 +4,7 @@ import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import User from "@/database/user.model";
-import { acceptEnrollmentProps, createEnrollmentProps, registerProps, userInEnrollmentProps } from "./shared.types"; 
+import { acceptEnrollmentProps, createEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
 import { getUserById } from "./user.action";
 
 export async function createEvent(enrollmentData: createEnrollmentProps) {
@@ -89,7 +89,7 @@ export async function registerForEvent({ path, enrollmentId, userId }: registerP
     await User.findByIdAndUpdate(userId, {
       $addToSet: { appliedGec: enrollmentId },
     });
-    
+
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -135,18 +135,34 @@ export async function isUserSelectedInEnrollment({ userId, enrollmentId }: userI
     throw error;
   }
 }
-interface Props {
-  clerkId: string | null;
-}
-export async function getUserForm({ clerkId }: Props) {
+
+export async function getUserForm({ clerkId }: userFormsProps) {
   try {
     connectToDatabase();
-    const user = JSON.parse(await getUserById({userId:clerkId}))
-    const enrollments = await Enrollment.find({ uploadedBy: user._id }) 
-    .populate({ path: "uploadedBy", model: User }) 
-    .populate({ path: "applicant", model: User }) 
-    .populate({ path: "selected", model: User }); 
+    const user = JSON.parse(await getUserById({ userId: clerkId }))
+    const enrollments = await Enrollment.find({ uploadedBy: user._id })
+      .populate({ path: "uploadedBy", model: User })
+      .populate({ path: "applicant", model: User })
+      .populate({ path: "selected", model: User });
     return JSON.stringify(enrollments);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function unRegisterForEvent({ path, userId, enrollmentId }: registerProps) {
+  try {
+    connectToDatabase();
+    await Enrollment.findByIdAndUpdate(enrollmentId, {
+      $pull: { applicant: userId },
+    });
+
+    await User.findByIdAndUpdate(userId, {
+      $pull: { appliedGec: enrollmentId },
+    });
+
+    revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;
