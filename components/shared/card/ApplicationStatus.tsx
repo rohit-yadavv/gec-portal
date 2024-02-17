@@ -1,6 +1,13 @@
-const ApplicationStatus = ({ hasApplied, userId, selected }: any) => {
-  console.log(userId);
-  console.log(selected);
+interface Props{
+  hasApplied: boolean;
+  userId: string;
+  selected: string[];
+  isAdmin:boolean;
+}
+const ApplicationStatus = ({ hasApplied, userId, selected, isAdmin }: Props) => {
+  if(isAdmin){
+    return;
+  }
   return (
     <div className="absolute right-[50px] top-[-15px]">
       {hasApplied ? (

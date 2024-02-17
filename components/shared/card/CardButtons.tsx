@@ -19,7 +19,7 @@ const CardButtons = ({
 
   return (
     <>
-      <div className="hidden gap-3 sm:flex">
+      <div className="hidden gap-3 sm:flex"> 
         {mongoUser?.admin ? (
           viewApplicants && (
             <>

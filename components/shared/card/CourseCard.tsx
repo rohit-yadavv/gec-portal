@@ -71,11 +71,11 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
   const mongoUser = JSON.parse(user);
   const hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
-
+  const isAdmin=mongoUser?.admin;
   return (
-    <Card className="card-wrapper relative">
+    <Card className="card-wrapper relative"> 
       {/* card header  */}
-      <ApplicationStatus hasApplied={hasApplied} selected={selected} userId={mongoUser?._id}/>
+      <ApplicationStatus isAdmin={isAdmin} hasApplied={hasApplied} selected={selected} userId={mongoUser?._id}/>
       <CardHeader className="flex flex-row justify-between">
 
         <div className="flex flex-row items-center gap-4">
