@@ -15,7 +15,7 @@ const page = async() => {
       <div className="mt-9">
         <Profile 
           clerkId={userId}
-          user={JSON.stringify(mongoUser)} 
+          user={mongoUser} 
         />       
       </div>
     </>

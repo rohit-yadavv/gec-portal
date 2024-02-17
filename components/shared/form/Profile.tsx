@@ -75,12 +75,12 @@ const Profile = ({ clerkId, user }: Params) => {
           name="name"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Name <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Enter Your Name"
                   {...field}
                 />
@@ -94,13 +94,13 @@ const Profile = ({ clerkId, user }: Params) => {
           name="rollNo"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Roll No <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Enter Your Roll No"
                   value={field.value}
                   onChange={(event) =>
@@ -117,12 +117,12 @@ const Profile = ({ clerkId, user }: Params) => {
           name="department"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Department <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Enter Your Department"
                   {...field}
                 />
@@ -136,12 +136,12 @@ const Profile = ({ clerkId, user }: Params) => {
           name="course"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Course <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Enter Your Course"
                   {...field}
                 />
@@ -155,13 +155,13 @@ const Profile = ({ clerkId, user }: Params) => {
           name="sem"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="paragraph-semibold text-dark400_light800">
+              <FormLabel className="text-dark-400 dark:text-light-800 ">
                 Sem <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Enter Your Semester"
                   value={field.value}
                   onChange={(event) =>

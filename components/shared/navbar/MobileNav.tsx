@@ -30,7 +30,7 @@ const NavContent = () => {
               className={`${
                 isActive
                   ? "primary-gradient rounded-lg text-light-900"
-                  : "text-dark300_light900"
+                  : "text-dark-300 dark:text-light-900"
               } flex items-center justify-start gap-4 bg-transparent p-4`}
             >
               <Image
