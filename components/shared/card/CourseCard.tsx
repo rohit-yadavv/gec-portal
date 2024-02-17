@@ -14,7 +14,8 @@ import CardBadge from "./CardBadge";
 import OtherDetails from "./OtherDetails";
 import CardButtons from "./CardButtons";
 import { auth } from "@clerk/nextjs";
-import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/lib/actions/user.action"; 
+import ApplicationStatus from "./ApplicationStatus";
 
 interface Props {
   event: {
@@ -69,10 +70,14 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
   const user = await getUserById({ userId });
   const mongoUser = JSON.parse(user);
   const hasSaved = mongoUser?.saved.includes(_id);
+  const hasApplied = mongoUser?.appliedGec.includes(_id);
 
   return (
-    <Card className="card-wrapper">
+    <Card className="card-wrapper relative">
+      {/* card header  */}
+      <ApplicationStatus hasApplied={hasApplied} selected={selected} userId={mongoUser?._id}/>
       <CardHeader className="flex flex-row justify-between">
+
         <div className="flex flex-row items-center gap-4">
           <Image
             src={uploadedBy?.picture}
@@ -99,8 +104,12 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
             enrollmentId={_id}
             size={20}
           />
-        </div>
+          
+        </div> 
+
       </CardHeader>
+
+      {/* card content & description  */}
       <CardContent className="flex flex-col gap-5">
         <div className="flex flex-wrap gap-3">
           <CardBadge value={courseCode} desc={`course code - ${courseCode}`} />
@@ -120,6 +129,8 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
         />
         <CardDescription>{desc}</CardDescription>
       </CardContent>
+
+      {/* card footer  */}
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
         <p className="flex items-center gap-1">
           <span className=" line-clamp-1 text-sm max-sm:hidden">
@@ -136,6 +147,8 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
           enrollmentId={_id}
           user={user}
           viewApplicants={viewApplicants}
+          hasApplied={hasApplied}
+          hasSaved={hasSaved}
         />
       </CardFooter>
     </Card>

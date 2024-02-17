@@ -52,7 +52,7 @@ export default async function Home() {
         /> */}
       </div>
       HomeFilters
-      <div className="mt-10 flex w-full flex-col gap-6">
+      <div className="mt-10 flex w-full flex-col gap-8">
         {result?.length > 0 ? (
           result?.map((item: any) => <CourseCard key={item._id} event={item} viewApplicants={false} /> )
         ) : (

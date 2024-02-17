@@ -93,7 +93,7 @@ body {
   }
 
   .card-wrapper {
-    @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100;
+    /* @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100; */
     --tw-shadow: 0px 12px 20px 0px hsla(0, 0%, 72%, 0.03),
       0px 6px 12px 0px hsla(0, 0%, 72%, 0.02),
       0px 2px 4px 0px hsla(0, 0%, 72%, 0.03);

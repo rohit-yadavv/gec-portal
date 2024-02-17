@@ -13,11 +13,9 @@ const CardButtons = ({
   viewApplicants,
   user,
   applicant,
-}: any) => {
+  hasSaved, hasApplied,
+}: any) => { 
   const mongoUser = JSON.parse(user);
-
-  const hasSaved = mongoUser?.saved.includes(enrollmentId);
-  const hasApplied = mongoUser?.appliedGec.includes(enrollmentId);
 
   return (
     <>
@@ -58,7 +56,7 @@ const CardButtons = ({
       {/* for mobile  */}
       {/* ==================================================================================== */}
       <div className="flex w-full flex-row items-center justify-between sm:hidden">
-        <BookMark
+      <BookMark
           userId={mongoUser?._id}
           hasSaved={hasSaved}
           enrollmentId={enrollmentId}
@@ -84,7 +82,7 @@ const CardButtons = ({
               </Link>
             </SignedOut>
             <SignedIn>
-              <ApplyButton
+              <ApplyButton 
                 userId={mongoUser?._id}
                 enrollmentId={enrollmentId}
                 hasApplied={hasApplied}
