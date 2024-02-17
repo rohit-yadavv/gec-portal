@@ -7,8 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { capitalizeFirstLetter, formatDate, getTimeStamp } from "@/lib/utils";
-import Image from "next/image";
-import { ObjectId } from "mongoose";
+import Image from "next/image"; 
 import { SignedIn, SignedOut, auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import BookMark from "../BookMark";
@@ -18,10 +17,11 @@ import CardBadge from "./CardBadge";
 import OtherDetails from "./OtherDetails";
 import ViewApplicant from "../applicantsTable/ViewApplicant";
 import { Button } from "@/components/ui/button";
+import Accepted from "../acceptedTable/Accepted";
 
 interface Props {
   event: {
-    _id: ObjectId;
+    _id: string;
     courseName: string;
     courseCode: string;
     department: string;
@@ -36,7 +36,8 @@ interface Props {
     };
     uploadedAt: Date;
     applyBy: Date;
-    applicant: any;
+    selected: string[];
+    applicant: string[];
     courseCredit: number;
     seats: number;
     type: string;
@@ -45,8 +46,6 @@ interface Props {
 }
 
 const CourseCard = async ({ event, viewApplicants }: Props) => {
-
-  
   if (!event) return;
   const {
     _id,
@@ -63,12 +62,14 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
     uploadedAt,
     applyBy,
     applicant,
+    selected,
     seats,
   } = event;
-  
+
+  const appliedCount = applicant.length;
+
   const { userId } = auth();
   const mongoUser = JSON.parse(await getUserById({ userId }));
-  const appliedCount = applicant.length; 
 
   const hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
@@ -126,12 +127,21 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
         <p className="flex items-center gap-1">
           <span className=" line-clamp-1 text-sm max-sm:hidden">
-            Apply by {formatDate(applyBy)} <span className="text-xs text-dark-500 dark:text-light-700"> - posted {getTimeStamp(uploadedAt)}</span>
+            Apply by {formatDate(applyBy)}{" "}
+            <span className="text-xs text-dark-500 dark:text-light-700">
+              {" "}
+              - posted {getTimeStamp(uploadedAt)}
+            </span>
           </span>
         </p>
         <div className="hidden gap-3 sm:flex">
           {mongoUser?.admin ? (
-            viewApplicants&& <ViewApplicant enrollmentId={_id} applicant={applicant} />
+            viewApplicants && (
+              <>
+                <ViewApplicant enrollmentId={_id} applicant={applicant} />
+                <Accepted selected={selected} />
+              </>
+            )
           ) : (
             <>
               <SignedOut>
@@ -146,12 +156,14 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
                   userId={mongoUser?._id}
                   enrollmentId={_id}
                   hasApplied={hasApplied}
-                  isProfileComplete={mongoUser?.isProfileComplete} 
+                  isProfileComplete={mongoUser?.isProfileComplete}
                 />
+                <Accepted selected={selected} />
               </SignedIn>
             </>
           )}
         </div>
+        {/* for mobile  */}
         <div className="flex w-full flex-row items-center justify-between sm:hidden">
           <BookMark
             userId={mongoUser?._id}
@@ -165,7 +177,9 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
             hasApplied={hasApplied}
             isProfileComplete={mongoUser?.isProfileComplete}
           />
-          {viewApplicants && <ViewApplicant enrollmentId={_id} applicant={applicant} />}
+          {viewApplicants && (
+            <ViewApplicant enrollmentId={_id} applicant={applicant} />
+          )}
         </div>
       </CardFooter>
     </Card>

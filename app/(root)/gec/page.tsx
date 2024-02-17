@@ -4,7 +4,7 @@ import { getOnlyGec } from "@/lib/actions/enrollment.action";
 
 const page = async () => { 
   const result = JSON.parse(await getOnlyGec());    
-  console.log(result)
+  
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -17,7 +17,7 @@ const page = async () => {
         {result?.length > 0 ? (
           result?.map((item: any) => (
             <>
-              <CourseCard event={item} />
+              <CourseCard viewApplicants={false} event={item} />
             </>
           ))
         ) : (

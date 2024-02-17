@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs";
 const page = async () => {
   const { userId } = auth(); 
   const appliedEvents = JSON.parse(await getUserForm({ clerkId:userId })); 
- 
+  
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">

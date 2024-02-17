@@ -12,24 +12,23 @@ import {
 import { DataTable } from "./data-table";
 import { columns } from "./columns"; 
 
-interface Props {
-  enrollmentId:string;
-  applicant: string[];
+interface Props { 
+    selected: string[]
 }
 
-const ViewApplicant = ({ applicant, enrollmentId }: Props) => {  
+const Accepted = ({ selected }: Props) => {   
   return (
     <Drawer>
       <DrawerTrigger>
         <div className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
-          View Applicants
+          Selected Candidates
         </div>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>All Applicants</DrawerTitle>
+          <DrawerTitle>Accepted students</DrawerTitle>
           <DrawerDescription>
-            <DataTable columns={columns} data={applicant} enrollmentId={enrollmentId} />
+            <DataTable columns={columns} data={selected} />
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
@@ -42,4 +41,4 @@ const ViewApplicant = ({ applicant, enrollmentId }: Props) => {
   );
 };
 
-export default ViewApplicant;
+export default Accepted;

@@ -16,7 +16,7 @@ const page = async () => {
         {result?.length > 0 ? (
           result?.map((item: any) => (
             <>
-              <CourseCard event={item} />
+              <CourseCard viewApplicants={false} event={item} />
             </>
           ))
         ) : (

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   const { userId } = auth();
   const mongoUser = JSON.parse(await getUserById({ userId }));
-  const result = await getAllEvents();
+  const result = JSON.parse(await getAllEvents());
 
   return (
     <>

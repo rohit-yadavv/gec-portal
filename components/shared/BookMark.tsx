@@ -3,17 +3,16 @@
 import { 
   removeSaveEvent,
   saveEvent,
-} from "@/lib/actions/user.action";
-import { ObjectId } from "mongoose";
+} from "@/lib/actions/user.action"; 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 interface Props {
-  userId: ObjectId;
+  userId: string;
   hasSaved: boolean;
-  enrollmentId: ObjectId;
+  enrollmentId: string;
   size: number;
 }
 

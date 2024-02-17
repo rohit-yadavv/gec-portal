@@ -39,5 +39,10 @@ export const userSideLinks: SidebarLink[] = [
     route: "/saved",
     label: "Bookmarks",
   },
+  {
+    imgURL: "/assets/icons/applied.svg",
+    route: "/applied",
+    label: "Applied",
+  },
 
 ]

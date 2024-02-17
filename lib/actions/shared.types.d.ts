@@ -12,8 +12,8 @@ export interface CreateUserParams {
 export interface saveEventData {
   path: string;
   data: {
-    userId: ObjectId;
-    enrollmentId: ObjectId;
+    userId: string;
+    enrollmentId: string;
   };
 }
 
@@ -60,8 +60,8 @@ export interface createEnrollmentProps {
 
 export interface registerProps {
   path: string;
-  enrollmentId: ObjectId;
-  userId: ObjectId;
+  enrollmentId: string;
+  userId: string;
 }
 
 export interface acceptEnrollmentProps{

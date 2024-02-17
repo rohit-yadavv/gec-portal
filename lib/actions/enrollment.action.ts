@@ -26,10 +26,11 @@ export async function getAllEvents() {
     const events = await Enrollment.find()
       .populate({ path: "uploadedBy", model: User })
       .populate({ path: "applicant", model: User })
+      .populate({ path: "selected", model: User })
       .sort({ uploadedAt: -1 })
       .limit(5);
 
-    return events;
+    return JSON.stringify(events);
   } catch (error) {
     console.log(error);
     throw error;
@@ -88,6 +89,7 @@ export async function registerForEvent({ path, enrollmentId, userId }: registerP
     await User.findByIdAndUpdate(userId, {
       $addToSet: { appliedGec: enrollmentId },
     });
+    
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -142,7 +144,8 @@ export async function getUserForm({ clerkId }: Props) {
     const user = JSON.parse(await getUserById({userId:clerkId}))
     const enrollments = await Enrollment.find({ uploadedBy: user._id }) 
     .populate({ path: "uploadedBy", model: User }) 
-    .populate({ path: "applicant", model: User }); 
+    .populate({ path: "applicant", model: User }) 
+    .populate({ path: "selected", model: User }); 
     return JSON.stringify(enrollments);
   } catch (error) {
     console.log(error);

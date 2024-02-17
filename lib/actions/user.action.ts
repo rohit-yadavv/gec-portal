@@ -90,13 +90,7 @@ export async function getAppliedEnrollments({
   clerkId?: string | null;
 }) {
   try {
-    await connectToDatabase();
-    // uploadedBy: {
-    //   name: string;
-    //   picture: string;
-    //   email: string;
-    // };
-    // uploadedAt: Date;
+    await connectToDatabase(); 
     const user = await User.findOne({ clerkId }).populate({
       path: "appliedGec",
       model: Enrollment,
@@ -106,7 +100,7 @@ export async function getAppliedEnrollments({
     });
 
     const enrollments = user ? user.appliedGec : [];
-    return enrollments;
+    return JSON.stringify(enrollments);
   } catch (error) {
     console.error(error);
     throw error;

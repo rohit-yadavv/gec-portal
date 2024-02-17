@@ -1,16 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { registerForEvent } from "@/lib/actions/enrollment.action"; 
-import { ObjectId } from "mongoose";
+import { registerForEvent } from "@/lib/actions/enrollment.action";  
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 interface Props {
-  userId: ObjectId;
-  enrollmentId: ObjectId;
-  hasApplied: ObjectId;
+  userId: string;
+  enrollmentId: string;
+  hasApplied: string;
   isProfileComplete: boolean;
 }
 
@@ -21,7 +20,7 @@ const ApplyButton = ({
   isProfileComplete,
 }: Props) => {
   const path = usePathname();
-  const applyNow = async () => {
+  const applyNow = async () => { 
     await registerForEvent({ path, userId, enrollmentId });
     toast("Applied Successfully");
   };

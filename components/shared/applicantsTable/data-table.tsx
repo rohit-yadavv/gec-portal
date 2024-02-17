@@ -32,12 +32,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { downloadToExcel } from "@/lib/xlxs";   
-import { ObjectId } from "mongoose";
-
+ 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  enrollmentId:ObjectId;
+  data: any[];
+  enrollmentId:string;
 }
 
 export function DataTable<TData, TValue>({
