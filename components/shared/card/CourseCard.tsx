@@ -14,7 +14,7 @@ import CardBadge from "./CardBadge";
 import OtherDetails from "./OtherDetails";
 import CardButtons from "./CardButtons";
 import { auth } from "@clerk/nextjs";
-import { getUserById } from "@/lib/actions/user.action"; 
+import { getUserById } from "@/lib/actions/user.action";
 import ApplicationStatus from "./ApplicationStatus";
 
 interface Props {
@@ -71,13 +71,18 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
   const mongoUser = JSON.parse(user);
   const hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
-  const isAdmin=mongoUser?.admin;
+  const isAdmin = mongoUser?.admin;
+  const isSelected = selected?.includes(mongoUser?._id);
   return (
-    <Card className="card-wrapper relative"> 
+    <Card className="card-wrapper relative">
       {/* card header  */}
-      <ApplicationStatus isAdmin={isAdmin} hasApplied={hasApplied} selected={selected} userId={mongoUser?._id}/>
+      <ApplicationStatus
+        isAdmin={isAdmin}
+        hasApplied={hasApplied}
+        selected={selected}
+        userId={mongoUser?._id}
+      />
       <CardHeader className="flex flex-row justify-between">
-
         <div className="flex flex-row items-center gap-4">
           <Image
             src={uploadedBy?.picture}
@@ -97,16 +102,14 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
             </Link>
           </div>
         </div>
-        <div className="hidden sm:block">
+        <div>
           <BookMark
             userId={mongoUser?._id}
             hasSaved={hasSaved}
             enrollmentId={_id}
             size={20}
           />
-          
-        </div> 
-
+        </div>
       </CardHeader>
 
       {/* card content & description  */}
@@ -142,6 +145,7 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
           </span>
         </p>
         <CardButtons
+          isSelected={isSelected}
           selected={selected}
           applicant={applicant}
           enrollmentId={_id}

@@ -24,7 +24,7 @@ const DeleteForm = ({ enrollmentId }: { enrollmentId: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <div className="primary-gradient min-h-[46px] cursor-pointer rounded-lg px-4 py-3 !text-light-900">
+        <div className="primary-gradient min-h-[46px] cursor-pointer rounded-lg px-3 py-1 !text-light-900 sm:px-4 sm:py-3">
           Delete Form
         </div>
       </AlertDialogTrigger>

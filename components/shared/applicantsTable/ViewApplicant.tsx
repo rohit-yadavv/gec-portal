@@ -20,8 +20,8 @@ interface Props {
 const ViewApplicant = ({ applicant, enrollmentId }: Props) => {  
   return (
     <Drawer>
-      <DrawerTrigger>
-        <div className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
+      <DrawerTrigger> 
+        <div className="primary-gradient min-h-[46px] rounded-lg px-3 py-1 !text-light-900 sm:px-4 sm:py-3">
           View Applicants
         </div>
       </DrawerTrigger>

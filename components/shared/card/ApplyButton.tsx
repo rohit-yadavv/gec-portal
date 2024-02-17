@@ -1,34 +1,41 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { registerForEvent, unRegisterForEvent } from "@/lib/actions/enrollment.action";  
+import {
+  registerForEvent,
+  unRegisterForEvent,
+} from "@/lib/actions/enrollment.action";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 interface Props {
   userId: string;
+  isSelected:boolean;
   enrollmentId: string;
   hasApplied: string;
   isProfileComplete: boolean;
+  selected: any;
 }
 
 const ApplyButton = ({
+  selected,
+  isSelected,
   userId,
   enrollmentId,
   hasApplied,
   isProfileComplete,
-}: Props) => {
+}: Props) => { 
   const path = usePathname();
-  const applyNow = async () => { 
+  const applyNow = async () => {
     await registerForEvent({ path, userId, enrollmentId });
     toast("Applied Successfully");
   };
-  const unregisterNow = async () => { 
+  const unregisterNow = async () => {
     await unRegisterForEvent({ path, userId, enrollmentId });
-    toast("Unregister Successfull");
+    toast("Unregister Successful");
   };
- 
+
   if (!isProfileComplete) {
     return (
       <Link href="/details">
@@ -38,19 +45,30 @@ const ApplyButton = ({
       </Link>
     );
   }
-
-  if (hasApplied) {
-    return ( 
+  if (isSelected) {
+    return (
       <div className="cursor-not-allowed">
         <Button
-          onClick={unregisterNow}
+          disabled
           className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
         >
-          Unregister
+          Selected
         </Button>
       </div>
     );
   }
+
+  if (hasApplied) {
+    return (
+      <Button
+        onClick={unregisterNow}
+        className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
+      >
+        Unregister
+      </Button>
+    );
+  }
+
   return (
     <Button
       onClick={applyNow}
