@@ -7,17 +7,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { capitalizeFirstLetter, formatDate, getTimeStamp } from "@/lib/utils";
-import Image from "next/image"; 
-import { SignedIn, SignedOut, auth } from "@clerk/nextjs";
-import { getUserById } from "@/lib/actions/user.action";
+import Image from "next/image";
 import BookMark from "../BookMark";
-import ApplyButton from "./ApplyButton";
 import Link from "next/link";
 import CardBadge from "./CardBadge";
 import OtherDetails from "./OtherDetails";
-import ViewApplicant from "../applicantsTable/ViewApplicant";
-import { Button } from "@/components/ui/button";
-import Accepted from "../acceptedTable/Accepted";
+import CardButtons from "./CardButtons";
+import { auth } from "@clerk/nextjs";
+import { getUserById } from "@/lib/actions/user.action";
 
 interface Props {
   event: {
@@ -69,10 +66,9 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
   const appliedCount = applicant.length;
 
   const { userId } = auth();
-  const mongoUser = JSON.parse(await getUserById({ userId }));
-
+  const user = await getUserById({ userId });
+  const mongoUser = JSON.parse(user);
   const hasSaved = mongoUser?.saved.includes(_id);
-  const hasApplied = mongoUser?.appliedGec.includes(_id);
 
   return (
     <Card className="card-wrapper">
@@ -134,53 +130,13 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
             </span>
           </span>
         </p>
-        <div className="hidden gap-3 sm:flex">
-          {mongoUser?.admin ? (
-            viewApplicants && (
-              <>
-                <ViewApplicant enrollmentId={_id} applicant={applicant} />
-                <Accepted selected={selected} />
-              </>
-            )
-          ) : (
-            <>
-              <SignedOut>
-                <Link href="/sign-in">
-                  <Button className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
-                    Login To Apply
-                  </Button>
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <ApplyButton
-                  userId={mongoUser?._id}
-                  enrollmentId={_id}
-                  hasApplied={hasApplied}
-                  isProfileComplete={mongoUser?.isProfileComplete}
-                />
-                <Accepted selected={selected} />
-              </SignedIn>
-            </>
-          )}
-        </div>
-        {/* for mobile  */}
-        <div className="flex w-full flex-row items-center justify-between sm:hidden">
-          <BookMark
-            userId={mongoUser?._id}
-            hasSaved={hasSaved}
-            enrollmentId={_id}
-            size={25}
-          />
-          <ApplyButton
-            userId={mongoUser?._id}
-            enrollmentId={_id}
-            hasApplied={hasApplied}
-            isProfileComplete={mongoUser?.isProfileComplete}
-          />
-          {viewApplicants && (
-            <ViewApplicant enrollmentId={_id} applicant={applicant} />
-          )}
-        </div>
+        <CardButtons
+          selected={selected}
+          applicant={applicant}
+          enrollmentId={_id}
+          user={user}
+          viewApplicants={viewApplicants}
+        />
       </CardFooter>
     </Card>
   );

@@ -129,15 +129,15 @@ body {
     height: 3px;
     border-radius: 2px;
   }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #ffffff;
+  .custom-scrollbar::-webkit-scrollbar-track { 
+    @apply bg-light-900 dark:bg-dark-100;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 50px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    @apply dark:bg-light-900 bg-dark-100;
   }
 
   /* Clerk */
@@ -157,4 +157,8 @@ body {
     -ms-overflow-style: none; /*Hide scrollbar for IE and Edge */
     scrollbar-width: none; /*Hide scrollbar for Firefox */
   }
+}
+
+body{
+  @apply custom-scrollbar;
 }

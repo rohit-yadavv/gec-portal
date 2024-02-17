@@ -40,7 +40,7 @@ const NavContent = () => {
                 height={20}
                 className={`${isActive ? "" : "invert dark:invert-0"}`}
               />
-              <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+              <p className={`${isActive ? "text-[18px] font-bold" : "text-[18px] font-medium"}`}>
                 {item.label}
               </p>
             </Link>
@@ -74,7 +74,7 @@ const MobileNav = () => {
             height={33}
             alt="WebOverflow"
           />
-          <p className="h2-bold text-dark-100 dark:text-light-900 max-sm:hidden">
+          <p className="text-[30px] font-bold leading-[42px] text-dark-100 dark:text-light-900 max-sm:hidden">
             Gec <span className="text-primary-500">Portal</span>
           </p>
         </Link>
