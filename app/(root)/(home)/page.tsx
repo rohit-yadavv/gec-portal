@@ -42,7 +42,7 @@ export default async function Home() {
           route="/"
           iconPosition="left"
           imgSrc="assets/icons/search.svg"
-          placeholder="search for questions"
+          placeholder="search for questions" 
           otherClasses="flex-1"
         /> */}
         {/* <Filter

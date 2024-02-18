@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut } from "@clerk/nextjs"; 
 import SideBarLinks from "./SideBarLinks";
 const LeftSideBar = async () => {
   return (

@@ -6,55 +6,17 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-import { sidebarLinks } from "@/constants";
+ 
 import { SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import React from "react";
-
-const NavContent = () => {
-  const pathName = usePathname();
-  return (
-    <section className="flex h-full flex-col gap-6 bg-light-900  pt-16 dark:bg-dark-100">
-      {sidebarLinks.map((item) => {
-        const isActive =
-          (pathName.includes(item.route) && item.route.length > 1) ||
-          pathName === item.route;
-        // todo
-        return (
-          <SheetClose asChild key={item.route}>
-            <Link
-              href={item.route}
-              className={`${
-                isActive
-                  ? "primary-gradient rounded-lg text-light-900"
-                  : "text-dark-300 dark:text-light-900"
-              } flex items-center justify-start gap-4 bg-transparent p-4`}
-            >
-              <Image
-                src={item.imgURL}
-                alt={item.label}
-                width={20}
-                height={20}
-                className={`${isActive ? "" : "invert dark:invert-0"}`}
-              />
-              <p className={`${isActive ? "text-[18px] font-bold" : "text-[18px] font-medium"}`}>
-                {item.label}
-              </p>
-            </Link>
-          </SheetClose>
-        );
-      })}
-    </section>
-  );
-};
+import Image from "next/image"; 
+import React from "react"; 
+import MobileSideBarLinks from "./MobileSideBarLinks";
 
 const MobileNav = () => {
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="">
         <Image
           className="invert dark:invert-0 sm:hidden"
           src="/assets/icons/hamburger.svg"
@@ -79,7 +41,7 @@ const MobileNav = () => {
           </p>
         </Link>
         <div>
-          <NavContent />
+          <MobileSideBarLinks />
           <SignedOut>
             <div className="flex flex-col gap-3 py-3">
               <SheetClose asChild>
