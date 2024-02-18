@@ -1,5 +1,5 @@
 import xlsx, { IJsonSheet } from "json-as-xlsx";
-export function downloadToExcel(data:any) {
+export function downloadToExcel(data:any, fileName:string) {
   
   const columns: IJsonSheet[] = [
     {
@@ -15,7 +15,7 @@ export function downloadToExcel(data:any) {
     },
   ];
   const settings = {
-    fileName: "All Applicants",
+    fileName: `${fileName}`,
   };
   xlsx(columns, settings);
 }

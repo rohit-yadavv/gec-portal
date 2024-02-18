@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
           />
         </div>
 
-        <Button className="ml-4" onClick={() => downloadToExcel(data)}>
+        <Button className="ml-4" onClick={() => downloadToExcel(data, "All Applied Students")}>
           Download Excel Sheet
         </Button>
         {/* for column visibility  */}

@@ -30,18 +30,19 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { downloadToExcel } from "@/lib/xlxs";    
+import { downloadToExcel } from "@/lib/xlxs";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: any[]; 
+  data: any[];
+  showDownloadExcel:boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data, 
-}: DataTableProps<TData, TValue>) { 
-
+  data,
+  showDownloadExcel,
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -51,7 +52,7 @@ export function DataTable<TData, TValue>({
 
   const table = useReactTable({
     data,
-    columns, 
+    columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
@@ -70,7 +71,7 @@ export function DataTable<TData, TValue>({
       },
     },
   });
-  
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -85,10 +86,11 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </div>
-
-        <Button className="ml-4" onClick={() => downloadToExcel(data)}>
-          Download Excel Sheet
-        </Button>
+        {showDownloadExcel && (
+          <Button className="ml-4" onClick={() => downloadToExcel(data, "Accepted Students")}>
+            Download Excel Sheet
+          </Button>
+        )}
         {/* for column visibility  */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -143,7 +145,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"} 
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -179,7 +181,7 @@ export function DataTable<TData, TValue>({
         >
           Previous
         </Button>
-   
+
         <Button
           variant="outline"
           size="sm"
@@ -187,7 +189,7 @@ export function DataTable<TData, TValue>({
           disabled={!table.getCanNextPage()}
         >
           Next
-        </Button> 
+        </Button>
       </div>
     </>
   );

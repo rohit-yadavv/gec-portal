@@ -13,10 +13,11 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns"; 
  
 interface Props { 
-    selected: string[]
+    selected: string[];
+    showDownloadExcel:boolean;
 }
 
-const Accepted = ({ selected }: Props) => {   
+const Accepted = ({ selected, showDownloadExcel }: Props) => {   
   return (
     <Drawer>
       <DrawerTrigger>
@@ -28,7 +29,7 @@ const Accepted = ({ selected }: Props) => {
         <DrawerHeader>
           <DrawerTitle>Accepted students</DrawerTitle>
           <DrawerDescription>
-            <DataTable columns={columns} data={selected} />
+            <DataTable showDownloadExcel={showDownloadExcel} columns={columns} data={selected} />
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
