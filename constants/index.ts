@@ -1,39 +1,36 @@
 import { SidebarLink } from "@/types";
+
 export const themes = [
   { value: "light", label: "Light", icon: "/assets/icons/sun.svg" },
   { value: "dark", label: "Dark", icon: "/assets/icons/moon.svg" },
   { value: "system", label: "System", icon: "/assets/icons/computer.svg" },
 ];
 
-export const sidebarLinks: SidebarLink[] = [
+export const adminSideLinks: SidebarLink[] = [
   {
-    imgURL: "/assets/icons/home.svg",
-    route: "/",
-    label: "Home", 
-  },  
-  // {
-  //   imgURL: "/assets/icons/tag.svg",
-  //   route: "/gec",
-  //   label: "All GECs",
-  // },
-  // {
-  //   imgURL: "/assets/icons/tag.svg",
-  //   route: "/vac",
-  //   label: "All VACs",
-  // },
-  // {
-  //   imgURL: "/assets/icons/tag.svg",
-  //   route: "/event",
-  //   label: "All Events",
-  // },  
-];
- 
+    imgURL: "/assets/icons/user.svg",
+    route: "/details",
+    label: "Your Details",
+  },
+  {
+    imgURL: "/assets/icons/star.svg",
+    route: "/saved",
+    label: "Bookmarks",
+  },
+  {
+    imgURL: "/assets/icons/applied.svg",
+    route: "/forms",
+    label: "Your Forms",
+  },
+
+]
+
 export const userSideLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/user.svg",
     route: "/details",
-    label: "Your Details", 
-  }, 
+    label: "Your Details",
+  },
   {
     imgURL: "/assets/icons/star.svg",
     route: "/saved",
@@ -48,9 +45,9 @@ export const userSideLinks: SidebarLink[] = [
 ]
 
 export const HomePageFilters = [
-  { name: "Newest", value: "newest" }, 
-  { name: "UG", value: "ug" },
-  { name: "PG", value: "pg" },
-  { name: "GECs", value: "gec" },
-  { name: "VACs", value: "vac" },
+  { name: "Newest", value: "newest", desc:"Filter by Newest First" },
+  { name: "UG", value: "ug", desc:"show only for ug" },
+  { name: "PG", value: "pg", desc:"show only for pg" },
+  { name: "GECs", value: "gec" , desc:"show only GECs"},
+  { name: "VACs", value: "vac" ,desc:"show only VACs"},
 ];

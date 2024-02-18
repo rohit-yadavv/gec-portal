@@ -2,12 +2,17 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut, auth } from "@clerk/nextjs";
 import SideBarLinks from "./SideBarLinks";
+import { getUserById } from "@/lib/actions/user.action";
 const LeftSideBar = async () => {
+  const { userId } = auth();
+  const user = JSON.parse(await getUserById({userId}));
+  const isAdmin=user?.admin;
   return (
     <section className="custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-light-800 p-6 pt-32 dark:border-dark-200 dark:shadow-none max-sm:hidden lg:w-[266px]">
-      <SideBarLinks />
+      <SideBarLinks isAdmin={isAdmin}/>
+
       <SignedOut>
         <div className="my-3 flex flex-col gap-3">
           <Link href="/sign-in">

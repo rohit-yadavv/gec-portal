@@ -6,8 +6,7 @@ import { getAllEvents } from "@/lib/actions/enrollment.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
-import { Metadata } from "next";
-import Link from "next/link"; 
+import { Metadata } from "next"; 
 
 export const metadata: Metadata = {
   title: "Home | Gec-Portal",
@@ -26,16 +25,7 @@ export default async function Home({searchParams}:SearchParamsProps) {
           Opportunities
         </h1>
         <div className="flex justify-end gap-3 max-sm:w-full">
-          {mongoUser?.admin && <EnrollmentDialog userId={mongoUser._id} />}
-          {/* @ts-ignore */}
-          {mongoUser?.admin && (
-            <Link
-              href="/forms"
-              className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900"
-            >
-              Your Forms
-            </Link>
-          )}
+          {mongoUser?.admin && <EnrollmentDialog userId={mongoUser._id} />} 
         </div>
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">

@@ -1,4 +1,4 @@
-export interface SidebarLink {
+export interface SidebarLink { 
   imgURL: string;
   route: string;
   label: string;

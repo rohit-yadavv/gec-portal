@@ -1,9 +1,10 @@
-"use client";
-import { Button } from "../ui/button";
+"use client"; 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { formUrlQuery } from "@/lib/utils";
 import { HomePageFilters } from "@/constants";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Badge } from "../ui/badge";
 
 const HomeFilters = () => {
   const searchParams = useSearchParams();
@@ -34,17 +35,25 @@ const HomeFilters = () => {
   return (
     <div className="mt-10 hidden flex-wrap gap-3 md:flex">
       {HomePageFilters.map((item) => (
-        <Button
-          className={`rounded-lg px-6 py-3 capitalize shadow-none  ${
-            active === item.value
-              ? "bg-primary-100 text-primary-500 hover:bg-primary-100  dark:bg-dark-200 dark:text-primary-500 dark:hover:bg-dark-200"
-              : "bg-light-800 text-light-500 hover:bg-primary-100 dark:bg-[#212734] dark:text-light-500 dark:hover:bg-dark-200"
-          }`}
-          key={item.value}
-          onClick={() => handleTypeClick(item.value)}
-        >
-          {item.name}
-        </Button>
+        <TooltipProvider key={item.value}>
+          <Tooltip>
+            <TooltipTrigger>
+              <Badge
+                className={`px-6 py-3 text-sm font-normal capitalize shadow-none ${
+                  active === item.value
+                    ? "bg-primary-100 text-primary-500 hover:bg-primary-100  dark:bg-dark-200 dark:text-primary-500 dark:hover:bg-dark-200"
+                    : "bg-light-800 text-light-500 hover:bg-primary-100 dark:bg-[#212734] dark:text-light-500 dark:hover:bg-dark-200"
+                }`}
+                onClick={() => handleTypeClick(item.value)}
+              >
+                {item.name}
+              </Badge>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{item.desc}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       ))}
     </div>
   );
