@@ -4,8 +4,9 @@ import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import User from "@/database/user.model";
-import { acceptEnrollmentProps, createEnrollmentProps, deleteEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
+import { GetEnrollmentsParams, acceptEnrollmentProps, createEnrollmentProps, deleteEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
 import { getUserById } from "./user.action";
+import { FilterQuery } from "mongoose";
 
 export async function createEvent(enrollmentData: createEnrollmentProps) {
   try {
@@ -44,19 +45,49 @@ export async function deleteEvent({path, enrollmentId}: deleteEnrollmentProps) {
 
 }
 
-export async function getAllEvents() {
+export async function getAllEvents(params: GetEnrollmentsParams) {
   try {
     connectToDatabase();
-    const events = await Enrollment.find()
+    const { filter } = params;
+
+    const query: FilterQuery<typeof Enrollment> = {};
+    let sortOptions = {};
+
+    switch (filter) {
+      case "newest":
+        sortOptions = { uploadedAt: -1 };
+        break;
+
+      // case "applied":
+      //   query.applicant = { $in: [userId] };
+      //   break;
+        
+      case "ug":
+        query.eligible = 'ug';
+        break;
+        
+      case "pg": 
+        query.eligible = 'pg';
+        break;
+
+      case "gec":
+        query.type = 'gec';
+        break;
+        
+      case "vac": 
+        query.type = 'vac';
+        break;
+    }
+
+    const events = await Enrollment.find(query)
       .populate({ path: "uploadedBy", model: User })
       .populate({ path: "applicant", model: User })
       .populate({ path: "selected", model: User })
-      .sort({ uploadedAt: -1 })
-      .limit(5);
+      .sort(sortOptions);
 
     return JSON.stringify(events);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }

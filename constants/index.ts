@@ -11,16 +11,16 @@ export const sidebarLinks: SidebarLink[] = [
     route: "/",
     label: "Home", 
   },  
-  {
-    imgURL: "/assets/icons/tag.svg",
-    route: "/gec",
-    label: "All GECs",
-  },
-  {
-    imgURL: "/assets/icons/tag.svg",
-    route: "/vac",
-    label: "All VACs",
-  },
+  // {
+  //   imgURL: "/assets/icons/tag.svg",
+  //   route: "/gec",
+  //   label: "All GECs",
+  // },
+  // {
+  //   imgURL: "/assets/icons/tag.svg",
+  //   route: "/vac",
+  //   label: "All VACs",
+  // },
   // {
   //   imgURL: "/assets/icons/tag.svg",
   //   route: "/event",
@@ -46,3 +46,11 @@ export const userSideLinks: SidebarLink[] = [
   },
 
 ]
+
+export const HomePageFilters = [
+  { name: "Newest", value: "newest" }, 
+  { name: "UG", value: "ug" },
+  { name: "PG", value: "pg" },
+  { name: "GECs", value: "gec" },
+  { name: "VACs", value: "vac" },
+];

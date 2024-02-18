@@ -63,6 +63,14 @@ export interface deleteEnrollmentProps {
   enrollmentId:string;
 }
 
+export interface GetEnrollmentsParams {
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: string;
+  // userId?:string;
+}
+
 export interface registerProps {
   path: string;
   enrollmentId: string;

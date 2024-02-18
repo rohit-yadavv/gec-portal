@@ -1,22 +1,23 @@
-// import Enrollment from "@/components/shared/Enrollment";
 import EnrollmentDialog from "@/components/shared/EnrollmentDialog";
+import HomeFilters from "@/components/shared/HomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard";
 import { getAllEvents } from "@/lib/actions/enrollment.action";
 import { getUserById } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import { Metadata } from "next";
-import Link from "next/link";
+import Link from "next/link"; 
 
 export const metadata: Metadata = {
   title: "Home | Gec-Portal",
   description: "Portal to register for gec designed for cuh students",
 };
 
-export default async function Home() {
+export default async function Home({searchParams}:SearchParamsProps) { 
   const { userId } = auth();
   const mongoUser = JSON.parse(await getUserById({ userId }));
-  const result = JSON.parse(await getAllEvents());
+  const result = JSON.parse(await getAllEvents({ filter: searchParams.filter }));
 
   return (
     <>
@@ -51,10 +52,12 @@ export default async function Home() {
           containerClasses="hidden max-md:flex"
         /> */}
       </div>
-      HomeFilters
+      <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-8">
         {result?.length > 0 ? (
-          result?.map((item: any) => <CourseCard key={item._id} event={item} viewApplicants={false} /> )
+          result?.map((item: any) => (
+            <CourseCard key={item._id} event={item} viewApplicants={false} />
+          ))
         ) : (
           <NoResult
             title="Nothing to Show 🙄"

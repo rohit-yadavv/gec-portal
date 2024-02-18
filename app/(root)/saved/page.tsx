@@ -1,3 +1,4 @@
+import HomeFilters from "@/components/shared/HomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard";
 import { getSavedEvents } from "@/lib/actions/user.action";
@@ -13,7 +14,7 @@ const page = async () => {
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center"> 
       </div>
-      HomeFilters
+      <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
         {savedEvents?.length > 0 ? (
           savedEvents?.map((item: any) => (
