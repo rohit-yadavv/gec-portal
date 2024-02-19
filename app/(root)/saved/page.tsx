@@ -8,7 +8,7 @@ import { auth } from "@clerk/nextjs";
 
 const page = async () => {
   const { userId } = auth();
-  const savedEvents = await getSavedEvents({ clerkId: userId });   
+  const savedEvents = JSON.parse(await getSavedEvents({ clerkId: userId }));
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -20,10 +20,8 @@ const page = async () => {
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
         {savedEvents?.length > 0 ? (
-          savedEvents?.map((item: any) => (
-            <>
-              <CourseCard viewApplicants={false} event={item} />
-            </>
+          savedEvents?.map((item: any) => ( 
+            <CourseCard key={item._id} event={item} />
           ))
         ) : (
           <NoResult

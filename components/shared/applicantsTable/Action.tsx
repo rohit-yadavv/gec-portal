@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import {
   acceptEnrollment,
+  isUserRejectedInEnrollment,
   isUserSelectedInEnrollment,
   rejectEnrollment,
 } from "@/lib/actions/enrollment.action";
@@ -25,14 +26,20 @@ interface Props {
 const Action = ({ userId, enrollmentId }: Props) => {
   const path = usePathname();
   const [isSelected, setIsSelected] = useState();
+  const [isRejected, setIsRejected] = useState();
 
   const selected = async () => {
     const res = await isUserSelectedInEnrollment({ userId, enrollmentId });
     setIsSelected(res);
   };
+  const rejected = async () => {
+    const res = await isUserRejectedInEnrollment({ userId, enrollmentId });
+    setIsRejected(res);
+  };
 
   useEffect(() => {
     selected();
+    rejected();
   }, []);
 
   const handleAccept = async () => {
@@ -56,7 +63,10 @@ const Action = ({ userId, enrollmentId }: Props) => {
         <DropdownMenuItem onClick={handleAccept}>
           {isSelected ? "Accepted" : "Accept"}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleReject}>Reject</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleReject}>
+          {" "}
+          {isRejected ? "Rejected" : "Reject"}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

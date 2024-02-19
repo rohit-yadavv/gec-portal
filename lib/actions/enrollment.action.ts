@@ -157,6 +157,7 @@ export async function acceptEnrollment({ path, userId, enrollmentId }: acceptEnr
     connectToDatabase();
     await Enrollment.findByIdAndUpdate(enrollmentId, {
       $addToSet: { selected: userId },
+      $pull : {rejected: userId},
     });
     revalidatePath(path)
   } catch (error) {
@@ -170,6 +171,7 @@ export async function rejectEnrollment({ path, userId, enrollmentId }: acceptEnr
     connectToDatabase();
     await Enrollment.findByIdAndUpdate(enrollmentId, {
       $pull: { selected: userId },
+      $addToSet: {rejected:userId},
     });
     revalidatePath(path)
   } catch (error) {
@@ -183,6 +185,19 @@ export async function isUserSelectedInEnrollment({ userId, enrollmentId }: userI
     connectToDatabase();
     const res = await Enrollment.findById(enrollmentId)
     const data = res.selected.includes(userId)
+    return data;
+
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function isUserRejectedInEnrollment({ userId, enrollmentId }: userInEnrollmentProps) {
+  try {
+    connectToDatabase();
+    const res = await Enrollment.findById(enrollmentId)
+    const data = res.rejected.includes(userId)
     return data;
 
   } catch (error) {

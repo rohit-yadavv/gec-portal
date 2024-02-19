@@ -4,8 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { SignedIn } from "@clerk/nextjs";
+import EnrollmentDialog from "../EnrollmentDialog";
 
-const SideBarLinks = ({ isAdmin }: { isAdmin: boolean }) => {
+const SideBarLinks = ({
+  isAdmin,
+  userId,
+}: {
+  isAdmin: boolean;
+  userId: string;
+}) => {
   const pathName = usePathname();
 
   return (
@@ -15,7 +22,7 @@ const SideBarLinks = ({ isAdmin }: { isAdmin: boolean }) => {
         key="home"
         href="/"
         className={`${
-          pathName==="/"
+          pathName === "/"
             ? "primary-gradient text-light-900"
             : "text-dark-300 dark:text-light-900"
         } flex items-center justify-start gap-4 rounded-lg border border-transparent bg-transparent p-4 hover:border-[#FF7000]`}
@@ -25,11 +32,11 @@ const SideBarLinks = ({ isAdmin }: { isAdmin: boolean }) => {
           alt="home"
           width={20}
           height={20}
-          className={`${pathName==="/" ? "" : "invert dark:invert-0"}`}
+          className={`${pathName === "/" ? "" : "invert dark:invert-0"}`}
         />
         <p
           className={`${
-            pathName==="/"
+            pathName === "/"
               ? "text-[18px] font-bold leading-[140%]"
               : "text-[18px] font-medium leading-[25.2px]"
           } max-lg:hidden `}
@@ -75,7 +82,7 @@ const SideBarLinks = ({ isAdmin }: { isAdmin: boolean }) => {
                   </p>
                 </Link>
               );
-            }) 
+            })
           : userSideLinks.map((item) => {
               const isActive =
                 (pathName.includes(item.route) && item.route.length > 1) ||
@@ -110,6 +117,7 @@ const SideBarLinks = ({ isAdmin }: { isAdmin: boolean }) => {
                 </Link>
               );
             })}
+        {isAdmin && <EnrollmentDialog userId={userId} />}
       </SignedIn>
     </div>
   );

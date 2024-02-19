@@ -8,10 +8,11 @@ import { getUserById } from "@/lib/actions/user.action";
 const LeftSideBar = async () => {
   const { userId } = auth();
   const user = JSON.parse(await getUserById({userId}));
+  const mongoId=user?._id;
   const isAdmin=user?.admin;
   return (
     <section className="custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-light-800 p-6 pt-32 dark:border-dark-200 dark:shadow-none max-sm:hidden lg:w-[266px]">
-      <SideBarLinks isAdmin={isAdmin}/>
+      <SideBarLinks userId={mongoId} isAdmin={isAdmin}/>
 
       <SignedOut>
         <div className="my-3 flex flex-col gap-3">

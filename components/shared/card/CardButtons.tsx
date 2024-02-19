@@ -25,7 +25,7 @@ const CardButtons = ({
         viewApplicants && (
           <>
             <ViewApplicant enrollmentId={enrollmentId} applicant={applicant} />
-            <Accepted showDownloadExcel={true} selected={selected} />
+            <Accepted isAdmin={true} selected={selected} />
             <DeleteForm enrollmentId={enrollmentId} />
           </>
         )
@@ -47,7 +47,7 @@ const CardButtons = ({
               hasApplied={hasApplied}
               isProfileComplete={mongoUser?.isProfileComplete}
             />
-            {selected.length > 0 && <Accepted showDownloadExcel={false} selected={selected} />}
+            {selected.length > 0 && <Accepted isAdmin={false} selected={selected} />}
           </SignedIn>
         </>
       )}

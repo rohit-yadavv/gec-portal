@@ -14,6 +14,7 @@ export interface IEnrollment extends Document {
   uploadedBy: ObjectId;
   applicant: Schema.Types.ObjectId[];
   selected: Schema.Types.ObjectId[];
+  rejected: Schema.Types.ObjectId[];
   applyBy: Date;
   uploadedAt: Date;
 }
@@ -31,6 +32,7 @@ const EnrollmentSchema = new Schema({
   seats: { type: String },
   applicant: [{ type: Schema.Types.ObjectId, ref: "User" }],
   selected: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  rejected: [{ type: Schema.Types.ObjectId, ref: "User" }],
   uploadedBy: { type: Schema.Types.ObjectId, ref: "User" },
   applyBy: { type: Date },
   uploadedAt: { type: Date, default: Date.now() },

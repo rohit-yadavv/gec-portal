@@ -6,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import EnrollmentDialog from "../EnrollmentDialog";
 
-const MobileSideBarLinks = ({isAdmin}:{isAdmin:any}) => {
-  const pathName = usePathname(); 
-  
+const MobileSideBarLinks = ({ isAdmin, userId }: { isAdmin: any, userId:string }) => {
+  const pathName = usePathname();
+
   return (
     <section className="flex h-full flex-col gap-6 bg-light-900  pt-16 dark:bg-dark-100">
       {/* home route  */}
@@ -115,50 +116,49 @@ const MobileSideBarLinks = ({isAdmin}:{isAdmin:any}) => {
                 </SheetClose>
               );
             })}
-      </SignedIn> 
-
+        {isAdmin && <EnrollmentDialog userId={userId} />}
+      </SignedIn>
 
       <SignedOut>
-          <SheetClose asChild key="/">
-            <Link href="/sign-in">
-              <Button
-                className="h-[60px] w-full flex-row
+        <SheetClose asChild key="/">
+          <Link href="/sign-in">
+            <Button
+              className="h-[60px] w-full flex-row
             items-center justify-center gap-2 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
-              >
-                <Image
-                  src="/assets/icons/account.svg"
-                  width={25}
-                  height={25}
-                  className="invert dark:invert-0"
-                  alt="login"
-                />
-                <span className="primary-text-gradient flex h-[60px] items-center text-[25px]">
-                  Sign In
-                </span>
-              </Button>
-            </Link>
-          </SheetClose>
-          <SheetClose asChild key="/">
-            <Link href="/sign-up">
-              <Button
-                className="h-[60px] w-full flex-row
+            >
+              <Image
+                src="/assets/icons/account.svg"
+                width={25}
+                height={25}
+                className="invert dark:invert-0"
+                alt="login"
+              />
+              <span className="primary-text-gradient flex h-[60px] items-center text-[25px]">
+                Sign In
+              </span>
+            </Button>
+          </Link>
+        </SheetClose>
+        <SheetClose asChild key="/">
+          <Link href="/sign-up">
+            <Button
+              className="h-[60px] w-full flex-row
             items-center justify-center gap-2 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
-              >
-                <Image
-                  src="/assets/icons/sign-up.svg"
-                  width={25}
-                  height={25}
-                  className="invert dark:invert-0"
-                  alt="signup"
-                />
-                <span className="primary-text-gradient flex h-[60px] items-center text-[25px] ">
-                  Sign Up
-                </span>
-              </Button>
-            </Link>
-          </SheetClose>
-        </SignedOut>
-
+            >
+              <Image
+                src="/assets/icons/sign-up.svg"
+                width={25}
+                height={25}
+                className="invert dark:invert-0"
+                alt="signup"
+              />
+              <span className="primary-text-gradient flex h-[60px] items-center text-[25px] ">
+                Sign Up
+              </span>
+            </Button>
+          </Link>
+        </SheetClose>
+      </SignedOut>
     </section>
   );
 };

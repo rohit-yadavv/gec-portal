@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"; 
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -10,26 +10,31 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { DataTable } from "./data-table";
-import { columns } from "./columns"; 
- 
-interface Props { 
-    selected: string[];
-    showDownloadExcel:boolean;
+import { columns } from "./columns";
+
+interface Props {
+  selected: string[];
+  isAdmin: boolean;
 }
 
-const Accepted = ({ selected, showDownloadExcel }: Props) => {   
+const Accepted = ({ selected, isAdmin }: Props) => {
   return (
     <Drawer>
       <DrawerTrigger>
-        <div className="primary-gradient min-h-[46px] rounded-lg px-3 py-1 !text-light-900 sm:px-4 sm:py-3">
-          Selected Candidates
-        </div>
+        {isAdmin && (
+          <div className="primary-gradient min-h-[46px] rounded-lg px-3 py-1 !text-light-900 sm:px-4 sm:py-3">
+            Selected Candidates
+          </div>
+        )}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Accepted students</DrawerTitle>
           <DrawerDescription>
-            <DataTable showDownloadExcel={showDownloadExcel} columns={columns} data={selected} />
+            <DataTable 
+              columns={columns}
+              data={selected}
+            />
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>

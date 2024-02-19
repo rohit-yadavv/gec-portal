@@ -77,7 +77,7 @@ export async function getSavedEvents({ clerkId }: { clerkId?: string | null }) {
       ],
     });
     const savedEvents = user.saved;
-    return savedEvents;
+    return JSON.stringify(savedEvents);
   } catch (error) {
     console.log(error);
     throw error;

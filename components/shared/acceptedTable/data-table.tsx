@@ -34,14 +34,12 @@ import { downloadToExcel } from "@/lib/xlxs";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: any[];
-  showDownloadExcel:boolean;
+  data: any[]; 
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  showDownloadExcel,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -86,11 +84,12 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </div>
-        {showDownloadExcel && (
-          <Button className="ml-4" onClick={() => downloadToExcel(data, "Accepted Students")}>
-            Download Excel Sheet
-          </Button>
-        )}
+        <Button
+          className="ml-4"
+          onClick={() => downloadToExcel(data, "Accepted Students")}
+        >
+          Download Excel Sheet
+        </Button>
         {/* for column visibility  */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

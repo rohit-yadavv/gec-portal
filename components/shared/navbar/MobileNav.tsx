@@ -14,11 +14,13 @@ import { getUserById } from "@/lib/actions/user.action";
 
 const MobileNav = () => {
   const [isAdmin, setIsAdmin] = useState();
+  const [mongoId, setMongoId] = useState();
   const { userId } = useAuth();
 
   const getAdminInfo = async () => {
     const user = JSON.parse(await getUserById({ userId }));
     setIsAdmin(user?.admin);
+    setMongoId(user?._id)
   };
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const MobileNav = () => {
         </Link>
 
 
-        <MobileSideBarLinks isAdmin={isAdmin} />
+        <MobileSideBarLinks isAdmin={isAdmin}  userId={mongoId} />
 
       </SheetContent>
     </Sheet>

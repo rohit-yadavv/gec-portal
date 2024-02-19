@@ -28,6 +28,7 @@ interface Props {
     eligible: string;
     sem: number;
     uploadedBy: {
+      _id: string;
       name: string;
       picture: string;
       email: string;
@@ -39,11 +40,10 @@ interface Props {
     courseCredit: number;
     seats: number;
     type: string;
-  };
-  viewApplicants: boolean;
+  }; 
 }
 
-const CourseCard = async ({ event, viewApplicants }: Props) => {
+const CourseCard = async ({ event }: Props) => {
   if (!event) return;
   const {
     _id,
@@ -62,8 +62,7 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
     applicant,
     selected,
     seats,
-  } = event;
-
+  } = event; 
   const appliedCount = applicant.length;
 
   const { userId } = auth();
@@ -73,6 +72,7 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
   const hasApplied = mongoUser?.appliedGec.includes(_id);
   const isAdmin = mongoUser?.admin;
   const isSelected = selected?.includes(mongoUser?._id);
+  const isUploader = uploadedBy?._id === mongoUser?._id;
   return (
     <Card className="card-wrapper relative">
       {/* card header  */}
@@ -144,16 +144,32 @@ const CourseCard = async ({ event, viewApplicants }: Props) => {
             </span>
           </span>
         </p>
-        <CardButtons
-          isSelected={isSelected}
-          selected={selected}
-          applicant={applicant}
-          enrollmentId={_id}
-          user={user}
-          viewApplicants={viewApplicants}
-          hasApplied={hasApplied}
-          hasSaved={hasSaved}
-        />
+        {isAdmin ? (
+          isUploader ? (
+            <CardButtons
+              selected={selected}
+              applicant={applicant}
+              enrollmentId={_id}
+              user={user}
+              viewApplicants={true}
+              hasApplied={hasApplied}
+              hasSaved={hasSaved}
+            />
+          ) : (
+            <CardButtons enrollmentId={_id} user={user} hasSaved={hasSaved} />
+          )
+        ) : (
+          <CardButtons
+            isSelected={isSelected}
+            selected={selected}
+            applicant={applicant}
+            enrollmentId={_id}
+            user={user}
+            viewApplicants={false}
+            hasApplied={hasApplied}
+            hasSaved={hasSaved}
+          />
+        )}
       </CardFooter>
     </Card>
   );

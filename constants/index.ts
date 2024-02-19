@@ -6,11 +6,11 @@ export const themes = [
   { value: "system", label: "System", icon: "/assets/icons/computer.svg" },
 ];
 
-export const adminSideLinks: SidebarLink[] = [
+export const adminSideLinks: SidebarLink[] = [ 
   {
-    imgURL: "/assets/icons/user.svg",
-    route: "/details",
-    label: "Your Details",
+    imgURL: "/assets/icons/applied.svg",
+    route: "/all-forms",
+    label: "All Forms",
   },
   {
     imgURL: "/assets/icons/star.svg",
@@ -21,7 +21,7 @@ export const adminSideLinks: SidebarLink[] = [
     imgURL: "/assets/icons/applied.svg",
     route: "/forms",
     label: "Your Forms",
-  },
+  }, 
 
 ]
 
