@@ -1,5 +1,5 @@
 import { SheetClose } from "@/components/ui/sheet";
-import { sidebarLinks, userSideLinks } from "@/constants";
+import {  userSideLinks } from "@/constants";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
