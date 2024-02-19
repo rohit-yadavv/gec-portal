@@ -75,9 +75,7 @@ const CourseCard = async ({ event }: Props) => {
   const isAdmin = mongoUser?.admin;
   const isSelected = selected?.includes(mongoUser?._id);
   const isRejected = rejected?.includes(mongoUser?._id);
-  const isUploader = uploadedBy?._id === mongoUser?._id;
-  console.log(selected)
-  console.log(mongoUser?._id)
+  const isUploader = uploadedBy?._id === mongoUser?._id; 
   return (
     <Card className="card-wrapper relative">
       {/* card header  */}

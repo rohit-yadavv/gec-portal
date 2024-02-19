@@ -26,7 +26,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </h1> 
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        <SearchBar route="/" />
+        <SearchBar route="/all-forms" />
         <MobileHomeFilters filters={HomePageFilters} />
       </div>
       <HomeFilters />

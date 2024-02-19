@@ -16,8 +16,7 @@ import { toast } from "sonner";
 
 const DeleteForm = ({ enrollmentId }: { enrollmentId: string }) => {
   const path = usePathname();
-  const deleteFormNow = async () => {
-    console.log("deleted");
+  const deleteFormNow = async () => { 
     await deleteEvent({ path, enrollmentId });
     toast("Unregister Successful");
   };
