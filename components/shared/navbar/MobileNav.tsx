@@ -7,13 +7,27 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
  
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image"; 
-import React from "react"; 
+import React, { useEffect, useState } from "react"; 
 import MobileSideBarLinks from "./MobileSideBarLinks";
+import { getUserById } from "@/lib/actions/user.action";
 
-const MobileNav = () => {
+const MobileNav = () => { 
+  const [isAdmin, setIsAdmin] = useState()
+  const { userId } = useAuth();
+
+  const getAdminInfo =async()=>{
+    const user = JSON.parse(await getUserById({userId}));
+    setIsAdmin(user?.admin);
+  }
+
+  useEffect(()=>{
+    getAdminInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <Sheet>
       <SheetTrigger asChild className="">
@@ -41,7 +55,7 @@ const MobileNav = () => {
           </p>
         </Link>
         <div>
-          <MobileSideBarLinks />
+          <MobileSideBarLinks isAdmin={isAdmin}/>
           <SignedOut>
             <div className="flex flex-col gap-3 py-3">
               <SheetClose asChild>
