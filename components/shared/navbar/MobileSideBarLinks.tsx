@@ -1,6 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { SheetClose } from "@/components/ui/sheet";
 import { adminSideLinks, userSideLinks } from "@/constants";
-import { SignedIn } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -115,6 +116,49 @@ const MobileSideBarLinks = ({isAdmin}:{isAdmin:any}) => {
               );
             })}
       </SignedIn> 
+
+
+      <SignedOut>
+          <SheetClose asChild key="/">
+            <Link href="/sign-in">
+              <Button
+                className="h-[60px] w-full flex-row
+            items-center justify-center gap-2 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
+              >
+                <Image
+                  src="/assets/icons/account.svg"
+                  width={25}
+                  height={25}
+                  className="invert dark:invert-0"
+                  alt="login"
+                />
+                <span className="primary-text-gradient flex h-[60px] items-center text-[25px]">
+                  Sign In
+                </span>
+              </Button>
+            </Link>
+          </SheetClose>
+          <SheetClose asChild key="/">
+            <Link href="/sign-up">
+              <Button
+                className="h-[60px] w-full flex-row
+            items-center justify-center gap-2 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
+              >
+                <Image
+                  src="/assets/icons/sign-up.svg"
+                  width={25}
+                  height={25}
+                  className="invert dark:invert-0"
+                  alt="signup"
+                />
+                <span className="primary-text-gradient flex h-[60px] items-center text-[25px] ">
+                  Sign Up
+                </span>
+              </Button>
+            </Link>
+          </SheetClose>
+        </SignedOut>
+
     </section>
   );
 };

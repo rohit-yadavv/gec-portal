@@ -1,32 +1,30 @@
-"use client";
-import { Button } from "@/components/ui/button";
+"use client"; 
 import {
-  Sheet,
-  SheetClose,
+  Sheet, 
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
- 
-import { SignedOut, useAuth } from "@clerk/nextjs";
+
+import {  useAuth } from "@clerk/nextjs";
 import Link from "next/link";
-import Image from "next/image"; 
-import React, { useEffect, useState } from "react"; 
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import MobileSideBarLinks from "./MobileSideBarLinks";
 import { getUserById } from "@/lib/actions/user.action";
 
-const MobileNav = () => { 
-  const [isAdmin, setIsAdmin] = useState()
+const MobileNav = () => {
+  const [isAdmin, setIsAdmin] = useState();
   const { userId } = useAuth();
 
-  const getAdminInfo =async()=>{
-    const user = JSON.parse(await getUserById({userId}));
+  const getAdminInfo = async () => {
+    const user = JSON.parse(await getUserById({ userId }));
     setIsAdmin(user?.admin);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getAdminInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Sheet>
@@ -54,37 +52,10 @@ const MobileNav = () => {
             Gec <span className="text-primary-500">Portal</span>
           </p>
         </Link>
-        <div>
-          <MobileSideBarLinks isAdmin={isAdmin}/>
-          <SignedOut>
-            <div className="flex flex-col gap-3 py-3">
-              <SheetClose asChild>
-                <Link href="/sign-in">
-                  <Button
-                    className="flex  min-h-[41px] w-full flex-row
-            items-center justify-center gap-1 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
-                  >
-                    <span className="primary-text-gradient text-[16px] font-medium leading-[15.6px] ">
-                      Log In
-                    </span>
-                  </Button>
-                </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link href="/sign-up">
-                  <Button
-                    className="flex  min-h-[41px] w-full flex-row
-            items-center justify-center gap-1 rounded-lg border bg-light-900 text-[12px]  font-medium leading-[15.6px] shadow-none hover:bg-light-850 dark:bg-dark-100"
-                  >
-                    <span className="primary-text-gradient text-[16px] font-medium  leading-[15.6px]">
-                      Sign Up
-                    </span>
-                  </Button>
-                </Link>
-              </SheetClose>
-            </div>
-          </SignedOut>
-        </div>
+
+
+        <MobileSideBarLinks isAdmin={isAdmin} />
+
       </SheetContent>
     </Sheet>
   );
