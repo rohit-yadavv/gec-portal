@@ -1,6 +1,8 @@
 import HomeFilters from "@/components/shared/HomeFilters";
+import MobileHomeFilters from "@/components/shared/MobileHomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard";
+import { HomePageFilters } from "@/constants";
 import { getUserForm } from "@/lib/actions/enrollment.action";  
 import { auth } from "@clerk/nextjs";
 
@@ -15,7 +17,9 @@ const page = async () => {
           Manage Your Forms 
         </h1>
       </div>
-      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center"></div>
+      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
+      <MobileHomeFilters filters={HomePageFilters} />
+      </div>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
         {appliedEvents?.length > 0 ? (

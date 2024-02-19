@@ -1,22 +1,27 @@
 import EnrollmentDialog from "@/components/shared/EnrollmentDialog";
 import HomeFilters from "@/components/shared/HomeFilters";
+import MobileHomeFilters from "@/components/shared/MobileHomeFilters";
 import NoResult from "@/components/shared/NoResult";
-import CourseCard from "@/components/shared/card/CourseCard";
+import CourseCard from "@/components/shared/card/CourseCard"; 
+import SearchBar from "@/components/shared/SearchBar";
+import { HomePageFilters } from "@/constants";
 import { getAllEvents } from "@/lib/actions/enrollment.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
-import { Metadata } from "next"; 
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Home | Gec-Portal",
   description: "Portal to register for gec designed for cuh students",
 };
 
-export default async function Home({searchParams}:SearchParamsProps) { 
+export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
   const mongoUser = JSON.parse(await getUserById({ userId }));
-  const result = JSON.parse(await getAllEvents({ filter: searchParams.filter }));
+  const result = JSON.parse(
+    await getAllEvents({ filter: searchParams.filter })
+  );
 
   return (
     <>
@@ -25,22 +30,14 @@ export default async function Home({searchParams}:SearchParamsProps) {
           Opportunities
         </h1>
         <div className="flex justify-end gap-3 max-sm:w-full">
-          {mongoUser?.admin && <EnrollmentDialog userId={mongoUser._id} />} 
+          {mongoUser?.admin && <EnrollmentDialog userId={mongoUser._id} />}
         </div>
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-        {/* <LocalSearchBar
-          route="/"
-          iconPosition="left"
-          imgSrc="assets/icons/search.svg"
-          placeholder="search for questions" 
-          otherClasses="flex-1"
-        /> */}
-        {/* <Filter
-          filters={HomePageFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
-        /> */}
+        <SearchBar
+          route="/" 
+        />
+        <MobileHomeFilters filters={HomePageFilters} />
       </div>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-8">

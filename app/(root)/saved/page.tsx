@@ -1,6 +1,8 @@
 import HomeFilters from "@/components/shared/HomeFilters";
+import MobileHomeFilters from "@/components/shared/MobileHomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import CourseCard from "@/components/shared/card/CourseCard";
+import { HomePageFilters } from "@/constants";
 import { getSavedEvents } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 
@@ -13,6 +15,7 @@ const page = async () => {
         <h1 className="text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">Saved Events</h1> 
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center"> 
+      <MobileHomeFilters filters={HomePageFilters} />
       </div>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
