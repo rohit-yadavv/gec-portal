@@ -2,15 +2,16 @@
 import HomeFilters from "@/components/shared/HomeFilters";
 import MobileHomeFilters from "@/components/shared/MobileHomeFilters";
 import NoResult from "@/components/shared/NoResult";
+import SearchBar from "@/components/shared/SearchBar";
 import CourseCard from "@/components/shared/card/CourseCard";
 import { HomePageFilters } from "@/constants";
 import { getAppliedEnrollments } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 
-const page = async () => {
+const page = async ({searchParams}:SearchParamsProps) => {
   const { userId } = auth();
-  const appliedEvents = JSON.parse(await getAppliedEnrollments({ clerkId: userId }))
-  // console.log(appliedEvents)
+  const appliedEvents = JSON.parse(await getAppliedEnrollments({ clerkId: userId, searchQuery:searchParams.q }))
   if(!userId){
     <NoResult
     title="Nothing to Show 🙄"
@@ -23,6 +24,7 @@ const page = async () => {
         <h1 className="text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">All Applied Events</h1> 
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center"> 
+      <SearchBar route="/applied" />
       <MobileHomeFilters filters={HomePageFilters} />
       </div>
       <HomeFilters />
@@ -30,7 +32,7 @@ const page = async () => {
         {appliedEvents?.length > 0 ? (
           appliedEvents?.map((item: any) => (
             <>
-              <CourseCard event={item} viewApplicants={false} />
+              <CourseCard event={item} />
             </>
           ))
         ) : (

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) { 
   const result = JSON.parse(
-    await getAllEvents({ filter: searchParams.filter })
+    await getAllEvents({ filter: searchParams.filter, searchQuery:searchParams.q })
   );
 
   return (

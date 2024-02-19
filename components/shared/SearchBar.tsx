@@ -34,7 +34,7 @@ const SearchBar = ({ route }: CustomInputProps) => {
           router.push(newUrl, { scroll: false });
         }
       }
-    }, 300);
+    }, 100);
     return () => clearTimeout(delayDebounceFn);
   }, [search, route, pathname, router, searchParams, query]);
 

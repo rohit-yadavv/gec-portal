@@ -48,9 +48,21 @@ export async function deleteEvent({path, enrollmentId}: deleteEnrollmentProps) {
 export async function getAllEvents(params: GetEnrollmentsParams) {
   try {
     connectToDatabase();
-    const { filter } = params;
+    const { searchQuery, filter } = params;
 
     const query: FilterQuery<typeof Enrollment> = {};
+    const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    if (escapedSearchQuery) {
+      query.$or = [
+        // { <field>: { $regex: /pattern/, $options: '<options>' } } i:to include both lowercase and uppercaseS
+        { courseCode: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { courseName: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { department: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { teacher: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }
+ 
     let sortOptions = {};
 
     switch (filter) {
@@ -206,11 +218,25 @@ export async function isUserRejectedInEnrollment({ userId, enrollmentId }: userI
   }
 }
 
-export async function getUserForm({ clerkId }: userFormsProps) {
+export async function getUserForm({ clerkId , searchQuery}: userFormsProps) {
   try {
     connectToDatabase();
+
+    
+    const query: FilterQuery<typeof Enrollment> = {};
+    const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (escapedSearchQuery) {
+      query.$or = [
+        // { <field>: { $regex: /pattern/, $options: '<options>' } } i:to include both lowercase and uppercaseS
+        { courseCode: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { courseName: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { department: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { teacher: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }
+
     const user = JSON.parse(await getUserById({ userId: clerkId }))
-    const enrollments = await Enrollment.find({ uploadedBy: user._id })
+    const enrollments = await Enrollment.find({ uploadedBy: user._id , ...query})
       .populate({ path: "uploadedBy", model: User })
       .populate({ path: "applicant", model: User })
       .populate({ path: "selected", model: User });

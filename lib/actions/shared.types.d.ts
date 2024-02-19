@@ -90,4 +90,16 @@ export interface userInEnrollmentProps{
 
 export interface userFormsProps{
     clerkId: string | null;
+    searchQuery?: string | null;
 }
+
+export interface getSavedEventProps{
+  clerkId:string|null;
+  searchQuery?:string;
+  filter?:string;
+}
+
+export interface getAppliedProps{
+    clerkId?: string | null;
+    searchQuery?:string|null;
+  }

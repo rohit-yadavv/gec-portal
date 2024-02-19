@@ -6,10 +6,13 @@ import {
   CreateUserParams,
   DeleteUserParams,
   UpdateUserParams,
+  getAppliedProps,
+  getSavedEventProps,
   saveEventData,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Enrollment from "@/database/enrollment.model";
+import { FilterQuery } from "mongoose";
 
 export async function getUserById(params: any) {
   try {
@@ -65,12 +68,26 @@ export async function removeSaveEvent({ path, data }: saveEventData) {
   }
 }
 
-export async function getSavedEvents({ clerkId }: { clerkId?: string | null }) {
+export async function getSavedEvents({ clerkId, searchQuery }: getSavedEventProps) {
   try {
     connectToDatabase();
 
+    const query: FilterQuery<typeof Enrollment> = {};
+    const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    if (escapedSearchQuery) {
+      query.$or = [
+        // { <field>: { $regex: /pattern/, $options: '<options>' } } i:to include both lowercase and uppercaseS
+        { courseCode: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { courseName: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { department: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { teacher: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }
+
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
+      match: query,
       model: Enrollment,
       populate: [
         { path: "uploadedBy", model: User, select: "name email picture" },
@@ -84,15 +101,26 @@ export async function getSavedEvents({ clerkId }: { clerkId?: string | null }) {
   }
 }
 
-export async function getAppliedEnrollments({
-  clerkId,
-}: {
-  clerkId?: string | null;
-}) {
+export async function getAppliedEnrollments({ clerkId, searchQuery}: getAppliedProps) {
   try {
-    await connectToDatabase(); 
+    await connectToDatabase();
+
+    const query: FilterQuery<typeof Enrollment> = {};
+    const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    if (escapedSearchQuery) {
+      query.$or = [
+        // { <field>: { $regex: /pattern/, $options: '<options>' } } i:to include both lowercase and uppercaseS
+        { courseCode: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { courseName: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { department: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { teacher: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }
+
     const user = await User.findOne({ clerkId }).populate({
       path: "appliedGec",
+      match:query,
       model: Enrollment,
       populate: [
         { path: "uploadedBy", model: User, select: "name email picture" },
