@@ -93,8 +93,7 @@ export async function getAllEvents(params: GetEnrollmentsParams) {
 
     const events = await Enrollment.find(query)
       .populate({ path: "uploadedBy", model: User })
-      .populate({ path: "applicant", model: User })
-      .populate({ path: "selected", model: User })
+      .populate({ path: "applicant", model: User }) 
       .sort(sortOptions);
 
     return JSON.stringify(events);

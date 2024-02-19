@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import EnrollmentDialog from "../EnrollmentDialog";
 
-const MobileSideBarLinks = ({ isAdmin, userId }: { isAdmin: any, userId:string }) => {
+const MobileSideBarLinks = ({ isAdmin, userId }: { isAdmin: any, userId:any }) => {
   const pathName = usePathname();
 
   return (

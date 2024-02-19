@@ -36,6 +36,7 @@ interface Props {
     uploadedAt: Date;
     applyBy: Date;
     selected: string[];
+    rejected: string[];
     applicant: string[];
     courseCredit: number;
     seats: number;
@@ -61,6 +62,7 @@ const CourseCard = async ({ event }: Props) => {
     applyBy,
     applicant,
     selected,
+    rejected,
     seats,
   } = event; 
   const appliedCount = applicant.length;
@@ -72,15 +74,18 @@ const CourseCard = async ({ event }: Props) => {
   const hasApplied = mongoUser?.appliedGec.includes(_id);
   const isAdmin = mongoUser?.admin;
   const isSelected = selected?.includes(mongoUser?._id);
+  const isRejected = rejected?.includes(mongoUser?._id);
   const isUploader = uploadedBy?._id === mongoUser?._id;
+  console.log(selected)
+  console.log(mongoUser?._id)
   return (
     <Card className="card-wrapper relative">
       {/* card header  */}
       <ApplicationStatus
         isAdmin={isAdmin}
         hasApplied={hasApplied}
-        selected={selected}
-        userId={mongoUser?._id}
+        isSelected={isSelected}
+        isRejected={isRejected} 
       />
       <CardHeader className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-4">

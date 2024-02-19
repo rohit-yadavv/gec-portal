@@ -27,9 +27,9 @@ export const adminSideLinks: SidebarLink[] = [
 
 export const userSideLinks: SidebarLink[] = [
   {
-    imgURL: "/assets/icons/user.svg",
-    route: "/details",
-    label: "Your Details",
+    imgURL: "/assets/icons/applied.svg",
+    route: "/all-forms",
+    label: "All Forms",
   },
   {
     imgURL: "/assets/icons/star.svg",

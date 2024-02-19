@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="fixed z-50 flex w-full items-center justify-between border-b bg-light-900 p-4 dark:border-stone-800 dark:bg-dark-100 dark:shadow-none sm:px-12">
       <div className="flex flex-row gap-2">
-        <MobileNav />
+        <MobileNav  />
         <Link href="/" className="flex items-center gap-1">
           <Image
             width={33}
