@@ -38,7 +38,7 @@ const ApplyButton = ({
 
   if (!isProfileComplete) {
     return (
-      <Link href="/details">
+      <Link href="/user-profile/your-details">
         <Button className="primary-gradient min-h-[46px] rounded-lg px-4 py-3 !text-light-900">
           Complete Your Profile to Apply
         </Button>

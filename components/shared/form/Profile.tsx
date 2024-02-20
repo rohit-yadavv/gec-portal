@@ -56,7 +56,7 @@ const Profile = ({ clerkId, user }: Params) => {
         path: pathname,
       });
       toast("Profile Updated");
-      router.push('/');
+      router.push('/all-forms');
     } catch (error) {
       console.log(error);
     } finally {
