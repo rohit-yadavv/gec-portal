@@ -75,7 +75,7 @@ const Profile = ({ clerkId, user }: Params) => {
           name="name"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-200 dark:text-light-800">
                 Name <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
@@ -94,7 +94,7 @@ const Profile = ({ clerkId, user }: Params) => {
           name="rollNo"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-200 dark:text-light-800">
                 Roll No <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
@@ -117,7 +117,7 @@ const Profile = ({ clerkId, user }: Params) => {
           name="department"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-200 dark:text-light-800">
                 Department <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
@@ -136,7 +136,7 @@ const Profile = ({ clerkId, user }: Params) => {
           name="course"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-200 dark:text-light-800">
                 Course <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
@@ -155,7 +155,7 @@ const Profile = ({ clerkId, user }: Params) => {
           name="sem"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark-400 dark:text-light-800 ">
+              <FormLabel className="text-dark-200 dark:text-light-800 ">
                 Sem <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>

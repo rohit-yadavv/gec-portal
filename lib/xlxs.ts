@@ -15,7 +15,7 @@ export function downloadToExcel(data:any, fileName:string) {
     },
   ];
   const settings = {
-    fileName: `${fileName}`,
+    fileName: "Selected Students",
   };
   xlsx(columns, settings);
 }

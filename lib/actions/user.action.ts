@@ -152,8 +152,7 @@ export async function deleteUser(params: DeleteUserParams) {
 }
 
 export async function updateUser(params: UpdateUserParams) {
-  try {
-    console.log("first")
+  try { 
     connectToDatabase();
     const { clerkId, updateData, path } = params;
     await User.findOneAndUpdate({ clerkId }, updateData, {

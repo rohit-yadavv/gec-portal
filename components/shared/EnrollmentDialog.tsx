@@ -21,7 +21,7 @@ const EnrollmentDialog = ({userId}:any) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="card-wrapper hover:border-[#FF7000]min-h-[46px] rounded-lg border px-4 py-3 text-dark-200 hover:bg-light-850 dark:text-light-900 dark:hover:bg-dark-200">
+        <div className="card-wrapper min-h-[46px] rounded-lg border px-4 py-3 text-dark-200 hover:border-[#FF7000] hover:bg-light-850 dark:text-light-900 dark:hover:bg-dark-200">
           Post Form
         </div>
       </DialogTrigger>

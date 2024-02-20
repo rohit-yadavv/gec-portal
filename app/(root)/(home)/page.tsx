@@ -1,5 +1,5 @@
 import { SearchParamsProps } from "@/types";
-import { Metadata } from "next";
+import { Metadata } from "next";  
 import RightSideBar from "@/components/shared/HomeRegistration";
 
 export const metadata: Metadata = {
@@ -8,8 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-
-
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -17,12 +15,8 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           Home
         </h1>
       </div>
-      
       <div className="flex flex-col sm:flex-row">
-        <div className="mt-10 w-full flex-col gap-8">
-          
-          
-        </div> 
+        <div className="mt-10 w-full flex-col gap-8"></div>
         <RightSideBar />
       </div>
       <div className="mt-10"></div>

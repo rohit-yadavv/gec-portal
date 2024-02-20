@@ -28,6 +28,8 @@ const Navbar = () => {
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"
+            userProfileUrl="/user-profile"
+            userProfileMode="navigation"
             appearance={{
               elements: {
                 avatarBox: "h-10 w-10",
