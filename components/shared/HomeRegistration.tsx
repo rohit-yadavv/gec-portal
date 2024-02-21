@@ -1,13 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; 
-import { SignIn, SignUp,  SignedOut, auth } from "@clerk/nextjs"; 
+import { SignIn, SignUp,  SignedOut} from "@clerk/nextjs"; 
 
 const RightSideBar = async () => {
-  const { userId } = auth();
-  if(!userId){
-    return;
-  } 
+  
   return (
-    <section className="sticky right-0 top-0 flex h-screen ">
+    <section className="absolute right-0 top-0 flex h-screen w-[300px]">
       <SignedOut>
         <Tabs defaultValue="account" className="w-[400px]">
           <TabsList>

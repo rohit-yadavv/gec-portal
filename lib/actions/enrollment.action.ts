@@ -4,7 +4,7 @@ import Enrollment from "@/database/enrollment.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import User from "@/database/user.model";
-import { GetEnrollmentsParams, acceptEnrollmentProps, createEnrollmentProps, deleteEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
+import { GetEnrollmentsParams, acceptEnrollmentProps, adminForms, createEnrollmentProps, deleteEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
 import { getUserById } from "./user.action";
 import { FilterQuery } from "mongoose";
 
@@ -21,23 +21,23 @@ export async function createEvent(enrollmentData: createEnrollmentProps) {
   }
 }
 
-export async function deleteEvent({path, enrollmentId}: deleteEnrollmentProps) { 
-    try {
-      connectToDatabase();  
-      const enrollment = await Enrollment.findById(enrollmentId);
+export async function deleteEvent({ path, enrollmentId }: deleteEnrollmentProps) {
+  try {
+    connectToDatabase();
+    const enrollment = await Enrollment.findById(enrollmentId);
 
-      // Check if the enrollment exists
-      if (!enrollment) {
-        throw new Error('Enrollment not found');
-      }
- 
-      await User.updateMany( 
-        { _id: { $in: enrollment.applicant } }, // _id which is in the array enrollment.applicant.
-        { $pull: { appliedGec: enrollmentId } } // remove enrollmentId from appliedGec of user with _id 
-      );
-      
-      await Enrollment.deleteOne({ _id: enrollmentId });
-      revalidatePath(path)
+    // Check if the enrollment exists
+    if (!enrollment) {
+      throw new Error('Enrollment not found');
+    }
+
+    await User.updateMany(
+      { _id: { $in: enrollment.applicant } }, // _id which is in the array enrollment.applicant.
+      { $pull: { appliedGec: enrollmentId } } // remove enrollmentId from appliedGec of user with _id 
+    );
+
+    await Enrollment.deleteOne({ _id: enrollmentId });
+    revalidatePath(path)
   } catch (error) {
     console.log(error);
   }
@@ -62,7 +62,7 @@ export async function getAllEvents(params: GetEnrollmentsParams) {
         { teacher: { $regex: new RegExp(escapedSearchQuery, "i") } },
       ];
     }
- 
+
     let sortOptions = {};
 
     switch (filter) {
@@ -73,27 +73,27 @@ export async function getAllEvents(params: GetEnrollmentsParams) {
       // case "applied":
       //   query.applicant = { $in: [userId] };
       //   break;
-        
+
       case "ug":
         query.eligible = 'ug';
         break;
-        
-      case "pg": 
+
+      case "pg":
         query.eligible = 'pg';
         break;
 
       case "gec":
         query.type = 'gec';
         break;
-        
-      case "vac": 
+
+      case "vac":
         query.type = 'vac';
         break;
     }
 
     const events = await Enrollment.find(query)
       .populate({ path: "uploadedBy", model: User })
-      .populate({ path: "applicant", model: User }) 
+      .populate({ path: "applicant", model: User })
       .sort(sortOptions);
 
     return JSON.stringify(events);
@@ -168,7 +168,7 @@ export async function acceptEnrollment({ path, userId, enrollmentId }: acceptEnr
     connectToDatabase();
     await Enrollment.findByIdAndUpdate(enrollmentId, {
       $addToSet: { selected: userId },
-      $pull : {rejected: userId},
+      $pull: { rejected: userId },
     });
     revalidatePath(path)
   } catch (error) {
@@ -182,7 +182,7 @@ export async function rejectEnrollment({ path, userId, enrollmentId }: acceptEnr
     connectToDatabase();
     await Enrollment.findByIdAndUpdate(enrollmentId, {
       $pull: { selected: userId },
-      $addToSet: {rejected:userId},
+      $addToSet: { rejected: userId },
     });
     revalidatePath(path)
   } catch (error) {
@@ -217,11 +217,11 @@ export async function isUserRejectedInEnrollment({ userId, enrollmentId }: userI
   }
 }
 
-export async function getUserForm({ clerkId , searchQuery}: userFormsProps) {
+export async function getUserForm({ clerkId, searchQuery }: userFormsProps) {
   try {
     connectToDatabase();
 
-    
+
     const query: FilterQuery<typeof Enrollment> = {};
     const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     if (escapedSearchQuery) {
@@ -235,7 +235,7 @@ export async function getUserForm({ clerkId , searchQuery}: userFormsProps) {
     }
 
     const user = JSON.parse(await getUserById({ userId: clerkId }))
-    const enrollments = await Enrollment.find({ uploadedBy: user._id , ...query})
+    const enrollments = await Enrollment.find({ uploadedBy: user._id, ...query })
       .populate({ path: "uploadedBy", model: User })
       .populate({ path: "applicant", model: User })
       .populate({ path: "selected", model: User });
@@ -258,6 +258,42 @@ export async function unRegisterForEvent({ path, userId, enrollmentId }: registe
     });
 
     revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getAdminForms({ userId }: adminForms) {
+  try {
+    connectToDatabase();
+ 
+    const res = await Enrollment.find({ uploadedBy: userId }).select('courseName courseId');
+    
+    const namesArray = res.map(doc => ({
+      courseName: doc.courseName,
+      courseId: doc._id
+    }));
+    
+    return namesArray;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+} 
+
+export async function getSelectedMail({ enrollmentId }: { enrollmentId: string }) {
+  try {
+    connectToDatabase();
+
+    const res = await Enrollment.findById(enrollmentId)
+      .populate({ path: "applicant", model: User })
+      .select('applicant'); 
+
+    // Check if 'applicant' is populated and has the 'email' field
+    const emailArray = res?.applicant.map(applicant => applicant.email);
+
+    return emailArray;
   } catch (error) {
     console.log(error);
     throw error;

@@ -3,7 +3,7 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 import ApplyButton from "./ApplyButton";
-import Accepted from "../acceptedTable/Accepted"; 
+import Accepted from "../acceptedTable/Accepted";
 import ViewApplicant from "../applicantsTable/ViewApplicant";
 import DeleteForm from "./DeleteForm";
 
@@ -16,8 +16,9 @@ const CardButtons = ({
   applicant,
   hasSaved,
   hasApplied,
+  event
 }: any) => {
-  const mongoUser = JSON.parse(user);
+  const mongoUser = JSON.parse(user); 
 
   return (
     <div className="flex gap-3">
@@ -40,14 +41,17 @@ const CardButtons = ({
           </SignedOut>
           <SignedIn>
             <ApplyButton
+              user={user}
+              event={event}
               isSelected={isSelected}
-              selected={selected}
-              userId={mongoUser?._id}
+              selected={selected} 
               enrollmentId={enrollmentId}
               hasApplied={hasApplied}
               isProfileComplete={mongoUser?.isProfileComplete}
             />
-            {selected.length > 0 && <Accepted isAdmin={false} selected={selected} />}
+            {selected.length > 0 && (
+              <Accepted isAdmin={false} selected={selected} />
+            )}
           </SignedIn>
         </>
       )}

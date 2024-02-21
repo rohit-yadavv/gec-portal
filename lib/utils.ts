@@ -1,6 +1,9 @@
-import { type ClassValue, clsx } from "clsx"; 
-import { twMerge } from "tailwind-merge"; 
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import qs from "query-string";
+import Handlebars from "handlebars";
+import { welcomeTemplate } from "./templates/gec template";
+import { broadcastTemplate } from "./templates/broadcast";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -75,10 +78,10 @@ export function capitalize(inputString: string): string {
 
 export function formatDate(mongoDateString: Date): string {
   const mongoDate = new Date(mongoDateString);
-  
-  const options:any = { day: 'numeric', month: 'long', year: 'numeric' as const };
+
+  const options: any = { day: 'numeric', month: 'long', year: 'numeric' as const };
   const formattedDate = mongoDate.toLocaleDateString('en-US', options);
-  
+
   return formattedDate;
 }
 
@@ -125,3 +128,24 @@ export const removeKeysFromQuery = ({
     { skipNull: true }
   );
 };
+
+export function compileWelcomeTemplate({ name, type, cName, cId, cDept, action }: { name: string, type: string, cName: string, cId: string, cDept: string, action: string }) {
+  const template = Handlebars.compile(welcomeTemplate)
+  const htmlBody = template({
+    name,
+    type,
+    cName,
+    cId,
+    cDept,
+    action
+  })
+  return htmlBody
+}
+
+export function compileBroadcastMail(mailBody :string) {
+  const template = Handlebars.compile(broadcastTemplate)
+  const htmlBody = template({
+    mailBody
+  })
+  return htmlBody
+}

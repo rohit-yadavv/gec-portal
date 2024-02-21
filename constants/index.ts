@@ -8,15 +8,15 @@ export const themes = [
 
 export const adminSideLinks: SidebarLink[] = [ 
   {
-    imgURL: "/assets/icons/applied.svg",
-    route: "/all-forms",
-    label: "All Forms",
-  },
-  {
     imgURL: "/assets/icons/star.svg",
     route: "/saved",
     label: "Bookmarks",
   },
+  {
+    imgURL: "/assets/icons/applied.svg",
+    route: "/all-forms",
+    label: "All Forms",
+  }, 
   {
     imgURL: "/assets/icons/applied.svg",
     route: "/forms",
@@ -27,15 +27,15 @@ export const adminSideLinks: SidebarLink[] = [
 
 export const userSideLinks: SidebarLink[] = [
   {
-    imgURL: "/assets/icons/applied.svg",
-    route: "/all-forms",
-    label: "All Forms",
-  },
-  {
     imgURL: "/assets/icons/star.svg",
     route: "/saved",
     label: "Bookmarks",
   },
+  {
+    imgURL: "/assets/icons/applied.svg",
+    route: "/all-forms",
+    label: "All Forms",
+  }, 
   {
     imgURL: "/assets/icons/applied.svg",
     route: "/applied",

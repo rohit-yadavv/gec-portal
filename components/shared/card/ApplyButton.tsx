@@ -1,39 +1,56 @@
-"use client";
-
+'use client'
 import { Button } from "@/components/ui/button";
 import {
   registerForEvent,
   unRegisterForEvent,
 } from "@/lib/actions/enrollment.action";
-import Link from "next/link";
+import {  sendMail } from "@/lib/mail";
+import { compileWelcomeTemplate } from "@/lib/utils";
+import Link from "next/link"; 
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 interface Props {
-  userId: string;
+  user: any;
   isSelected:boolean;
   enrollmentId: string;
   hasApplied: string;
   isProfileComplete: boolean;
   selected: any;
+  event:any;
 }
 
 const ApplyButton = ({
   selected,
   isSelected,
-  userId,
+  user,
   enrollmentId,
   hasApplied,
   isProfileComplete,
+  event
 }: Props) => { 
+
+  const parsedUser=JSON.parse(user);
   const path = usePathname();
   const applyNow = async () => {
-    await registerForEvent({ path, userId, enrollmentId });
-    toast("Applied Successfully");
+    await registerForEvent({ path, userId:parsedUser?._id, enrollmentId }); 
+    toast("Applied & Email sent successfully");
+    await sendMail({
+      to: parsedUser?.email,
+      name: parsedUser?.name,
+      subject: `Successfully Applied to ${event?.type} of ${event?.courseName}`,
+      body: compileWelcomeTemplate({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"register"}),
+    }); 
   };
-  const unregisterNow = async () => {
-    await unRegisterForEvent({ path, userId, enrollmentId });
-    toast("Unregister Successful");
+  const unregisterNow = async () => { 
+    await unRegisterForEvent({ path, userId:parsedUser?._id, enrollmentId });
+    toast("Unregisterd & Email sent successfully");
+    await sendMail({
+      to: parsedUser?.email,
+      name: parsedUser?.name,
+      subject: `Successfully unregistered from ${event?.type} of ${event?.courseName}`,
+      body: compileWelcomeTemplate({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"unregister"}),
+    }); 
   };
 
   if (!isProfileComplete) {

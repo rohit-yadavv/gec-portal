@@ -32,13 +32,12 @@ export const EventSchema = z.object({
   applyBy: z.date()
 })
 
-// name?: string;
-// rollNo?: string;
-// department?: string;
-// course?: string;
-// sem?: number;  
+export const BroadcastSchema = z.object({
+  mailToStudentsOf: z.string().min(2),
+  subject: z.string().min(3),
+  body: z.string().min(3),
+}) 
 
-// rollNo: z.number().min(6).max(6), 
 export const RegistrationSchema = z.object({
   name: z.string().min(3).max(50),
   rollNo: z

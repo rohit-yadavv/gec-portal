@@ -26,7 +26,7 @@ const UserProfilePage = () => {
   return (
     <UserProfile path="/user-profile" routing="path">
       <UserProfile.Page
-        label="Your Details"
+        label="My Profile"
         labelIcon={<ProfileIcon />}
         url="your-details"
       >

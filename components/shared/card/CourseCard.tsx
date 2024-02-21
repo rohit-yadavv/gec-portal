@@ -17,6 +17,7 @@ import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import ApplicationStatus from "./ApplicationStatus";
 
+
 interface Props {
   event: {
     _id: string;
@@ -163,6 +164,7 @@ const CourseCard = async ({ event }: Props) => {
           )
         ) : (
           <CardButtons
+          event={event}
             isSelected={isSelected}
             selected={selected}
             applicant={applicant}

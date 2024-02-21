@@ -77,6 +77,9 @@ export interface registerProps {
   userId: string;
 }
 
+export interface adminForms{
+  userId:string;
+}
 export interface acceptEnrollmentProps{
   path:string;
   userId:ObjectId;

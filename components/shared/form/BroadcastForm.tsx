@@ -1,0 +1,169 @@
+// @ts-nocheck
+"use client";
+import * as z from "zod";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+import { BroadcastSchema } from "@/lib/validation";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  getAdminForms,
+  getSelectedMail,
+} from "@/lib/actions/enrollment.action";
+import { sendMail } from "@/lib/mail"; 
+import { compileBroadcastMail } from "@/lib/utils";
+
+interface Props {
+  onSubmitSuccess: () => void;
+  userId: string;
+}
+
+const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [allForms, setAllForms] = useState([]);
+
+  const getForms = async () => { 
+    const res = await getAdminForms({ userId }); 
+    // @ts-ignore
+    setAllForms(res);
+  };
+  useEffect(() => {
+    getForms();
+  }, []);
+
+  const form = useForm<z.infer<typeof BroadcastSchema>>({
+    resolver: zodResolver(BroadcastSchema),
+    defaultValues: {
+      mailToStudentsOf: "",
+      subject: "",
+      body: "",
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof BroadcastSchema>) {
+    setIsSubmitting(true);
+    try {
+      const resMail = await getSelectedMail({
+        enrollmentId: values?.mailToStudentsOf,
+      });
+
+      await sendMail({
+        name: 'GEC PORTAL',
+        subject: values?.subject,
+        body: compileBroadcastMail(values?.body),
+        to: resMail,
+      });
+      toast("Event has been created.");
+      onSubmitSuccess();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mt-9 flex w-full flex-col gap-9"
+      >
+        <FormField
+          control={form.control}
+          name="mailToStudentsOf"
+          render={({ field }) => (
+            <FormItem className="space-y-3.5">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
+                Mail to Students of: <span className="text-primary-500">*</span>
+              </FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {allForms.map((form) => (
+                    <SelectItem key={form?.courseId} value={form?.courseId}>
+                      {form?.courseName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="subject"
+          render={({ field }) => (
+            <FormItem className="space-y-3.5">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
+                Subject
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="no-focus  min-h-[56px] border"
+                  placeholder="Write Subject of Message"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="body"
+          render={({ field }) => (
+            <FormItem className="space-y-3.5">
+              <FormLabel className=" text-dark-400 dark:text-light-800">
+                Body
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  className="no-focus  min-h-[56px] border"
+                  placeholder="Write body of message"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="mt-7 flex justify-end">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="primary-gradient w-fit !text-light-900"
+          >
+            {isSubmitting ? "Saving..." : "Save"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
+
+export default BroadcastForm;
