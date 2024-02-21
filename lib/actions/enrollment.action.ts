@@ -291,6 +291,7 @@ export async function getSelectedMail({ enrollmentId }: { enrollmentId: string }
       .select('applicant'); 
 
     // Check if 'applicant' is populated and has the 'email' field
+    // @ts-ignore
     const emailArray = res?.applicant.map(applicant => applicant.email);
 
     return emailArray;
