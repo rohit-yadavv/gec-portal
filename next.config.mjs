@@ -31,7 +31,7 @@ const nextConfig = {
   },
   ...withImages(),
   images: {
-    domains: ['img.clerk.com', 'localhost'],
+    domains: ['img.clerk.com', 'localhost', 'gec-portal.vercel.app'],
   },
 };
  
