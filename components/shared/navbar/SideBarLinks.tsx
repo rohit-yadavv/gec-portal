@@ -6,6 +6,7 @@ import Image from "next/image";
 import { SignedIn } from "@clerk/nextjs";
 import EnrollmentDialog from "../EnrollmentDialog";
 import BroadcastDialog from "../BrodcastDialog";
+import EventDialog from "../EventDialog";
 
 const SideBarLinks = ({
   isAdmin,
@@ -120,6 +121,7 @@ const SideBarLinks = ({
             })}
         {isAdmin && <EnrollmentDialog userId={userId} />}
         {isAdmin && <BroadcastDialog userId={userId} />}
+        {isAdmin && <EventDialog userId={userId} />}
       </SignedIn>
     </div>
   );

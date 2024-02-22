@@ -1,5 +1,27 @@
 /** @type {import('next').NextConfig} */ 
 
+// const nextConfig = {
+//   experimental: {
+//     serverActions: {
+//       mdxRs: true,
+//       serverComponentsExternalPackages: ["mongoose"],
+//     },
+//   },
+//   images: {
+//     remotePatterns: [
+//       {
+//         protocol: "https",
+//         hostname: "img.clerk.com",
+//         port: "",
+//         // pathname: "/account123/**",
+//       },
+//     ],
+//   },
+// };
+
+
+
+import withImages from 'next-images'
 const nextConfig = {
   experimental: {
     serverActions: {
@@ -7,18 +29,10 @@ const nextConfig = {
       serverComponentsExternalPackages: ["mongoose"],
     },
   },
+  ...withImages(),
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "img.clerk.com",
-        port: "",
-        // pathname: "/account123/**",
-      },
-    ],
+    domains: ['img.clerk.com', 'localhost'],
   },
 };
-
-
-export default nextConfig;
  
+export default nextConfig; 

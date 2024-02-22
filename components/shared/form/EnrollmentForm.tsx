@@ -23,7 +23,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { EventSchema } from "@/lib/validation";
+import { EnrollmentSchema } from "@/lib/validation";
 import { usePathname } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { createEvent } from "@/lib/actions/enrollment.action";
@@ -43,8 +43,8 @@ interface Props {
 const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const path = usePathname();
-  const form = useForm<z.infer<typeof EventSchema>>({
-    resolver: zodResolver(EventSchema),
+  const form = useForm<z.infer<typeof EnrollmentSchema>>({
+    resolver: zodResolver(EnrollmentSchema),
     defaultValues: {
       type: "",
       courseCode: "",
@@ -59,7 +59,7 @@ const EnrollmentForm = ({ onSubmitSuccess, userId }: Props) => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof EventSchema>) {
+  async function onSubmit(values: z.infer<typeof EnrollmentSchema>) {
     setIsSubmitting(true);
     try {
       await createEvent({

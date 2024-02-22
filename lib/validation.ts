@@ -9,16 +9,16 @@ export const QuestionsSchema = z.object({
 export const AnswerSchema = z.object({
   answer: z.string().min(100),
 });
- 
+
 export const ProfileSchema = z.object({
   name: z.string().min(5).max(50),
   username: z.string().min(5).max(50),
   bio: z.string().min(10).max(150),
   portfolioWebsite: z.string().url(),
   location: z.string().min(5).max(50),
-}) 
+})
 
-export const EventSchema = z.object({
+export const EnrollmentSchema = z.object({
   type: z.string().min(2),
   courseCode: z.string().min(2),
   courseName: z.string().min(2),
@@ -32,27 +32,37 @@ export const EventSchema = z.object({
   applyBy: z.date()
 })
 
+export const EventSchema = z.object({
+  eventName: z.string().min(3, "Event name must be at least 3 characters"),
+  // eventPoster: z.instanceof(FileList).optional(),
+  eventDesc: z.string().min(10, "Event description must be at least 10 characters"),
+  department: z.string(),
+  applyBy: z.date()
+});
+
+
+
 export const BroadcastSchema = z.object({
-  mailToStudentsOf: z.string().min(2,{message: "select form to which you want to send mail"}),
-  subject: z.string().min(1 ,{message: "write a valid subject"}),
-  body: z.string().min(1 ,{message: "write a valid body to send in mail"}),
-}) 
+  mailToStudentsOf: z.string().min(2, { message: "select form to which you want to send mail" }),
+  subject: z.string().min(1, { message: "write a valid subject" }),
+  body: z.string().min(1, { message: "write a valid body to send in mail" }),
+})
 
 export const RegistrationSchema = z.object({
   name: z.string().min(3).max(50),
   rollNo: z
-  .number()
-  .int()
-  .refine((value) => value >= 100000 && value <= 999999, {
-    message: 'Roll number must be a 6-digit number',
-  }), 
+    .number()
+    .int()
+    .refine((value) => value >= 100000 && value <= 999999, {
+      message: 'Roll number must be a 6-digit number',
+    }),
   department: z.string().min(2).max(100),
-  course: z.string().min(2).max(50), 
+  course: z.string().min(2).max(50),
   sem: z
-  .number()
-  .int()
-  .refine((value) => value > 0 && value <= 10, {
-    message: 'Write Semester in 1 digit',
-  }), 
-}) 
+    .number()
+    .int()
+    .refine((value) => value > 0 && value <= 10, {
+      message: 'Write Semester in 1 digit',
+    }),
+})
 

@@ -6,12 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import EnrollmentForm from "./form/EnrollmentForm";
+} from "@/components/ui/dialog"; 
 import { useState } from "react"; 
 import Image from "next/image";
+import EventForm from "./form/EventForm";
 
-const EnrollmentDialog = ({ userId }: any) => {
+const EventDialog = ({ userId }: any) => {
   const [open, setOpen] = useState(false);
 
   const handleFormSubmitSuccess = () => {
@@ -31,7 +31,7 @@ const EnrollmentDialog = ({ userId }: any) => {
             className="invert dark:invert-0"
           />
           <p className="block text-[18px] font-medium leading-[25.2px] sm:hidden lg:block">
-            Post Form
+            Post Event
           </p>
         </div>
       </DialogTrigger>
@@ -39,7 +39,7 @@ const EnrollmentDialog = ({ userId }: any) => {
         <DialogHeader>
           <DialogTitle>Fill Form</DialogTitle>
           <DialogDescription>
-            <EnrollmentForm
+            <EventForm
               onSubmitSuccess={handleFormSubmitSuccess}
               userId={userId}
             />
@@ -50,4 +50,4 @@ const EnrollmentDialog = ({ userId }: any) => {
   );
 };
 
-export default EnrollmentDialog;
+export default EventDialog;

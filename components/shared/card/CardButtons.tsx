@@ -18,8 +18,7 @@ const CardButtons = ({
   hasApplied,
   event
 }: any) => {
-  const mongoUser = JSON.parse(user); 
-  console.log(selected)
+  const mongoUser = JSON.parse(user);  
   return (
     <div className="flex gap-3">
       {mongoUser?.admin ? (

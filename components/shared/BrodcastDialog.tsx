@@ -31,7 +31,7 @@ const BroadcastDialog = ({userId}:any) => {
             height={25}
             className="invert dark:invert-0"
           />
-          <p className="text-[18px] font-medium leading-[25.2px] max-lg:hidden">
+          <p className="block text-[18px] font-medium leading-[25.2px] sm:hidden lg:block">
             Broadcast
           </p>
         </div>
