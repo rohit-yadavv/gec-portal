@@ -10,7 +10,7 @@ import { auth } from "@clerk/nextjs";
 
 const page = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
-  const appliedEvents = JSON.parse(await getUserForm({ clerkId: userId, searchQuery:searchParams.q }));
+  const userForms = JSON.parse(await getUserForm({ clerkId: userId, searchQuery:searchParams.q }));
 
   return (
     <>
@@ -25,8 +25,8 @@ const page = async ({ searchParams }: SearchParamsProps) => {
       <SearchBar route="/forms"/>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {appliedEvents?.length > 0 ? (
-          appliedEvents?.map((item: any) => (
+        {userForms?.length > 0 ? (
+          userForms?.map((item: any) => (
             <CourseCard key={item._id} event={item} />
           ))
         ) : (

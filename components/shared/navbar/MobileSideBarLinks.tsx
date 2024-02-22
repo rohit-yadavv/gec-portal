@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import EnrollmentDialog from "../EnrollmentDialog";
+import BroadcastDialog from "../BrodcastDialog";
 
 const MobileSideBarLinks = ({ isAdmin, userId }: { isAdmin: any, userId:any }) => {
   const pathName = usePathname();
@@ -117,6 +118,7 @@ const MobileSideBarLinks = ({ isAdmin, userId }: { isAdmin: any, userId:any }) =
               );
             })}
         {isAdmin && <EnrollmentDialog userId={userId} />}
+        {isAdmin && <BroadcastDialog userId={userId} />}
       </SignedIn>
 
       <SignedOut>

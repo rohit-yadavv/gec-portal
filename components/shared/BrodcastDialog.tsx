@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog"; 
 import { useState } from "react";
 import BroadcastForm from "./form/BroadcastForm";
+import Image from "next/image";
 
 const BroadcastDialog = ({userId}:any) => {
   const [open, setOpen] = useState(false);
@@ -21,8 +22,18 @@ const BroadcastDialog = ({userId}:any) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <div className="card-wrapper min-h-[46px] rounded-lg border px-4 py-3 text-dark-200 hover:border-[#FF7000] hover:bg-light-850 dark:text-light-900 dark:hover:bg-dark-200">
-          Broadcast Message
+        {/* <div className="card-wrapper min-h-[46px] rounded-lg border px-4 py-3 text-dark-200 hover:border-[#FF7000] hover:bg-light-850 dark:text-light-900 dark:hover:bg-dark-200"> */}
+        <div className="flex items-center justify-start gap-4 rounded-lg border border-transparent bg-transparent p-4 hover:border-[#FF7000]">
+          <Image
+            src="/assets/icons/broadcast.svg"
+            alt="post form"
+            width={25}
+            height={25}
+            className="invert dark:invert-0"
+          />
+          <p className="text-[18px] font-medium leading-[25.2px] max-lg:hidden">
+            Broadcast
+          </p>
         </div>
       </DialogTrigger>
       <DialogContent>

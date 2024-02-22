@@ -28,7 +28,7 @@ import {
   getAdminForms,
   getSelectedMail,
 } from "@/lib/actions/enrollment.action";
-import { sendMail } from "@/lib/mail"; 
+import { sendMail } from "@/lib/mail";
 import { compileBroadcastMail } from "@/lib/utils";
 
 interface Props {
@@ -37,11 +37,11 @@ interface Props {
 }
 
 const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
-  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [allForms, setAllForms] = useState([]);
 
-  const getForms = async () => { 
-    const res = await getAdminForms({ userId }); 
+  const getForms = async () => {
+    const res = await getAdminForms({ userId });
     // @ts-ignore
     setAllForms(res);
   };
@@ -66,7 +66,7 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
       });
 
       await sendMail({
-        name: 'GEC PORTAL',
+        name: "GEC PORTAL",
         subject: values?.subject,
         body: compileBroadcastMail(values?.body),
         to: resMail,
@@ -100,12 +100,23 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                {/* <SelectContent>
                   {allForms.map((form) => (
                     <SelectItem key={form?.courseId} value={form?.courseId}>
                       {form?.courseName}
                     </SelectItem>
                   ))}
+                </SelectContent> */}
+                <SelectContent>
+                  {allForms.length === 0 ? (
+                    <SelectItem disabled>No forms available</SelectItem>
+                  ) : (
+                    allForms.map((form) => (
+                      <SelectItem key={form?.courseId} value={form?.courseId}>
+                        {form?.courseName}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
               <FormMessage />

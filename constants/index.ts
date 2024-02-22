@@ -13,7 +13,7 @@ export const adminSideLinks: SidebarLink[] = [
     label: "Bookmarks",
   },
   {
-    imgURL: "/assets/icons/applied.svg",
+    imgURL: "/assets/icons/allforms.svg",
     route: "/all-forms",
     label: "All Forms",
   }, 
@@ -32,7 +32,7 @@ export const userSideLinks: SidebarLink[] = [
     label: "Bookmarks",
   },
   {
-    imgURL: "/assets/icons/applied.svg",
+    imgURL: "/assets/icons/allforms.svg",
     route: "/all-forms",
     label: "All Forms",
   }, 

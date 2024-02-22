@@ -33,9 +33,9 @@ export const EventSchema = z.object({
 })
 
 export const BroadcastSchema = z.object({
-  mailToStudentsOf: z.string().min(2),
-  subject: z.string().min(3),
-  body: z.string().min(3),
+  mailToStudentsOf: z.string().min(2,{message: "select form to which you want to send mail"}),
+  subject: z.string().min(1 ,{message: "write a valid subject"}),
+  body: z.string().min(1 ,{message: "write a valid body to send in mail"}),
 }) 
 
 export const RegistrationSchema = z.object({
