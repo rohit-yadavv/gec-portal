@@ -7,7 +7,7 @@ const page = async () => {
   console.log(events)
   return (
     <div>
-      {events?.map((item) => (
+      {events?.map((item:any) => (
         <div key={item?._id}>
           <Image
             src={`${process.env.NEXT_PUBLIC_SERVER_URL}/api/event/image/${item?._id}`}
