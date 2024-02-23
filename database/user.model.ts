@@ -16,6 +16,7 @@ export interface IUser extends Document {
 
   saved: Schema.Types.ObjectId[];
   appliedGec: Schema.Types.ObjectId[];
+  appliedEvent: Schema.Types.ObjectId[];
   joinedAt: Date;
 }
 
@@ -35,6 +36,7 @@ const UserSchema = new Schema({
 
   saved: [{ type: Schema.Types.ObjectId, ref: "Enrollment" }],
   appliedGec: [{ type: Schema.Types.ObjectId, ref: "Enrollment" }],
+  appliedEvent: [{ type: Schema.Types.ObjectId, ref: "Event" }],
   joinedAt: { type: Date, default: Date.now },
 });
 
