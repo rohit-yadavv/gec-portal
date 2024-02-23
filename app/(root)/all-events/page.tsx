@@ -1,9 +1,9 @@
-import NoResult from "@/components/shared/NoResult";
+// import NoResult from "@/components/shared/NoResult";
 import SearchBar from "@/components/shared/SearchBar"; 
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
-import { getAllEvents } from "@/lib/actions/event.action";
-import EventCard from "@/components/shared/card/EventCard";
+// import { getAllEvents } from "@/lib/actions/event.action";
+// import EventCard from "@/components/shared/card/EventCard";
 
 export const metadata: Metadata = {
   title: "Home | Gec-Portal",
@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  let events = [];
+  // let events = [];
 
-  try {
-    const response = await getAllEvents({searchQuery:searchParams.q});
-    events = JSON.parse(response);
-  } catch (error) {
-    console.error("Error fetching events:", error); 
-  }
+  // try {
+  //   const response = await getAllEvents({searchQuery:searchParams.q});
+  //   events = JSON.parse(response);
+  // } catch (error) {
+  //   console.error("Error fetching events:", error); 
+  // }
 
   return (
     <>
@@ -33,14 +33,14 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
       {/* <HomeFilters /> */}
       <div className="mt-10 flex w-full flex-wrap justify-evenly gap-6 max-sm:p-5">
-        {events.length > 0 ? (
+        {/* {events.length > 0 ? (
           events.map((item: any) => <EventCard key={item._id} event={item} />)
         ) : (
           <NoResult
             title="Nothing to Show 🙄"
             desc="Currently, there is no GEC, VAC, or any event available to register."
           />
-        )}
+        )} */}
       </div>
       <div className="mt-10"></div>
     </>
