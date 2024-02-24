@@ -31,7 +31,7 @@ const DeleteForm = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <div className="primary-gradient min-h-[46px] cursor-pointer rounded-lg px-3 py-1 !text-light-900 sm:px-4 sm:py-3">
+        <div className="primary-gradient flex min-h-[46px] cursor-pointer items-center justify-center rounded-lg px-2 !text-light-900">
           Delete Form
         </div>
       </AlertDialogTrigger>

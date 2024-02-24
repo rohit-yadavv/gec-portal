@@ -15,6 +15,18 @@ import Enrollment from "@/database/enrollment.model";
 import { FilterQuery } from "mongoose";
 import Event from "@/database/event.model";
 
+export async function getUserByMongoId(params: any) {
+  try {
+    connectToDatabase();
+    const { userId } = params;
+    const user = await User.findOne({ _id: userId });
+    return JSON.stringify(user);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getUserById(params: any) {
   try {
     connectToDatabase();
@@ -30,8 +42,7 @@ export async function getUserById(params: any) {
 export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
-    const newUser = await User.create(userData);
-    console.log(newUser)
+    const newUser = await User.create(userData); 
     return JSON.stringify(newUser);
   } catch (error) {
     console.log(error);

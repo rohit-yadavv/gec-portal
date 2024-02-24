@@ -1,5 +1,4 @@
-export const welcomeTemplate = `
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+export const eventTemplate = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <!--[if gte mso 9]>
@@ -87,7 +86,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   
   
 
-<!--[if !mso]><!--><link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet" type="text/css"><!--<![endif]-->
+<!--[if !mso]><!--><link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Cabin:400,700&display=swap" rel="stylesheet" type="text/css"><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css"><!--<![endif]-->
 
 </head>
 
@@ -121,7 +120,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="https://www.cuh.ac.in/images/ncuhlogo.png" alt="GEC PORTAL" title="GEC PORTAL" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 80%;max-width: 464px;" width="464" class="v-src-width v-src-max-width"/>
+      <img align="center" border="0" src="https://www.cuh.ac.in/images/ncuhlogo.png" alt="Logo" title="Logo" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 31%;max-width: 179.8px;" width="179.8" class="v-src-width v-src-max-width"/>
       
     </td>
   </tr>
@@ -152,25 +151,15 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   </tbody>
 </table>
 
-<table style="font-family:'Open Sans',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-  <tbody>
-    <tr>
-      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Open Sans',sans-serif;" align="left">
-        
-  <!--[if mso]><table width="100%"><tr><td><![endif]-->
-    <h1 style="margin: 0px; color: #ffffff; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Raleway',sans-serif; font-size: 48px; font-weight: 400;"><span><span><strong>Hi {{name}}</strong></span></span></h1>
-  <!--[if mso]></td></tr></table><![endif]-->
-
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 <table id="u_content_image_2" style="font-family:'Open Sans',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
   <tbody>
     <tr>
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Open Sans',sans-serif;" align="left">
         
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+  </tr>
+</table>
 
       </td>
     </tr>
@@ -181,6 +170,10 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tbody>
     <tr>
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 35px;font-family:'Open Sans',sans-serif;" align="left">
+        
+  <div style="font-size: 14px; line-height: 140%; text-align: center; word-wrap: break-word;">
+    <p style="font-size: 14px; line-height: 140%;"><span style="color: #e67e23; font-size: 26px; line-height: 36.4px; background-color: #ffffff;">Hi {{name}}</span></p>
+  </div>
 
       </td>
     </tr>
@@ -218,7 +211,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <div style="font-size: 14px; color: #333333; line-height: 130%; text-align: left; word-wrap: break-word;">
     <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 16px; line-height: 20.8px;">{{name}},</span></strong></p>
 <p style="font-size: 14px; line-height: 130%;"></p>
-<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">You are {{action}}ed for {{type}} of {{cName}}</span></p>
+<p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Successfully {{type}}ed to event - {{eName}} !</span></p>
   </div>
 
       </td>
@@ -255,7 +248,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:25px 10px 0px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Lato, sans-serif; font-size: 14px; line-height: 19.6px;"><strong><span style="font-size: 18px; line-height: 25.2px; color: #236fa1;">COURSE DETAILS</span></strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Lato, sans-serif; font-size: 14px; line-height: 19.6px;"><strong><span style="font-size: 18px; line-height: 25.2px; color: #236fa1;">EVENT DETAILS</span></strong></span></p>
   </div>
 
       </td>
@@ -289,7 +282,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 10px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><strong>Course Name:</strong> {{cName}}<span style="color: #828080; font-size: 14px; line-height: 19.6px;">.</span></p>
+    <p style="font-size: 14px; line-height: 140%;"><strong>Attendee Name:</strong><span style="color: #828080;">{{name}}</span></p>
   </div>
 
       </td>
@@ -303,7 +296,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 10px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><strong>course ID: </strong><span style="color: #828080;">{{cId}}</span></p>
+    <p style="font-size: 14px; line-height: 140%;"><strong>Event Name: </strong><span style="color: #828080; line-height: 19.6px;">{{eName}}</span></p>
   </div>
 
       </td>
@@ -317,7 +310,21 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 10px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><strong>Department: </strong>{{cDept}}</p>
+    <p style="font-size: 14px; line-height: 140%;"><strong>Date / Time : </strong>{{eTime}}<span style="color: #828080; font-size: 14px; line-height: 19.6px;"></span></p>
+  </div>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="font-family:'Open Sans',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 25px 20px;font-family:'Open Sans',sans-serif;" align="left">
+        
+  <div style="font-size: 14px; color: #333333; line-height: 140%; text-align: left; word-wrap: break-word;">
+    <p style="font-size: 14px; line-height: 140%;"><strong>Venue : <span style="color: #828080;">{{eVenue}}</span></strong></p>
   </div>
 
       </td>
@@ -352,7 +359,10 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tbody>
     <tr>
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:20px 20px 15px;font-family:'Open Sans',sans-serif;" align="left">
-
+        
+  <div style="font-size: 14px; color: #333333; line-height: 160%; text-align: left; word-wrap: break-word;">
+    <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px; font-family: Lato, sans-serif;">Please, consider this as an acceptance email. If you have any questions contact {{eDepartment}} department</span></p>
+  </div>
 
       </td>
     </tr>
@@ -365,7 +375,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 30px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #333333; line-height: 160%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px; font-family: Lato, sans-serif;">Visit {{cDept}} department for more info</span></p>
+  
   </div>
 
       </td>
@@ -380,9 +390,9 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
         
   <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->
 <div align="center">
-  <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://gec-portal.vercel.app/applied" style="height:43px; v-text-anchor:middle; width:178px;" arcsize="4.5%"  stroke="f" fillcolor="#e6a501"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-    <a href="https://gec-portal.vercel.app/applied" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #e6a501; border-radius: 2px;-webkit-border-radius: 2px; -moz-border-radius: 2px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
-      <span style="display:block;padding:12px 35px;line-height:120%;"><span style="font-family: Cabin, sans-serif; font-size: 14px; line-height: 16.8px;"><strong><span style="font-size: 16px; line-height: 19.2px;">View Applied &gt;&gt;</span></strong></span></span>
+  <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:43px; v-text-anchor:middle; width:192px;" arcsize="4.5%"  stroke="f" fillcolor="#e6a501"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
+    <a href="https://gec-portal.vercel.app/all-events" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #e6a501; border-radius: 2px;-webkit-border-radius: 2px; -moz-border-radius: 2px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
+      <span style="display:block;padding:12px 35px;line-height:120%;"><span style="font-family: Cabin, sans-serif; font-size: 14px; line-height: 16.8px;"><strong><span style="font-size: 16px; line-height: 19.2px;">View All Events &gt;&gt;</span></strong></span></span>
     </a>
     <!--[if mso]></center></v:roundrect><![endif]-->
 </div>
@@ -438,7 +448,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 20px;font-family:'Open Sans',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #828080; line-height: 140%; text-align: center; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;">© 2024 GEC-PORTAL CUH . All Rights Reserved.</p>
+    <p style="font-size: 14px; line-height: 140%;">© 2024 | Gec Portal @CUH</p>
   </div>
 
       </td>
@@ -467,5 +477,4 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 </body>
 
 </html>
-
 `

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Accepted from "../acceptedTable/Accepted";
 import DeleteForm from "./DeleteForm";
-import { SignedIn, SignedOut } from "@clerk/nextjs"; 
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import ApplyButtonEvent from "./ApplyButtonEvent";
 import ViewEventApplicant from "../eventTable/ViewEventApplicants";
 
@@ -10,21 +10,25 @@ const EventCardButton = ({
   isRejected,
   isSelected,
   selected,
+  event,
   viewApplicants,
   user,
   applicant,
   hasApplied,
   enrollmentId,
 }: any) => {
-  const mongoUser = JSON.parse(user); 
+  const mongoUser = JSON.parse(user);
   return (
-    <div className="flex gap-3"> 
+    <div className="flex items-center justify-center gap-3">
       {mongoUser?.admin ? (
         viewApplicants && (
           <>
-            <ViewEventApplicant enrollmentId={enrollmentId} applicant={applicant} />
+            <ViewEventApplicant
+              enrollmentId={enrollmentId}
+              applicant={applicant}
+            />
             <Accepted isAdmin={true} selected={selected} />
-            <DeleteForm enrollmentId={enrollmentId} type='event'/>
+            <DeleteForm enrollmentId={enrollmentId} type="event" />
           </>
         )
       ) : (
@@ -38,7 +42,8 @@ const EventCardButton = ({
           </SignedOut>
           <SignedIn>
             <ApplyButtonEvent
-              user={user} 
+              event={event}
+              user={user}
               isSelected={isSelected}
               isRejected={isRejected}
               eventId={enrollmentId}

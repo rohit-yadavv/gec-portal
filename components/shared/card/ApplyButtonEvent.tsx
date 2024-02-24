@@ -1,12 +1,15 @@
 'use client'
 import { Button } from "@/components/ui/button"; 
 import { eventRegistration, eventUnRegistration } from "@/lib/actions/event.action"; 
+import { sendMail } from "@/lib/mail";
+import { compileEventTemplate, formatDate } from "@/lib/utils";
 import Link from "next/link"; 
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 interface Props {
   user: any;
+  event:any;
   isSelected:boolean;
   isRejected: boolean; 
   eventId: string;
@@ -18,6 +21,7 @@ const ApplyButtonEvent = ({
   isRejected,
   isSelected,
   user,
+  event,
   eventId,
   hasApplied,
   isProfileComplete, 
@@ -25,26 +29,29 @@ const ApplyButtonEvent = ({
 
   const parsedUser=JSON.parse(user);
   const path = usePathname();
+  
   const applyNow = async () => {
+    const EventTime=formatDate(event?.eventTime)
     await eventRegistration({ path, userId:parsedUser?._id, eventId });  
     toast("Applied & Email sent successfully");
-    // await sendMail({
-    //   to: parsedUser?.email,
-    //   name: parsedUser?.name,
-    //   subject: `Successfully Applied to ${event?.type} of ${event?.courseName}`,
-    //   body: eventRegistration({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"register"}),
-    // }); 
+    await sendMail({
+      to: parsedUser?.email,
+      name: parsedUser?.name, 
+      subject: `Successfully Applied to ${event?.eventName} event`,
+      body: compileEventTemplate({name:parsedUser?.name, type:"register", eName:event?.eventName, eTime:EventTime, eVenue:event?.venue}),
+    }); 
   };
   const unregisterNow = async () => { 
+    const EventTime=formatDate(event?.eventTime)
     await eventUnRegistration({ path, userId:parsedUser?._id, eventId });
     toast("Unregistered & Email sent successfully");
 
-    // await sendMail({
-    //   to: parsedUser?.email,
-    //   name: parsedUser?.name,
-    //   subject: `Successfully unregistered from ${event?.type} of ${event?.courseName}`,
-    //   body: compileWelcomeTemplate({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"unregister"}),
-    // }); 
+    await sendMail({
+      to: parsedUser?.email,
+      name: parsedUser?.name, 
+      subject: `Successfully UnRegistered for ${event?.eventName} event`,
+      body: compileEventTemplate({name:parsedUser?.name, type:"unregister", eName:event?.eventName, eTime:EventTime, eVenue:event?.venue}),
+    }); 
 
   };
 

@@ -197,3 +197,16 @@ export async function getUserEvent({ clerkId, searchQuery }: userFormsProps) {
     throw error;
   }
 }
+
+
+export async function getEventById(params: any) {
+  try {
+    connectToDatabase();
+    const { enrollmentId } = params;
+    const enrollment = await Event.findById(enrollmentId);
+    return JSON.stringify(enrollment);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

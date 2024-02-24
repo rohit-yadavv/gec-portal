@@ -6,7 +6,7 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { checkAdminEligibility } from "@/lib/utils";
- 
+
 export async function POST(req: Request) {
  
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -69,7 +69,8 @@ export async function POST(req: Request) {
       admin: checkAdminEligibility(email_addresses[0].email_address),
       isProfileComplete: false,
     });
-    console.log("created")
+    
+
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
   if (eventType === "user.updated") {

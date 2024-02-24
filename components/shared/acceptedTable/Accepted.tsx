@@ -22,7 +22,7 @@ const Accepted = ({ selected, isAdmin }: Props) => {
     <Drawer>
       <DrawerTrigger>
         {isAdmin && (
-          <div className="primary-gradient min-h-[46px] rounded-lg px-3 py-1 !text-light-900 sm:px-4 sm:py-3">
+          <div className="primary-gradient flex min-h-[46px] items-center justify-center rounded-lg px-2 !text-light-900">
             Selected Candidates
           </div>
         )}

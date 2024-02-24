@@ -4,6 +4,12 @@ import qs from "query-string";
 import Handlebars from "handlebars";
 import { welcomeTemplate } from "./templates/gec template";
 import { broadcastTemplate } from "./templates/broadcast";
+import { userRegistration } from "./templates/userRegistration";
+import { eventTemplate } from "./templates/eventTemplate";
+import { getUserByMongoId } from "./actions/user.action";
+import { getEnrollmentById } from "./actions/enrollment.action";
+import { sendMail } from "./mail";
+import { getEventById } from "./actions/event.action";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -129,7 +135,14 @@ export const removeKeysFromQuery = ({
   );
 };
 
+export function compileEventTemplate({ name, type, eName, eTime, eVenue }: { name: string, type: string, eName: string, eTime: string, eVenue: string }) {
+  const template = Handlebars.compile(eventTemplate)
+  const htmlBody = template({ name, type, eName, eTime, eVenue })
+  return htmlBody
+}
+
 export function compileWelcomeTemplate({ name, type, cName, cId, cDept, action }: { name: string, type: string, cName: string, cId: string, cDept: string, action: string }) {
+
   const template = Handlebars.compile(welcomeTemplate)
   const htmlBody = template({
     name,
@@ -142,10 +155,73 @@ export function compileWelcomeTemplate({ name, type, cName, cId, cDept, action }
   return htmlBody
 }
 
-export function compileBroadcastMail(mailBody :string) {
+export function compileUserRegisterMail({ name }: { name: string }) {
+  const template = Handlebars.compile(userRegistration)
+  const htmlBody = template({ name })
+  return htmlBody
+}
+
+export function compileBroadcastMail(mailBody: string) {
   const template = Handlebars.compile(broadcastTemplate)
   const htmlBody = template({
     mailBody
   })
   return htmlBody
 }
+
+
+
+export async function sendAcceptedEventMail({ userId, enrollmentId, type }: any) {
+  try {
+
+    const mongoUser = await getUserByMongoId({ userId });
+    const user = JSON.parse(mongoUser);
+
+    const enrollmentData = await getEventById({ enrollmentId });
+    const enrollment = JSON.parse(enrollmentData);
+
+    await sendMail({
+      to: user?.email,
+      name: user?.name,
+      subject: `${type}ed for event of ${enrollment?.eventName}`,
+      body: compileEventTemplate({ 
+        name: user?.name,
+        type: enrollment?.type,
+        eName: enrollment?.eventName,
+        eTime: enrollment?.eventTime,
+        eVenue: enrollment?.venue,
+      })
+    });
+
+  } catch (error) {
+    console.error('Error in sendAcceptedEventMail function:', error);
+  }
+}
+export async function sendAcceptedMail({ userId, enrollmentId, type }: any) {
+  try {
+
+    const mongoUser = await getUserByMongoId({ userId });
+    const user = JSON.parse(mongoUser);
+
+    const enrollmentData = await getEnrollmentById({ enrollmentId });
+    const enrollment = JSON.parse(enrollmentData);
+
+    await sendMail({
+      to: user?.email,
+      name: user?.name,
+      subject: `${type}ed for ${enrollment?.type} of ${enrollment?.courseName}`,
+      body: compileWelcomeTemplate({
+        name: user?.name,
+        type: enrollment?.type,
+        cName: enrollment?.courseName,
+        cId: enrollment?.courseCode,
+        cDept: enrollment?.department,
+        action: type
+      })
+    });
+
+  } catch (error) {
+    console.error('Error in sendAcceptedMail function:', error);
+  }
+}
+

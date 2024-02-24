@@ -22,6 +22,19 @@ export async function createEvent(enrollmentData: createEnrollmentProps) {
   }
 }
 
+export async function getEnrollmentById(params: any) {
+  try {
+    connectToDatabase();
+    const { enrollmentId } = params;
+    const enrollment = await Enrollment.findById(enrollmentId);
+    return JSON.stringify(enrollment);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+
 export async function deleteEnrollment({ path, enrollmentId }: deleteEnrollmentProps) {
   try {
     connectToDatabase();

@@ -158,12 +158,14 @@ const CourseCard = async ({ event }: Props) => {
               viewApplicants={true}
               hasApplied={hasApplied}
               hasSaved={hasSaved}
+              event={event}
             />
           ) : (
             <CardButtons enrollmentId={_id} user={user} hasSaved={hasSaved} />
           )
         ) : (
           <CardButtons
+          event={event}
             isSelected={isSelected}
             isRejected={isRejected}
             selected={selected}

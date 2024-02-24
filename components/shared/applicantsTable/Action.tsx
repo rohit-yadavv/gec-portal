@@ -11,13 +11,14 @@ import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import {
-  acceptEnrollment,
+  acceptEnrollment, 
   isUserRejectedInEnrollment,
   isUserSelectedInEnrollment,
   rejectEnrollment,
 } from "@/lib/actions/enrollment.action";
 import { ObjectId } from "mongoose";
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";  
+import { sendAcceptedMail } from "@/lib/utils";
 
 interface Props {
   userId: ObjectId;
@@ -27,7 +28,7 @@ const Action = ({ userId, enrollmentId }: Props) => {
   const path = usePathname();
   const [isSelected, setIsSelected] = useState();
   const [isRejected, setIsRejected] = useState();
-
+  
   const selected = async () => {
     const res = await isUserSelectedInEnrollment({ userId, enrollmentId });
     setIsSelected(res);
@@ -39,14 +40,16 @@ const Action = ({ userId, enrollmentId }: Props) => {
 
   useEffect(() => {
     selected();
-    rejected();
+    rejected(); 
   }, []);
 
   const handleAccept = async () => {
     await acceptEnrollment({ path, userId, enrollmentId });
+    await sendAcceptedMail({userId, enrollmentId, type:"accept"}) 
   };
   const handleReject = async () => {
     await rejectEnrollment({ path, userId, enrollmentId });
+    await sendAcceptedMail({userId, enrollmentId, type:"reject"}) 
   };
 
   return (

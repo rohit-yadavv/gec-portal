@@ -2,7 +2,7 @@
 import nodemailer from 'nodemailer'
 
 
-export async function sendMail({ to, name, subject, body, recipients }: any) {
+export async function sendMail({ to, name, subject, body }: any) {
 
     const SMTP_EMAIL = process.env.SMTP_EMAIL;
     const SMTP_PASSWORD = process.env.SMTP_PASSWORD; 

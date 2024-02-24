@@ -31,7 +31,7 @@ const ApplyButton = ({
   event,
   isRejected
 }: Props) => { 
-
+console.log(event)
   const parsedUser=JSON.parse(user);
   const path = usePathname();
   const applyNow = async () => {
