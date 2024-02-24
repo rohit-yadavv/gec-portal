@@ -68,7 +68,7 @@ export async function removeSaveEvent({ path, data }: saveEventData) {
   }
 }
 
-export async function getSavedEvents({ clerkId, searchQuery }: getSavedEventProps) {
+export async function getSavedEvents({ clerkId, searchQuery, filter }: getSavedEventProps) {
   try {
     connectToDatabase();
 
@@ -85,6 +85,34 @@ export async function getSavedEvents({ clerkId, searchQuery }: getSavedEventProp
       ];
     }
 
+    let sortOptions = {};
+
+    switch (filter) {
+      case "newest":
+        sortOptions = { uploadedAt: -1 };
+        break;
+
+      // case "applied":
+      //   query.applicant = { $in: [userId] };
+      //   break;
+
+      case "ug":
+        query.eligible = 'ug';
+        break;
+
+      case "pg":
+        query.eligible = 'pg';
+        break;
+
+      case "gec":
+        query.type = 'gec';
+        break;
+
+      case "vac":
+        query.type = 'vac';
+        break;
+    }
+
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
       match: query,
@@ -92,7 +120,7 @@ export async function getSavedEvents({ clerkId, searchQuery }: getSavedEventProp
       populate: [
         { path: "uploadedBy", model: User, select: "name email picture" },
       ],
-    });
+    }).sort(sortOptions);
     const savedEvents = user.saved;
     return JSON.stringify(savedEvents);
   } catch (error) {
@@ -101,10 +129,9 @@ export async function getSavedEvents({ clerkId, searchQuery }: getSavedEventProp
   }
 }
 
-export async function getAppliedEnrollments({ clerkId, searchQuery}: getAppliedProps) {
+export async function getAppliedEnrollments({ clerkId, searchQuery, filter }: getAppliedProps) {
   try {
     await connectToDatabase();
-
     const query: FilterQuery<typeof Enrollment> = {};
     const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -118,14 +145,42 @@ export async function getAppliedEnrollments({ clerkId, searchQuery}: getAppliedP
       ];
     }
 
+    let sortOptions = {};
+
+    switch (filter) {
+      case "newest":
+        sortOptions = { uploadedAt: -1 };
+        break;
+
+      // case "applied":
+      //   query.applicant = { $in: [userId] };
+      //   break;
+
+      case "ug":
+        query.eligible = 'ug';
+        break;
+
+      case "pg":
+        query.eligible = 'pg';
+        break;
+
+      case "gec":
+        query.type = 'gec';
+        break;
+
+      case "vac":
+        query.type = 'vac';
+        break;
+    }
+
     const user = await User.findOne({ clerkId }).populate({
       path: "appliedGec",
-      match:query,
+      match: query,
       model: Enrollment,
       populate: [
         { path: "uploadedBy", model: User, select: "name email picture" },
       ],
-    });
+    }).sort(sortOptions);
 
     const enrollments = user ? user.appliedGec : [];
     return JSON.stringify(enrollments);
@@ -152,7 +207,7 @@ export async function deleteUser(params: DeleteUserParams) {
 }
 
 export async function updateUser(params: UpdateUserParams) {
-  try { 
+  try {
     connectToDatabase();
     const { clerkId, updateData, path } = params;
     await User.findOneAndUpdate({ clerkId }, updateData, {

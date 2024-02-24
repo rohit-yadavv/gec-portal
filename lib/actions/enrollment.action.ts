@@ -7,6 +7,7 @@ import User from "@/database/user.model";
 import { GetEnrollmentsParams, acceptEnrollmentProps, adminForms, createEnrollmentProps, deleteEnrollmentProps, registerProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
 import { getUserById } from "./user.action";
 import { FilterQuery } from "mongoose";
+import Event from "@/database/event.model";
 
 export async function createEvent(enrollmentData: createEnrollmentProps) {
   try {
@@ -21,7 +22,7 @@ export async function createEvent(enrollmentData: createEnrollmentProps) {
   }
 }
 
-export async function deleteEvent({ path, enrollmentId }: deleteEnrollmentProps) {
+export async function deleteEnrollment({ path, enrollmentId }: deleteEnrollmentProps) {
   try {
     connectToDatabase();
     const enrollment = await Enrollment.findById(enrollmentId);
@@ -40,9 +41,7 @@ export async function deleteEvent({ path, enrollmentId }: deleteEnrollmentProps)
     revalidatePath(path)
   } catch (error) {
     console.log(error);
-  }
-
-
+  } 
 }
 
 export async function getAllEvents(params: GetEnrollmentsParams) {
@@ -196,7 +195,7 @@ export async function isUserSelectedInEnrollment({ userId, enrollmentId }: userI
   try {
     connectToDatabase();
     const res = await Enrollment.findById(enrollmentId)
-    const data = res.selected.includes(userId)
+    const data = res?.selected?.includes(userId)
     return data;
 
   } catch (error) {
@@ -209,7 +208,7 @@ export async function isUserRejectedInEnrollment({ userId, enrollmentId }: userI
   try {
     connectToDatabase();
     const res = await Enrollment.findById(enrollmentId)
-    const data = res.rejected.includes(userId)
+    const data = res?.rejected?.includes(userId)
     return data;
 
   } catch (error) {
@@ -250,7 +249,7 @@ export async function getUserForm({ clerkId, searchQuery }: userFormsProps) {
 export async function unRegisterForEvent({ path, userId, enrollmentId }: registerProps) {
   try {
     connectToDatabase();
-    await Enrollment.findByIdAndUpdate(enrollmentId, {
+    await Event.findByIdAndUpdate(enrollmentId, {
       $pull: { applicant: userId },
     });
 

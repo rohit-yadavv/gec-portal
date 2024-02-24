@@ -71,6 +71,12 @@ export interface GetEnrollmentsParams {
   // userId?:string;
 }
 
+export interface eventRegisterProps {
+  path: string;
+  eventId: string;
+  userId: string;
+}
+
 export interface registerProps {
   path: string;
   enrollmentId: string;
@@ -105,4 +111,5 @@ export interface getSavedEventProps{
 export interface getAppliedProps{
     clerkId?: string | null;
     searchQuery?:string|null;
+    filter?: string|null;
   }

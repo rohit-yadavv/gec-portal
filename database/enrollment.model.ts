@@ -1,5 +1,6 @@
 import { Schema, model, models, Document, ObjectId } from "mongoose";
 
+ 
 export interface IEnrollment extends Document {
   type?: string;
   desc?: string;
@@ -38,5 +39,5 @@ const EnrollmentSchema = new Schema({
   uploadedAt: { type: Date, default: Date.now() },
 });
 
-const Enrollment = models.Enrollment || model("Enrollment", EnrollmentSchema);
+const Enrollment = models?.Enrollment || model("Enrollment", EnrollmentSchema);
 export default Enrollment;
