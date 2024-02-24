@@ -1,12 +1,23 @@
-"use client"; 
+"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { formUrlQuery } from "@/lib/utils";
-import { HomePageFilters } from "@/constants";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import { Badge } from "../ui/badge";
 
-const HomeFilters = () => {
+interface Props {
+  filters: {
+    name: string;
+    value: string;
+    desc:string;
+  }[];
+}
+const HomeFilters = ({ filters }:Props) => {
   const searchParams = useSearchParams();
   const [active, setActive] = useState("");
   const router = useRouter();
@@ -34,7 +45,7 @@ const HomeFilters = () => {
 
   return (
     <div className="mt-10 hidden flex-wrap gap-3 md:flex">
-      {HomePageFilters.map((item) => (
+      {filters?.map((item) => (
         <TooltipProvider key={item.value}>
           <Tooltip>
             <TooltipTrigger>
