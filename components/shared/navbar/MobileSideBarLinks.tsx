@@ -25,7 +25,7 @@ const MobileSideBarLinks = ({
   const pathName = usePathname();
 
   return (
-    <section className="flex h-full flex-col gap-6 bg-light-900  pt-16 dark:bg-dark-100">
+    <section className="flex h-full flex-col gap-6 overflow-scroll bg-light-900 pt-16 dark:bg-dark-100">
       {/* home route  */}
       <SheetClose asChild key="/">
         <Link
