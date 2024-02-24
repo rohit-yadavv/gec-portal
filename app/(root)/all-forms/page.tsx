@@ -6,14 +6,14 @@ import SearchBar from "@/components/shared/SearchBar";
 import { HomePageFilters } from "@/constants";
 import { getAllEvents } from "@/lib/actions/enrollment.action"; 
 import { SearchParamsProps } from "@/types"; 
-import { Metadata } from "next"; 
+import { Metadata } from "next";  
 
 export const metadata: Metadata = {
   title: "Home | Gec-Portal",
   description: "Portal to register for gec designed for cuh students",
 };
 
-export default async function Home({ searchParams }: SearchParamsProps) { 
+export default async function Home({ searchParams }: SearchParamsProps) {  
   const result = JSON.parse(
     await getAllEvents({ filter: searchParams.filter, searchQuery:searchParams.q })
   );
@@ -29,7 +29,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         <SearchBar route="/all-forms" />
         <MobileHomeFilters filters={HomePageFilters} />
       </div>
-      <HomeFilters />
+      <HomeFilters filters={HomePageFilters}/>
       <div className="mt-10 flex w-full flex-col gap-8"> 
         {result?.length > 0 ? (
           result?.map((item: any) => ( 

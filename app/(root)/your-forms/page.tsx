@@ -23,7 +23,7 @@ const page = async ({ searchParams }: SearchParamsProps) => {
         <MobileHomeFilters filters={HomePageFilters} />
       </div>
       <SearchBar route="/forms"/>
-      <HomeFilters />
+      <HomeFilters filters={HomePageFilters}/>
       <div className="mt-10 flex w-full flex-col gap-6">
         {userForms?.length > 0 ? (
           userForms?.map((item: any) => (

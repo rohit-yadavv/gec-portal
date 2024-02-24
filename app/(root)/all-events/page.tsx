@@ -1,24 +1,22 @@
-// import NoResult from "@/components/shared/NoResult";
-import SearchBar from "@/components/shared/SearchBar"; 
+import NoResult from "@/components/shared/NoResult";
+import SearchBar from "@/components/shared/SearchBar";
 import { SearchParamsProps } from "@/types";
 import { Metadata } from "next";
-// import { getAllEvents } from "@/lib/actions/event.action";
-// import EventCard from "@/components/shared/card/EventCard";
+import { getAllEvents } from "@/lib/actions/event.action";
+import EventCard from "@/components/shared/card/EventCard"; 
+import HomeFilters from "@/components/shared/HomeFilters";
+import MobileHomeFilters from "@/components/shared/MobileHomeFilters";
+import { EventPageFilters } from "@/constants";
 
 export const metadata: Metadata = {
   title: "Home | Gec-Portal",
   description: "Portal to register for GEC designed for CUH students",
 };
 
-export default async function Home({ searchParams }: SearchParamsProps) {
-  // let events = [];
-
-  // try {
-  //   const response = await getAllEvents({searchQuery:searchParams.q});
-  //   events = JSON.parse(response);
-  // } catch (error) {
-  //   console.error("Error fetching events:", error); 
-  // }
+export default async function Home({ searchParams }: SearchParamsProps) { 
+  const events = JSON.parse(
+    await getAllEvents({ filter: searchParams.filter, searchQuery: searchParams.q })
+  );
 
   return (
     <>
@@ -29,18 +27,18 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <SearchBar route="/all-events" />
-        {/* <MobileHomeFilters filters={HomePageFilters} /> */}
+        <MobileHomeFilters filters={EventPageFilters} />
       </div>
-      {/* <HomeFilters /> */}
-      <div className="mt-10 flex w-full flex-wrap justify-evenly gap-6 max-sm:p-5">
-        {/* {events.length > 0 ? (
+      <HomeFilters filters={EventPageFilters}/>
+      <div className="mt-11 flex w-full flex-wrap justify-evenly gap-6">
+        {events.length > 0 ? (
           events.map((item: any) => <EventCard key={item._id} event={item} />)
         ) : (
           <NoResult
             title="Nothing to Show 🙄"
             desc="Currently, there is no GEC, VAC, or any event available to register."
           />
-        )} */}
+        )}
       </div>
       <div className="mt-10"></div>
     </>
