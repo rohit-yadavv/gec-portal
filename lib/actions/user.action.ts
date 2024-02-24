@@ -13,6 +13,7 @@ import {
 import { revalidatePath } from "next/cache";
 import Enrollment from "@/database/enrollment.model";
 import { FilterQuery } from "mongoose";
+import Event from "@/database/event.model";
 
 export async function getUserById(params: any) {
   try {
@@ -68,7 +69,7 @@ export async function removeSaveEvent({ path, data }: saveEventData) {
   }
 }
 
-export async function getSavedEvents({ clerkId, searchQuery, filter }: getSavedEventProps) {
+export async function getSavedEnrollments({ clerkId, searchQuery, filter }: getSavedEventProps) {
   try {
     connectToDatabase();
 
@@ -125,6 +126,101 @@ export async function getSavedEvents({ clerkId, searchQuery, filter }: getSavedE
     return JSON.stringify(savedEvents);
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+}
+
+
+export async function getSavedEvents({ clerkId, searchQuery, filter }: getSavedEventProps) {
+  try {
+    connectToDatabase();
+
+    const query: FilterQuery<typeof Event> = {};
+    const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    
+    if (escapedSearchQuery) {
+      query.$or = [
+        { eventName: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { eventDesc: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { department: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { venue: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }  
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "upcoming":
+        query.eventTime = { $gte: new Date() };
+        break;
+        
+      case "newest":
+        sortOptions = { uploadedAt: -1 };
+        break; 
+
+
+      case "oldest":
+        sortOptions = { uploadedAt: 1 };
+        break;
+    }
+
+    const user = await User.findOne({ clerkId }).populate({
+      path: "savedEvents",
+      match: query,
+      model: Event,
+    }).sort(sortOptions);
+    const savedEvents = user.saved;
+    return JSON.stringify(savedEvents);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getAppliedEvents({ clerkId, searchQuery, filter }: getAppliedProps) {
+  try {
+    await connectToDatabase();
+    const query: FilterQuery<typeof Event> = {};
+    const escapedSearchQuery = searchQuery?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+
+    if (escapedSearchQuery) {
+      query.$or = [
+        { eventName: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { eventDesc: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { department: { $regex: new RegExp(escapedSearchQuery, "i") } },
+        { venue: { $regex: new RegExp(escapedSearchQuery, "i") } },
+      ];
+    }  
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "upcoming":
+        query.eventTime = { $gte: new Date() };
+        break;
+        
+      case "newest":
+        sortOptions = { uploadedAt: -1 };
+        break; 
+
+
+      case "oldest":
+        sortOptions = { uploadedAt: 1 };
+        break;
+    }
+
+    const user = await User.findOne({ clerkId }).populate({
+      path: "appliedEvent",
+      match: query,
+      model: Event,
+    }).sort(sortOptions);
+
+    const events = user ? user.appliedEvent : [];
+    return JSON.stringify(events);
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 }

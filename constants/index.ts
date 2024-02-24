@@ -32,8 +32,13 @@ export const userSideLinks: SidebarLink[] = [
   },
   {
     imgURL: "/assets/icons/applied.svg",
-    route: "/applied",
-    label: "Applied",
+    route: "/applied-forms",
+    label: "Applied Forms",
+  }, 
+  {
+    imgURL: "/assets/icons/applied.svg",
+    route: "/applied-events",
+    label: "Applied Events",
   }, 
 
 ]

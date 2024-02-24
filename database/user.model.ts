@@ -15,6 +15,7 @@ export interface IUser extends Document {
   isProfileComplete:boolean;
 
   saved: Schema.Types.ObjectId[];
+  savedEvents: Schema.Types.ObjectId[];
   appliedGec: Schema.Types.ObjectId[];
   appliedEvent: Schema.Types.ObjectId[];
   joinedAt: Date;
@@ -35,6 +36,7 @@ const UserSchema = new Schema({
   isProfileComplete: {type: Boolean, default: false, required: true},
 
   saved: [{ type: Schema.Types.ObjectId, ref: "Enrollment" }],
+  savedEvents: [{ type: Schema.Types.ObjectId, ref: "Event" }],
   appliedGec: [{ type: Schema.Types.ObjectId, ref: "Enrollment" }],
   appliedEvent: [{ type: Schema.Types.ObjectId, ref: "Event" }],
   joinedAt: { type: Date, default: Date.now },
