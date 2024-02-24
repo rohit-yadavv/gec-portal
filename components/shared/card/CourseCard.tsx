@@ -17,7 +17,6 @@ import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import ApplicationStatus from "./ApplicationStatus";
 
-
 interface Props {
   event: {
     _id: string;
@@ -42,7 +41,7 @@ interface Props {
     courseCredit: number;
     seats: number;
     type: string;
-  }; 
+  };
 }
 
 const CourseCard = async ({ event }: Props) => {
@@ -65,7 +64,7 @@ const CourseCard = async ({ event }: Props) => {
     selected,
     rejected,
     seats,
-  } = event; 
+  } = event;
   const appliedCount = applicant.length;
 
   const { userId } = auth();
@@ -76,7 +75,7 @@ const CourseCard = async ({ event }: Props) => {
   const isAdmin = mongoUser?.admin;
   const isSelected = selected?.includes(mongoUser?._id);
   const isRejected = rejected?.includes(mongoUser?._id);
-  const isUploader = uploadedBy?._id === mongoUser?._id; 
+  const isUploader = uploadedBy?._id === mongoUser?._id;
   return (
     <Card className="card-wrapper relative">
       {/* card header  */}
@@ -84,7 +83,7 @@ const CourseCard = async ({ event }: Props) => {
         isAdmin={isAdmin}
         hasApplied={hasApplied}
         isSelected={isSelected}
-        isRejected={isRejected} 
+        isRejected={isRejected}
       />
       <CardHeader className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-4">
@@ -163,9 +162,9 @@ const CourseCard = async ({ event }: Props) => {
             <CardButtons enrollmentId={_id} user={user} hasSaved={hasSaved} />
           )
         ) : (
-          <CardButtons
-          event={event}
+          <CardButtons 
             isSelected={isSelected}
+            isRejected={isRejected}
             selected={selected}
             applicant={applicant}
             enrollmentId={_id}

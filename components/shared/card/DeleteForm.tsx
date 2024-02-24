@@ -10,14 +10,22 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deleteEvent } from "@/lib/actions/enrollment.action";
+import { deleteEnrollment } from "@/lib/actions/enrollment.action";
+import { deleteEvent } from "@/lib/actions/event.action";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
-const DeleteForm = ({ enrollmentId }: { enrollmentId: string }) => {
+const DeleteForm = ({
+  enrollmentId,
+  type,
+}: {
+  enrollmentId: string;
+  type: string;
+}) => {
   const path = usePathname();
-  const deleteFormNow = async () => { 
-    await deleteEvent({ path, enrollmentId });
+  const deleteFormNow = async () => {
+    type === "enrollment" && (await deleteEnrollment({ path, enrollmentId }));
+    type === "event" && (await deleteEvent({ path, enrollmentId }));
     toast("Unregister Successful");
   };
   return (

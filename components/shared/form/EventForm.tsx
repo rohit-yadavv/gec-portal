@@ -15,8 +15,10 @@ const EventForm = ({ onSubmitSuccess, userId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [eventName, setEventName] = useState("");
   const [eventDesc, setEventDesc] = useState("");
+  const [eventTime, setEventTime] = useState("");
   const [department, setDepartment] = useState("");
-  const [eventPoster, setEventPoster] = useState("");
+  const [venue, setVenue] = useState("");
+  const [eventPoster, setEventPoster] = useState(""); 
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -25,14 +27,17 @@ const EventForm = ({ onSubmitSuccess, userId }: Props) => {
       const formData = new FormData();
       formData.append("eventName", eventName);
       formData.append("eventDesc", eventDesc);
+      formData.append("venue", venue);
       formData.append("department", department);
+      formData.append("eventTime", eventTime);
       formData.append("eventPoster", eventPoster);
-      console.log(formData);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/event`,
+      formData.append("uploadedBy", userId);
+      
+      await axios.post(
+        '/api/event',
         formData
       );
-      console.log(response);
+      
       toast("Event has been created.");
       onSubmitSuccess();
     } catch (error) {
@@ -64,6 +69,20 @@ const EventForm = ({ onSubmitSuccess, userId }: Props) => {
         required
       />
       <Input
+        onChange={(e) => setVenue(e.target.value)}
+        className="no-focus  min-h-[56px] border"
+        placeholder="Enter Venue"
+        required
+      />
+      <Input
+        type="date"
+        onChange={(e) => setEventTime(e.target.value)}
+        className="no-focus  min-h-[56px] border"
+        placeholder="Enter Venue"
+        required
+      />
+
+      <Input
         type="file"
         accept="image/*"
         // @ts-ignore
@@ -72,7 +91,6 @@ const EventForm = ({ onSubmitSuccess, userId }: Props) => {
         placeholder="Event Poster"
         required
       />
- 
 
       <div className="mt-7 flex justify-end">
         <Button
