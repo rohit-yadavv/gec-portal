@@ -1,11 +1,6 @@
 'use client'
-import { Button } from "@/components/ui/button";
-import {
-  registerForEvent,
-  unRegisterForEvent,
-} from "@/lib/actions/enrollment.action";
-import {  sendMail } from "@/lib/mail";
-import { compileWelcomeTemplate } from "@/lib/utils";
+import { Button } from "@/components/ui/button"; 
+import { eventRegistration, eventUnRegistration } from "@/lib/actions/event.action"; 
 import Link from "next/link"; 
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
@@ -13,46 +8,44 @@ import { toast } from "sonner";
 interface Props {
   user: any;
   isSelected:boolean;
-  isRejected:boolean;
-  enrollmentId: string;
+  isRejected: boolean; 
+  eventId: string;
   hasApplied: string;
   isProfileComplete: boolean;
-  selected: any;
-  event:any;
 }
 
-const ApplyButton = ({
-  selected,
+const ApplyButtonEvent = ({
+  isRejected,
   isSelected,
   user,
-  enrollmentId,
+  eventId,
   hasApplied,
-  isProfileComplete,
-  event,
-  isRejected
+  isProfileComplete, 
 }: Props) => { 
 
   const parsedUser=JSON.parse(user);
   const path = usePathname();
   const applyNow = async () => {
-    await registerForEvent({ path, userId:parsedUser?._id, enrollmentId }); 
+    await eventRegistration({ path, userId:parsedUser?._id, eventId });  
     toast("Applied & Email sent successfully");
-    await sendMail({
-      to: parsedUser?.email,
-      name: parsedUser?.name,
-      subject: `Successfully Applied to ${event?.type} of ${event?.courseName}`,
-      body: compileWelcomeTemplate({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"register"}),
-    }); 
+    // await sendMail({
+    //   to: parsedUser?.email,
+    //   name: parsedUser?.name,
+    //   subject: `Successfully Applied to ${event?.type} of ${event?.courseName}`,
+    //   body: eventRegistration({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"register"}),
+    // }); 
   };
   const unregisterNow = async () => { 
-    await unRegisterForEvent({ path, userId:parsedUser?._id, enrollmentId });
-    toast("Unregisterd & Email sent successfully");
-    await sendMail({
-      to: parsedUser?.email,
-      name: parsedUser?.name,
-      subject: `Successfully unregistered from ${event?.type} of ${event?.courseName}`,
-      body: compileWelcomeTemplate({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"unregister"}),
-    }); 
+    await eventUnRegistration({ path, userId:parsedUser?._id, eventId });
+    toast("Unregistered & Email sent successfully");
+
+    // await sendMail({
+    //   to: parsedUser?.email,
+    //   name: parsedUser?.name,
+    //   subject: `Successfully unregistered from ${event?.type} of ${event?.courseName}`,
+    //   body: compileWelcomeTemplate({name:parsedUser?.name, type:event?.type, cName:event?.courseName, cId:event?.courseCode, cDept:event?.department, action:"unregister"}),
+    // }); 
+
   };
 
   if (!isProfileComplete) {
@@ -76,7 +69,6 @@ const ApplyButton = ({
       </div>
     );
   }
-
   if (isRejected) {
     return (
       <div className="cursor-not-allowed">
@@ -111,4 +103,4 @@ const ApplyButton = ({
   );
 };
 
-export default ApplyButton;
+export default ApplyButtonEvent;

@@ -17,6 +17,7 @@ interface Props {
   filters: {
     name: string;
     value: string;
+    desc:string;
   }[]; 
 }
 const MobileHomeFilters = ({ filters }: Props) => {

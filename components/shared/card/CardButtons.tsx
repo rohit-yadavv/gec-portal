@@ -14,7 +14,7 @@ const CardButtons = ({
   viewApplicants,
   user,
   applicant,
-  hasSaved,
+  isRejected,
   hasApplied,
   event
 }: any) => {
@@ -26,7 +26,7 @@ const CardButtons = ({
           <>
             <ViewApplicant enrollmentId={enrollmentId} applicant={applicant} />
             <Accepted isAdmin={true} selected={selected} />
-            <DeleteForm enrollmentId={enrollmentId} />
+            <DeleteForm enrollmentId={enrollmentId} type='enrollment' />
           </>
         )
       ) : (
@@ -42,6 +42,7 @@ const CardButtons = ({
             <ApplyButton
               user={user}
               event={event}
+              isRejected={isRejected}
               isSelected={isSelected}
               selected={selected} 
               enrollmentId={enrollmentId}
