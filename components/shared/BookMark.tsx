@@ -1,8 +1,10 @@
 "use client";
 
 import { 
-  removeSaveEvent,
-  saveEvent,
+  removeSaveEnrollment, 
+  removeSavedEvent, 
+  saveEnrollment,
+  saveEvent, 
 } from "@/lib/actions/user.action"; 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,9 +16,10 @@ interface Props {
   hasSaved: boolean;
   enrollmentId: string;
   size: number;
+  formType:string;
 }
 
-const BookMark = ({ userId, enrollmentId, hasSaved, size }: Props) => {
+const BookMark = ({ userId, enrollmentId, hasSaved, size, formType }: Props) => {
   const path = usePathname();
   const data = { userId, enrollmentId };
   const handleSave = async () => {
@@ -26,10 +29,12 @@ const BookMark = ({ userId, enrollmentId, hasSaved, size }: Props) => {
     }
     if (!hasSaved) {
       hasSaved = !hasSaved;
-      await saveEvent({ path, data });
+      formType==='enrollment'&& await saveEnrollment({ path, data });
+      formType==='event'&& await saveEvent({ path, data });
       toast("Event successfully saved in your collection");
     } else {
-      await removeSaveEvent({ path, data });
+      formType==='enrollment'&& await removeSaveEnrollment({ path, data });
+      formType==='event'&& await removeSavedEvent({ path, data });
       hasSaved = !hasSaved;
       toast("Event successfully removed from your collection");
     }

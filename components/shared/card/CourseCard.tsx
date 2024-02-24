@@ -107,6 +107,7 @@ const CourseCard = async ({ event }: Props) => {
         </div>
         <div className="hidden sm:flex">
           <BookMark
+            formType="enrollment"
             userId={mongoUser?._id}
             hasSaved={hasSaved}
             enrollmentId={_id}
@@ -162,7 +163,7 @@ const CourseCard = async ({ event }: Props) => {
             <CardButtons enrollmentId={_id} user={user} hasSaved={hasSaved} />
           )
         ) : (
-          <CardButtons 
+          <CardButtons
             isSelected={isSelected}
             isRejected={isRejected}
             selected={selected}

@@ -45,7 +45,7 @@ const EventCardButton = ({
               hasApplied={hasApplied}
               isProfileComplete={mongoUser?.isProfileComplete}
             />
-            {selected.length > 0 && (
+            {selected?.length > 0 && (
               <Accepted isAdmin={false} selected={selected} />
             )}
           </SignedIn>

@@ -5,16 +5,17 @@ import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import CardBadge from "./CardBadge";
 import EventCardButton from "./EventCardsButton";
+import BookMark from "../BookMark";
 
 const EventCard = async ({ event }: any) => {
   const { _id, applicant, selected, rejected, uploadedBy } = event;
-  console.log(selected);
   if (!event) return;
   const { userId } = auth();
   const time = formatDate(event?.eventTime);
   const user = await getUserById({ userId });
   const mongoUser = JSON.parse(user);
   const hasApplied = mongoUser?.appliedEvent.includes(_id);
+  const hasSaved = mongoUser?.savedEvents.includes(_id);
   const isAdmin = mongoUser?.admin;
   // @ts-ignore
   const isSelected = selected?.some((user) => user._id === mongoUser?._id);
@@ -52,34 +53,52 @@ const EventCard = async ({ event }: any) => {
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-end">
-          {isAdmin ? (
-            isUploader ? (
+        <div className="flex w-full items-center justify-between">
+          <div className="">
+            <BookMark
+              formType='event'
+              userId={mongoUser?._id}
+              hasSaved={hasSaved}
+              enrollmentId={_id}
+              size={20}
+            />
+          </div>
+          <div className="flex justify-end">
+            {isAdmin ? (
+              isUploader ? (
+                <EventCardButton
+                  event={event}
+                  selected={selected}
+                  applicant={applicant}
+                  enrollmentId={_id}
+                  user={user}
+                  viewApplicants={true}
+                  hasApplied={hasApplied}
+                  hasSaved={hasSaved}
+                />
+              ) : (
+                <EventCardButton
+                  event={event}
+                  enrollmentId={_id}
+                  user={user}
+                  hasSaved={hasSaved}
+                />
+              )
+            ) : (
               <EventCardButton
                 event={event}
+                isSelected={isSelected}
+                isRejected={isRejected}
                 selected={selected}
                 applicant={applicant}
                 enrollmentId={_id}
                 user={user}
-                viewApplicants={true}
+                viewApplicants={false}
                 hasApplied={hasApplied}
+                hasSaved={hasSaved}
               />
-            ) : (
-              <EventCardButton event={event} enrollmentId={_id} user={user} />
-            )
-          ) : (
-            <EventCardButton
-              event={event}
-              isSelected={isSelected}
-              isRejected={isRejected}
-              selected={selected}
-              applicant={applicant}
-              enrollmentId={_id}
-              user={user}
-              viewApplicants={false}
-              hasApplied={hasApplied}
-            />
-          )}
+            )}
+          </div>
         </div>
       </div>
     </>

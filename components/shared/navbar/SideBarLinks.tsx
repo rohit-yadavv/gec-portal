@@ -1,5 +1,10 @@
 "use client";
-import { userSideLinks, adminSideLinks, bothAdminUserLinks } from "@/constants";
+import {
+  userSideLinks,
+  adminSideLinks,
+  bothAdminUserLinks,
+  savedLinks,
+} from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -19,7 +24,6 @@ const SideBarLinks = ({
 
   return (
     <div className="flex flex-1 flex-col gap-4">
-      {/* <div className="border-b"> */}
       {/* home route  */}
       <Link
         key="home"
@@ -33,8 +37,8 @@ const SideBarLinks = ({
         <Image
           src="/assets/icons/home.svg"
           alt="home"
-          width={20}
-          height={20}
+          width={25}
+          height={25}
           className={`${pathName === "/" ? "" : "invert dark:invert-0"}`}
         />
         <p
@@ -47,9 +51,9 @@ const SideBarLinks = ({
           Home
         </p>
       </Link>
-      {/* </div> */}
+
       <hr />
-      {/* signed user routes */}
+
       <SignedIn>
         {bothAdminUserLinks.map((item) => {
           const isActive =
@@ -69,8 +73,8 @@ const SideBarLinks = ({
               <Image
                 src={item.imgURL}
                 alt={item.label}
-                width={20}
-                height={20}
+                width={25}
+                height={25}
                 className={`${isActive ? "" : "invert dark:invert-0"}`}
               />
               <p
@@ -85,8 +89,46 @@ const SideBarLinks = ({
             </Link>
           );
         })}
+
         <hr />
-        {/* admin links  */}
+
+        {savedLinks.map((item) => {
+          const isActive =
+            (pathName.includes(item.route) && item.route.length > 1) ||
+            pathName === item.route;
+
+          return (
+            <Link
+              key={item.route}
+              href={item.route}
+              className={`${
+                isActive
+                  ? "primary-gradient text-light-900"
+                  : "text-dark-300 dark:text-light-900"
+              } flex items-center justify-start gap-4 rounded-lg border border-transparent bg-transparent p-4 hover:border-[#FF7000]`}
+            >
+              <Image
+                src={item.imgURL}
+                alt={item.label}
+                width={25}
+                height={25}
+                className={`${isActive ? "" : "invert dark:invert-0"}`}
+              />
+              <p
+                className={`${
+                  isActive
+                    ? "text-[18px] font-bold leading-[140%]"
+                    : "text-[18px] font-medium leading-[25.2px]"
+                } max-lg:hidden `}
+              >
+                {item.label}
+              </p>
+            </Link>
+          );
+        })}
+
+        <hr />
+        
         {isAdmin
           ? adminSideLinks.map((item) => {
               const isActive =
@@ -106,8 +148,8 @@ const SideBarLinks = ({
                   <Image
                     src={item.imgURL}
                     alt={item.label}
-                    width={20}
-                    height={20}
+                    width={25}
+                    height={25}
                     className={`${isActive ? "" : "invert dark:invert-0"}`}
                   />
                   <p
@@ -140,8 +182,8 @@ const SideBarLinks = ({
                   <Image
                     src={item.imgURL}
                     alt={item.label}
-                    width={20}
-                    height={20}
+                    width={25}
+                    height={25}
                     className={`${isActive ? "" : "invert dark:invert-0"}`}
                   />
                   <p
@@ -157,10 +199,16 @@ const SideBarLinks = ({
               );
             })}
         <hr />
-        {isAdmin && <EnrollmentDialog userId={userId} />}
-        {isAdmin && <EventDialog userId={userId} />}
-        <hr />
-        {isAdmin && <BroadcastDialog userId={userId} />}
+
+        {isAdmin && (
+          <>
+            <EnrollmentDialog userId={userId} />
+            <EventDialog userId={userId} />
+            <hr />
+            <BroadcastDialog userId={userId} />
+          </>
+        )}
+        
       </SignedIn>
     </div>
   );

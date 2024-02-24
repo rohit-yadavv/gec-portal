@@ -6,37 +6,27 @@ export const themes = [
   { value: "system", label: "System", icon: "/assets/icons/computer.svg" },
 ];
 
-export const adminSideLinks: SidebarLink[] = [  
+export const adminSideLinks: SidebarLink[] = [   
   {
-    imgURL: "/assets/icons/star.svg",
-    route: "/saved",
-    label: "Bookmarks",
-  },
-  {
-    imgURL: "/assets/icons/applied.svg",
-    route: "/your-forms",
-    label: "Your Forms",
+    imgURL: "/assets/icons/your-forms.svg",
+    route: "/my-forms",
+    label: "My Forms",
   },  
   {
-    imgURL: "/assets/icons/applied.svg",
-    route: "/your-events",
-    label: "Your Events",
+    imgURL: "/assets/icons/your-event.svg",
+    route: "/my-events",
+    label: "My Events",
   },  
 ]
 
-export const userSideLinks: SidebarLink[] = [ 
+export const userSideLinks: SidebarLink[] = [  
   {
-    imgURL: "/assets/icons/star.svg",
-    route: "/saved",
-    label: "Bookmarks",
-  },
-  {
-    imgURL: "/assets/icons/applied.svg",
+    imgURL: "/assets/icons/applied-forms.svg",
     route: "/applied-forms",
     label: "Applied Forms",
   }, 
   {
-    imgURL: "/assets/icons/applied.svg",
+    imgURL: "/assets/icons/applied-events.svg",
     route: "/applied-events",
     label: "Applied Events",
   }, 
@@ -51,12 +41,23 @@ export const bothAdminUserLinks:SidebarLink[]=[
     label: "All Forms",
   }, 
   {
-    imgURL: "/assets/icons/event.svg",
+    imgURL: "/assets/icons/all-events.svg",
     route: "/all-events",
     label: "All Events",
+  },  
+]
+
+export const savedLinks:SidebarLink[]=[
+  {
+    imgURL: "/assets/icons/form-saved.svg",
+    route: "/saved-forms",
+    label: "Saved Forms",
   },
-
-
+  {
+    imgURL: "/assets/icons/event.svg",
+    route: "/saved-events",
+    label: "Saved Events",
+  },
 ]
 
 export const HomePageFilters = [

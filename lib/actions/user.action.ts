@@ -45,6 +45,21 @@ export async function saveEvent({ path, data }: saveEventData) {
     const { userId, enrollmentId } = data;
 
     await User.findByIdAndUpdate(userId, {
+      $addToSet: { savedEvents: enrollmentId },
+    });
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function saveEnrollment({ path, data }: saveEventData) {
+  try {
+    connectToDatabase();
+    const { userId, enrollmentId } = data;
+
+    await User.findByIdAndUpdate(userId, {
       $addToSet: { saved: enrollmentId },
     });
     revalidatePath(path);
@@ -54,7 +69,22 @@ export async function saveEvent({ path, data }: saveEventData) {
   }
 }
 
-export async function removeSaveEvent({ path, data }: saveEventData) {
+export async function removeSavedEvent({ path, data }: saveEventData) {
+  try {
+    connectToDatabase();
+    const { userId, enrollmentId } = data;
+
+    await User.findByIdAndUpdate(userId, {
+      $pull: { savedEvents: enrollmentId },
+    });
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function removeSaveEnrollment({ path, data }: saveEventData) {
   try {
     connectToDatabase();
     const { userId, enrollmentId } = data;
@@ -128,8 +158,7 @@ export async function getSavedEnrollments({ clerkId, searchQuery, filter }: getS
     console.log(error);
     throw error;
   }
-}
-
+} 
 
 export async function getSavedEvents({ clerkId, searchQuery, filter }: getSavedEventProps) {
   try {
@@ -170,7 +199,7 @@ export async function getSavedEvents({ clerkId, searchQuery, filter }: getSavedE
       match: query,
       model: Event,
     }).sort(sortOptions);
-    const savedEvents = user.saved;
+    const savedEvents = user.savedEvents;
     return JSON.stringify(savedEvents);
   } catch (error) {
     console.log(error);

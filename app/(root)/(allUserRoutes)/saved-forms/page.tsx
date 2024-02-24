@@ -17,7 +17,7 @@ const page = async ({searchParams}:SearchParamsProps) => {
         <h1 className="text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">Saved Events</h1> 
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center"> 
-      <SearchBar route="/saved/" />
+      <SearchBar route="/saved-forms" />
       <MobileHomeFilters filters={HomePageFilters} />
       </div>
       <HomeFilters filters={HomePageFilters}/>

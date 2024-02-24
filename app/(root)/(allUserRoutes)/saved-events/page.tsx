@@ -2,8 +2,8 @@ import HomeFilters from "@/components/shared/HomeFilters";
 import MobileHomeFilters from "@/components/shared/MobileHomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import SearchBar from "@/components/shared/SearchBar";
-import CourseCard from "@/components/shared/card/CourseCard";
-import { HomePageFilters } from "@/constants";
+import EventCard from "@/components/shared/card/EventCard";
+import { EventPageFilters } from "@/constants";
 import { getSavedEvents } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -17,14 +17,14 @@ const page = async ({searchParams}:SearchParamsProps) => {
         <h1 className="text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">Saved Events</h1> 
       </div>
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center"> 
-      <SearchBar route="/saved/" />
-      <MobileHomeFilters filters={HomePageFilters} />
+      <SearchBar route="/saved-events/" />
+      <MobileHomeFilters filters={EventPageFilters} />
       </div>
-      <HomeFilters filters={HomePageFilters}/>
+      <HomeFilters filters={EventPageFilters}/>
       <div className="mt-10 flex w-full flex-col gap-6">
         {savedEvents?.length > 0 ? (
           savedEvents?.map((item: any) => ( 
-            <CourseCard key={item._id} event={item} />
+            <EventCard key={item._id} event={item} />
           ))
         ) : (
           <NoResult
