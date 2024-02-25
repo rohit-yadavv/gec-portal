@@ -27,6 +27,17 @@ export async function getUserByMongoId(params: any) {
   }
 }
 
+export async function countUser(){
+  try {
+    connectToDatabase();
+    const totalUsers = await User.countDocuments();
+    return totalUsers;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
+
 export async function getUserById(params: any) {
   try {
     connectToDatabase();

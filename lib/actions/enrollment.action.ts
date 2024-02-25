@@ -35,6 +35,17 @@ export async function getEnrollmentById(params: any) {
 }
 
 
+export async function countEnrollments(){
+  try {
+    connectToDatabase();
+    const totalEnrollments = await Enrollment.countDocuments();
+    return totalEnrollments;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
+
 export async function deleteEnrollment({ path, enrollmentId }: deleteEnrollmentProps) {
   try {
     connectToDatabase();

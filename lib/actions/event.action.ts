@@ -199,6 +199,18 @@ export async function getUserEvent({ clerkId, searchQuery }: userFormsProps) {
 }
 
 
+export async function countEvents(){
+  try {
+    connectToDatabase();
+    const totalEvents = await Event.countDocuments();
+    return totalEvents;
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
+}
+
+
 export async function getEventById(params: any) {
   try {
     connectToDatabase();
