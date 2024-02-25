@@ -62,8 +62,8 @@ const Slider = () => {
           </div>
         </CarouselItem> 
       </CarouselContent>
-      <CarouselPrevious className="hidden sm:block"/>
-      <CarouselNext className="hidden sm:block"/>
+      <CarouselPrevious className="max-sm:hidden"/>
+      <CarouselNext className="max-sm:hidden"/>
     </Carousel>
   );
 };
