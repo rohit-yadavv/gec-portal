@@ -69,7 +69,7 @@ const CounterComponent = ({ totalUsers, totalEvents, totalEnrollments }:Props) =
           <div className="counter purple">
             <div className="counter-icon">
               <Image
-                src="/assets/icons/event.svg"
+                src="/assets/icons/all-events.svg"
                 width={35}
                 height={35}
                 alt="event"
