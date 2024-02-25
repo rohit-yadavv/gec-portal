@@ -3,17 +3,17 @@ import AboutSection from "@/components/HomePage/AboutSection";
 import CallToAction from "@/components/HomePage/CallToAction";
 import CounterComponent from "@/components/HomePage/CounterComponent";
 import FeatureCard from "@/components/HomePage/FeatureCard";
-import Slider from "@/components/HomePage/Slider"; 
+import Slider from "@/components/HomePage/Slider";
 import { countEnrollments } from "@/lib/actions/enrollment.action";
 import { countEvents } from "@/lib/actions/event.action";
 import { countUser } from "@/lib/actions/user.action";
 import { SignedOut } from "@clerk/nextjs";
 import React from "react";
 
-const Home =  async() => {
-    const totalUsers = await countUser();
-    const totalEnrollments = await countEnrollments();
-    const totalEvents = await countEvents();
+const Home = async () => {
+  const totalUsers = await countUser();
+  const totalEnrollments = await countEnrollments();
+  const totalEvents = await countEvents();
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-light-900 dark:bg-dark-100">
@@ -30,7 +30,11 @@ const Home =  async() => {
       </div>
 
       <div className="mt-8">
-        <CounterComponent totalUsers={totalUsers+1} totalEnrollments={totalEnrollments+1} totalEvents={totalEvents+1}/>
+        <CounterComponent
+          totalUsers={totalUsers + 1}
+          totalEnrollments={totalEnrollments + 1}
+          totalEvents={totalEvents + 1}
+        />
       </div>
 
       <div className="mt-8">
@@ -47,11 +51,12 @@ const Home =  async() => {
         </div>
       </SignedOut>
 
-        <div className="w-full border-t-2 pt-3">
-          <div className="flex w-full items-center justify-center">
-          © 2022 Central University Of Haryana. Designed & Developed By CSE Dept. CUH
-          </div>
+      <div className="w-full border-t-2 pt-3">
+        <div className="flex w-full flex-wrap items-center justify-center">
+          <p>© 2022 Central University Of Haryana.</p>
+          <p>Designed & Developed By CSE Dept. CUH</p>
         </div>
+      </div>
       <hr />
     </div>
   );

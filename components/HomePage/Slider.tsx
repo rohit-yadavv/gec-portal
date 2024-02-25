@@ -8,8 +8,7 @@ import {
 import Image from "next/image";
 
 const Slider = () => {
-  return (
-    // 50% on small screens and 33% on larger screens.
+  return ( 
     <Carousel>
       <CarouselContent>
         <CarouselItem className="">

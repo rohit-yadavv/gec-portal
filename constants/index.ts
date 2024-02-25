@@ -36,7 +36,7 @@ export const userSideLinks: SidebarLink[] = [
 export const bothAdminUserLinks:SidebarLink[]=[
 
   {
-    imgURL: "/assets/icons/allforms.svg",
+    imgURL: "/assets/icons/all-forms.svg",
     route: "/all-forms",
     label: "All Forms",
   }, 
