@@ -30,8 +30,7 @@ const ApplyButton = ({
   isProfileComplete,
   event,
   isRejected
-}: Props) => { 
-console.log(event)
+}: Props) => {  
   const parsedUser=JSON.parse(user);
   const path = usePathname();
   const applyNow = async () => {

@@ -13,27 +13,49 @@ export async function sendMail({ to, name, subject, body }: any) {
             pass: SMTP_PASSWORD
         }
     });
-    try {
-        // to create verify transport 
-        await transport.verify();
-    } catch (error) {
-        console.log(error)
-    }
-    try {
-        const mailOptions = {
-            from: {
-                name,
-                // @ts-ignore
-                address: SMTP_EMAIL,
-            }, to, subject, html: body, 
-        };
+    // try {
+    //     // to create verify transport 
+    //     await transport.verify();
+    // } catch (error) {
+    //     console.log(error)
+    // }
 
-        // to send mail 
+    await new Promise((resolve, reject) => {
+        // verify connection configuration
+        transport.verify(function (error, success) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                console.log("Server is ready to take our messages");
+                resolve(success);
+            }
+        });
+    });
+
+    
+    const mailOptions = {
+        from: {
+            name,
+            // @ts-ignore
+            address: SMTP_EMAIL,
+        }, to, subject, html: body, 
+    };
+
+    await new Promise((resolve, reject) => {
+        // send mail
         // @ts-ignore
-        transport.sendMail(mailOptions)
-    } catch (error) {
-        console.log(error)
-    }
+        transport.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+            } else {
+                console.log(info);
+                resolve(info);
+            }
+        });
+    });
+ 
 }
 
 
