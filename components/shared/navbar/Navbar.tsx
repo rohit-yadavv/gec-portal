@@ -11,10 +11,10 @@ const Navbar = () => {
         <MobileNav  />
         <Link href="/" className="flex items-center gap-1">
           <Image
-            width={33}
-            height={33}
+            width={30}
+            height={30}
             alt="WebOverflow"
-            src="/assets/images/site-logo.svg"
+            src="/assets/images/logo.png"
           />
           <p className=" text-dark-100 dark:text-light-900 ">
             GEC <span className="text-primary-500">Portal</span>
