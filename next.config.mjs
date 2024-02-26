@@ -31,7 +31,7 @@ const nextConfig = {
   },
   ...withImages(),
   images: {
-    domains: ['img.clerk.com', 'localhost', 'gec-portal.vercel.app', 'https://gec-portal.vercel.app/all-events', 'https://gec-portal.vercel.app/'],
+    domains: ['img.clerk.com', 'localhost', 'gec-portal.vercel.app', 'https://gec-portal.vercel.app/all-events', 'https://gec-portal.vercel.app/', 'http://gec-portal.vercel.app/all-events', 'gec-portal.vercel.app/all-events'],
   },
 };
  
