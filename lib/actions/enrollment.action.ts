@@ -35,7 +35,7 @@ export async function getEnrollmentById(params: any) {
 }
 
 
-export async function countEnrollments(){
+export async function countEnrollments() {
   try {
     connectToDatabase();
     const totalEnrollments = await Enrollment.countDocuments();
@@ -65,7 +65,7 @@ export async function deleteEnrollment({ path, enrollmentId }: deleteEnrollmentP
     revalidatePath(path)
   } catch (error) {
     console.log(error);
-  } 
+  }
 }
 
 export async function getAllEvents(params: GetEnrollmentsParams) {
@@ -88,14 +88,14 @@ export async function getAllEvents(params: GetEnrollmentsParams) {
 
     let sortOptions = {};
 
+    if (filter !== "all") {
+      query.applyBy = { $gte: new Date() };
+    }
+
     switch (filter) {
       case "newest":
         sortOptions = { uploadedAt: -1 };
         break;
-
-      // case "applied":
-      //   query.applicant = { $in: [userId] };
-      //   break;
 
       case "ug":
         query.eligible = 'ug';
@@ -291,28 +291,28 @@ export async function unRegisterForEvent({ path, userId, enrollmentId }: registe
 export async function getAdminForms({ userId }: adminForms) {
   try {
     connectToDatabase();
- 
+
     const res = await Enrollment.find({ uploadedBy: userId }).select('courseName courseId');
-    
+
     const namesArray = res.map(doc => ({
       courseName: doc.courseName,
       courseId: doc._id
     }));
-    
+
     return namesArray;
   } catch (error) {
     console.log(error);
     throw error;
   }
-} 
+}
 
-export async function getSelectedMail({ enrollmentId }: { enrollmentId: string }) {
+export async function getSelectedGecMail({ enrollmentId }: { enrollmentId: string }) {
   try {
     connectToDatabase();
 
     const res = await Enrollment.findById(enrollmentId)
       .populate({ path: "applicant", model: User })
-      .select('applicant'); 
+      .select('applicant');
 
     // Check if 'applicant' is populated and has the 'email' field
     // @ts-ignore

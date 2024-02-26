@@ -1,7 +1,7 @@
 "use server"
 import { connectToDatabase } from "../mongoose";
 import { FilterQuery } from "mongoose";
-import { acceptEnrollmentProps, deleteEnrollmentProps, eventRegisterProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
+import { acceptEnrollmentProps, adminForms, deleteEnrollmentProps, eventRegisterProps, userFormsProps, userInEnrollmentProps } from "./shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 import Event from "@/database/event.model";
@@ -167,7 +167,6 @@ export async function deleteEvent({ path, enrollmentId }: deleteEnrollmentProps)
   } 
 }
 
-
 export async function getUserEvent({ clerkId, searchQuery }: userFormsProps) {
   try {
     connectToDatabase();
@@ -198,7 +197,6 @@ export async function getUserEvent({ clerkId, searchQuery }: userFormsProps) {
   }
 }
 
-
 export async function countEvents(){
   try {
     connectToDatabase();
@@ -210,13 +208,50 @@ export async function countEvents(){
   }
 }
 
-
 export async function getEventById(params: any) {
   try {
     connectToDatabase();
     const { enrollmentId } = params;
     const enrollment = await Event.findById(enrollmentId);
     return JSON.stringify(enrollment);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getAdminEvents({ userId }: adminForms) {
+  try {
+    connectToDatabase();
+
+    const res = await Event.find({ uploadedBy: userId }).select('eventName eventId');
+
+    const namesArray = res.map(doc => ({
+      eventName: doc.eventName,
+      eventId: doc._id
+    }));
+
+    return namesArray;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+
+export async function getSelectedMailEvents({ eventId }: { eventId: string }) {
+  try {
+    connectToDatabase();
+
+    const res = await Event.findById(eventId)
+      .populate({ path: "applicant", model: User })
+      .select('applicant');
+
+    // Check if 'applicant' is populated and has the 'email' field
+    // @ts-ignore
+    const emailArray = res?.applicant.map(applicant => applicant.email);
+
+    return emailArray;
   } catch (error) {
     console.log(error);
     throw error;

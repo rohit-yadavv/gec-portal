@@ -25,11 +25,12 @@ import { useEffect, useState } from "react";
 import { BroadcastSchema } from "@/lib/validation";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  getAdminForms,
-  getSelectedMail,
+  getAdminForms,  
+  getSelectedGecMail,  
 } from "@/lib/actions/enrollment.action";
 import { sendMail } from "@/lib/mail";
 import { compileBroadcastMail } from "@/lib/utils";
+import { getAdminEvents, getSelectedMailEvents } from "@/lib/actions/event.action";
 
 interface Props {
   onSubmitSuccess: () => void;
@@ -39,12 +40,15 @@ interface Props {
 const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [allForms, setAllForms] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
 
   const getForms = async () => {
     const res = await getAdminForms({ userId });
-    // @ts-ignore
+    const ans = await getAdminEvents({ userId });
     setAllForms(res);
+    setAllEvents(ans);
   };
+
   useEffect(() => {
     getForms();
   }, []);
@@ -58,23 +62,66 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
     },
   });
 
+  // async function onSubmit(values: z.infer<typeof BroadcastSchema>) {
+  //   setIsSubmitting(true);
+  //   try {
+  //     let resMail;
+  //     if (values.mailToStudentsOf.startsWith("event_")) {
+  //       // If an event is selected
+  //       resMail = await getSelectedEventMail({
+  //         eventId: values.mailToStudentsOf,
+  //       });
+  //     } else {
+  //       // If a GEC/VAC is selected
+  //       resMail = await getSelectedGecMail({
+  //         gecId: values.mailToStudentsOf,
+  //       });
+  //     }
+
+  //     await sendMail({
+  //       name: "GEC PORTAL",
+  //       subject: values.subject,
+  //       body: compileBroadcastMail(values.body),
+  //       to: resMail,
+  //     });
+  //     toast("Event has been created.");
+  //     onSubmitSuccess();
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // }
+
   async function onSubmit(values: z.infer<typeof BroadcastSchema>) {
     setIsSubmitting(true);
     try {
-      const resMail = await getSelectedMail({
-        enrollmentId: values?.mailToStudentsOf,
-      });
+      const selectedValue = values.mailToStudentsOf;
+
+      const eventId = selectedValue.replace(/^\D+/g, "");
+
+      let resMail;
+      if (selectedValue.startsWith("event_")) {
+        resMail = await getSelectedMailEvents({
+          eventId,
+        });
+      } else {
+        resMail = await getSelectedGecMail({
+          enrollmentId: eventId,
+        });
+      }
 
       await sendMail({
         name: "GEC PORTAL",
-        subject: values?.subject,
-        body: compileBroadcastMail(values?.body),
+        subject: values.subject,
+        body: compileBroadcastMail(values.body),
         to: resMail,
       });
+
       toast("Event has been created.");
       onSubmitSuccess();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -91,7 +138,7 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
           name="mailToStudentsOf"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className=" text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Mail to Students of: <span className="text-primary-500">*</span>
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -100,40 +147,51 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                 </FormControl>
-                {/* <SelectContent>
-                  {allForms.map((form) => (
-                    <SelectItem key={form?.courseId} value={form?.courseId}>
-                      {form?.courseName}
-                    </SelectItem>
-                  ))}
-                </SelectContent> */}
                 <SelectContent>
+                  <p className="p-3">GECs/VACs : </p>
+                  <hr />
                   {allForms.length === 0 ? (
                     <SelectItem disabled>No forms available</SelectItem>
                   ) : (
                     allForms.map((form) => (
-                      <SelectItem key={form?.courseId} value={form?.courseId}>
+                      <SelectItem
+                        key={form?.courseId}
+                        value={`gec_${form?.courseId}`}
+                      >
                         {form?.courseName}
                       </SelectItem>
                     ))
                   )}
+
+                  <p className="p-3">Events : </p>
+                  <hr />
+                  {allEvents.length !== 0 &&
+                    allEvents.map((event) => (
+                      <SelectItem
+                        key={event?.eventId}
+                        value={`event_${event?.eventId}`}
+                      >
+                        {event?.eventName}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="subject"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className=" text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Subject
               </FormLabel>
               <FormControl>
                 <Input
-                  className="no-focus  min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Write Subject of Message"
                   {...field}
                 />
@@ -148,12 +206,12 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
           name="body"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className=" text-dark-400 dark:text-light-800">
+              <FormLabel className="text-dark-400 dark:text-light-800">
                 Body
               </FormLabel>
               <FormControl>
                 <Textarea
-                  className="no-focus  min-h-[56px] border"
+                  className="no-focus min-h-[56px] border"
                   placeholder="Write body of message"
                   {...field}
                 />

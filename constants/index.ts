@@ -61,6 +61,7 @@ export const savedLinks:SidebarLink[]=[
 ]
 
 export const HomePageFilters = [
+  { name: "All", value: "all", desc:"Show All Forms" },
   { name: "Newest", value: "newest", desc:"Filter by Newest First" },
   { name: "UG", value: "ug", desc:"show only for ug" },
   { name: "PG", value: "pg", desc:"show only for pg" },

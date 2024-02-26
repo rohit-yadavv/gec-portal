@@ -35,7 +35,7 @@ const CounterComponent = ({ totalUsers, totalEvents, totalEnrollments }:Props) =
   }, [totalUsers, totalEvents, totalEnrollments]);
 
   return (
-    <div className="container">
+  <div className=" container p-3">
       <div className="flex flex-wrap items-center justify-center gap-10">
         <div className="">
           <div className="counter blue">
