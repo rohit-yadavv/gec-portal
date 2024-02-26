@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import React from "react";
 import { formatDate } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
@@ -34,12 +34,12 @@ const EventCard = async ({ event }: any) => {
         />
         <div className="relative mt-6 flex w-full flex-col items-center justify-center overflow-hidden rounded-md ">
           <div className=" relative flex h-80 w-full items-center justify-center">
-            <Image
+            <img
               src={`/api/event/image/${event?._id}`}
-              layout="fill"
-              objectFit="fill"
+              // layout="fill"
+              // objectFit="fill"
               alt="image"
-              className="w-12 fill-current text-gray-800 "
+              className="w-full fill-current object-fill text-gray-800 "
             />
             <div className="custom-scrollbar absolute left-1/2 top-1/2 box-border size-full -translate-x-1/2 -translate-y-1/2 rotate-[-45deg] overflow-y-scroll  bg-light-900 p-5 text-dark-200 opacity-0 transition-all duration-200 ease-in hover:rotate-0 hover:opacity-100 dark:bg-dark-100 dark:text-light-900 ">
             
