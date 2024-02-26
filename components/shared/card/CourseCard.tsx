@@ -73,18 +73,27 @@ const CourseCard = async ({ event }: Props) => {
   const hasSaved = mongoUser?.saved.includes(_id);
   const hasApplied = mongoUser?.appliedGec.includes(_id);
   const isAdmin = mongoUser?.admin;
-  const isSelected = selected?.includes(mongoUser?._id);
+  // @ts-ignore
+  const isSelected = selected?.some((user) => user._id === mongoUser?._id);
   const isRejected = rejected?.includes(mongoUser?._id);
   const isUploader = uploadedBy?._id === mongoUser?._id;
+  
+
   return (
     <Card className="card-wrapper relative">
       {/* card header  */}
-      <ApplicationStatus
-        isAdmin={isAdmin}
-        hasApplied={hasApplied}
-        isSelected={isSelected}
-        isRejected={isRejected}
-      />
+
+      <div className="absolute right-[30px] top-[-15px] flex w-max flex-row gap-3">
+        <div className="rounded-md border border-[#e2995f] bg-light-900 px-4 py-2 text-[10px] font-medium leading-[13px] text-dark-200 dark:bg-dark-100 sm:text-[14px]">
+          <p className="text-[#e2995f]">Apply by {formatDate(applyBy)}</p>
+        </div>
+        <ApplicationStatus
+          isAdmin={isAdmin}
+          hasApplied={hasApplied}
+          isSelected={isSelected}
+          isRejected={isRejected}
+        />
+      </div>
       <CardHeader className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-4">
           <Image
@@ -141,13 +150,10 @@ const CourseCard = async ({ event }: Props) => {
       <CardFooter className="relative flex flex-wrap justify-between gap-3">
         <p className="flex items-center gap-1">
           <span className=" line-clamp-1 text-sm max-sm:hidden">
-            Apply by {formatDate(applyBy)}{" "}
-            <span className="text-xs text-dark-500 dark:text-light-700">
-              {" "}
-              - posted {getTimeStamp(uploadedAt)}
-            </span>
+            posted {getTimeStamp(uploadedAt)}
           </span>
         </p>
+
         {isAdmin ? (
           isUploader ? (
             <CardButtons
@@ -165,7 +171,7 @@ const CourseCard = async ({ event }: Props) => {
           )
         ) : (
           <CardButtons
-          event={event}
+            event={event}
             isSelected={isSelected}
             isRejected={isRejected}
             selected={selected}
