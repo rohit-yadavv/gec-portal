@@ -46,7 +46,7 @@ export const bothAdminUserLinks:SidebarLink[]=[
   {
     imgURL: "/assets/icons/all-forms.svg",
     route: "/all-forms",
-    label: "All Forms",
+    label: "All Gec/Vac",
   }, 
   {
     imgURL: "/assets/icons/all-events.svg",
@@ -59,7 +59,7 @@ export const savedLinks:SidebarLink[]=[
   {
     imgURL: "/assets/icons/form-saved.svg",
     route: "/saved-forms",
-    label: "Saved Forms",
+    label: "Saved Gec / Vac",
   },
   {
     imgURL: "/assets/icons/event.svg",

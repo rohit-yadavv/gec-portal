@@ -11,7 +11,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/sign-in', request.nextUrl));
   }
 
-  // Redirect to home if the user is already authenticated and tries to access a public path
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL('/', request.nextUrl));
   }

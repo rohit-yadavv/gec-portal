@@ -24,7 +24,7 @@ const ChangePasswordDialog = () => {
             Change Password
           </p> 
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="overflow-hidden">
         <DialogHeader>
           <DialogTitle>Fill Form</DialogTitle>
           <DialogDescription>

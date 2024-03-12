@@ -3,6 +3,7 @@ import { Schema, model, models, Document } from "mongoose";
 export interface IUser extends Document {
   name: string;
   email: number;
+  hod: boolean;
   admin: boolean;
   teacher: boolean;
   password: string; 
@@ -31,6 +32,7 @@ const UserSchema = new Schema({
   sem: { type: Number },
 
   teacher: { type: Boolean,  default: false ,required: true},
+  hod: { type: Boolean, required: true, default: false },
   admin: { type: Boolean, required: true, default: false },
   isFirstLogin: {type: Boolean, default: true, required: true},
 

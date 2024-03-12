@@ -10,11 +10,8 @@ import {
 import { useState } from "react"; 
 import Image from "next/image";
 import EventForm from "./form/EventForm";
-import { useAuth } from "@/context/AuthProvider";
 
-const EventDialog = () => {
-  const {user} = useAuth();
-  const userId = user?._id;
+const EventDialog = () => { 
   const [open, setOpen] = useState(false);
 
   const handleFormSubmitSuccess = () => {
@@ -34,7 +31,7 @@ const EventDialog = () => {
             className="invert dark:invert-0"
           />
           <p className="block text-[18px] font-medium leading-[25.2px] sm:hidden lg:block">
-            Post Event
+            Create Event
           </p>
         </div>
       </DialogTrigger>
@@ -43,8 +40,7 @@ const EventDialog = () => {
           <DialogTitle>Fill Form</DialogTitle>
           <DialogDescription>
             <EventForm
-              onSubmitSuccess={handleFormSubmitSuccess}
-              userId={userId}
+              onSubmitSuccess={handleFormSubmitSuccess} 
             />
           </DialogDescription>
         </DialogHeader>

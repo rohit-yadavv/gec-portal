@@ -53,8 +53,7 @@ export async function userVerification(params: any) {
     const { email, password } = params;
     const user = await User.findOne({ email });
 
-    const validPassword = comparePassword(password, user?.password);
-
+    const validPassword = await comparePassword(password, user?.password);
     if (!validPassword || !user) {
       return false;
     }
@@ -128,6 +127,36 @@ export async function getUserById(userId: any) {
   }
 }
 
+export async function forgetPassword(params: any) {
+  const { email, NewPassword } = params;
+  console.log(email, NewPassword);
+
+  const user = await User.findOne({ email })
+console.log(user)
+  if (!user) {
+    return { success: false, message: "User Not Found" };
+  }
+
+  // Hash the new password
+  const hashedNewPassword = await hashPassword(NewPassword);
+
+  user.password = hashedNewPassword;
+  await user.save();
+
+  await sendMail({
+    to: email,
+    name: user?.name,
+    subject: `New Password for GEC Portal`,
+    body: compileUserRegisterMail({
+      name: user?.name,
+      password: NewPassword,
+      email,
+    })
+  })
+
+  return { success: true, message: "Sended Mail Successfully" };
+}
+
 export async function changePassword(params: any) {
   const { currentPassword, newPassword, userId } = params;
 
@@ -137,24 +166,20 @@ export async function changePassword(params: any) {
     return { success: false, message: "User Not Found" };
   }
 
-  // const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
-  // console.log(user.password)
-  const isPasswordValid = currentPassword === user?.password;
+  const isPasswordValid = await comparePassword(currentPassword, user.password);
 
   if (!isPasswordValid) {
     return { success: false, message: "Incorrect Password" };
   }
 
   // Hash the new password
-  // const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  const hashedNewPassword = await hashPassword(newPassword);
 
-  user.password = newPassword;
+  user.password = hashedNewPassword;
   await user.save();
 
   return { success: true, message: "Password changed successfully" };
 }
-
-// ====================
 
 export async function getUserByMongoId(params: any) {
   try {
@@ -179,17 +204,6 @@ export async function countUser() {
   }
 }
 
-// export async function getUserById(params: any) {
-//   try {
-//     connectToDatabase();
-//     const { userId } = params;
-//     const user = await User.findOne({ clerkId: userId });
-//     return JSON.stringify(user);
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
 
 export async function createUser(userData: CreateUserParams) {
   try {

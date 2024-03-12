@@ -1,3 +1,4 @@
+"use client";
 import { formatDate } from "@/lib/utils";
 import CardBadge from "./CardBadge";
 import EventCardButton from "./EventCardsButton";
@@ -5,13 +6,30 @@ import BookMark from "../BookMark";
 import ApplicationStatus from "./ApplicationStatus";
 import { getUserByToken } from "@/lib/actions/user.action";
 import { EventCardProps } from "@/types/components/card";
-const EventCard = async ({ event }: EventCardProps) => {
-  const { _id, applicant, selected, rejected, uploadedBy } = event;
+import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-  const user = await getUserByToken();
-  if (!event && !user) return;
-  // @ts-ignore
-  const parsedUser = JSON.parse(user);
+const EventCard = ({ event }: EventCardProps) => {
+  const { _id, applicant, selected, rejected, uploadedBy } = event;
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [parsedUser, setParsedUser] = useState<any>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const mongoUser = await getUserByToken();
+      if (!mongoUser) return;
+      const user = JSON.parse(mongoUser);
+      setParsedUser(user);
+      const image = new Image();
+      image.src = `/api/event/image/${event?._id}`;
+      image.onload = () => {
+        setImageLoaded(true);
+      };
+    };
+
+    fetchData();
+  }, [event]);
+
   const time = formatDate(event?.eventTime);
   const hasApplied = parsedUser?.appliedEvent?.includes(_id);
   const hasSaved = parsedUser?.savedEvents?.includes(_id);
@@ -35,17 +53,19 @@ const EventCard = async ({ event }: EventCardProps) => {
           />
         </div>
         <div className="relative mt-6 flex w-full flex-col items-center justify-center overflow-hidden rounded-md ">
-          <div className=" relative flex h-80 w-full items-center justify-center">
-            <picture>
-              <img
-                src={`/api/event/image/${event?._id}`}
-                // layout="fill"
-                // objectFit="fill"
-                alt="image"
-                className="w-full fill-current object-fill text-gray-800 "
-              />
-            </picture>
-            <div className="custom-scrollbar absolute left-1/2 top-1/2 box-border size-full -translate-x-1/2 -translate-y-1/2 rotate-[-45deg] overflow-y-scroll  bg-light-900 p-5 text-dark-200 opacity-0 transition-all duration-200 ease-in hover:rotate-0 hover:opacity-100 dark:bg-dark-100 dark:text-light-900 ">
+          <div className="relative flex h-80 w-full items-center justify-center">
+            {imageLoaded ? (
+              <picture>
+                <img
+                  src={`/api/event/image/${event?._id}`}
+                  alt="image"
+                  className="w-full fill-current object-fill text-gray-800"
+                />
+              </picture>
+            ) : (
+              <Skeleton className="size-full" />
+            )}
+            <div className="custom-scrollbar absolute left-0 top-0 box-border size-full overflow-y-scroll rounded-none bg-light-900 p-5 text-dark-200 opacity-0 transition-all duration-200 ease-in hover:opacity-100 dark:bg-dark-100 dark:text-light-900">
               <h1 className="m-0 text-2xl font-bold">{event?.eventName}</h1>
               <div className="flex gap-3">
                 <CardBadge

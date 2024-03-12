@@ -14,7 +14,6 @@ import EnrollmentDialog from "../EnrollmentDialog";
 import BroadcastDialog from "../BrodcastDialog";
 import EventDialog from "../EventDialog";
 
-
 const LeftSideBar = () => {
   const pathName = usePathname();
   const { user } = useAuth();
@@ -88,6 +87,7 @@ const LeftSideBar = () => {
               </Link>
             );
           })}
+          
         <hr />
 
         {bothAdminUserLinks.map((item) => {

@@ -16,8 +16,9 @@ import { useState } from "react";
 import { LoginSchema } from "@/lib/validation";
 import { useAuth } from "@/context/AuthProvider";
 import { useRouter } from "next/navigation";
-import { getUserByToken, userVerification } from "@/lib/actions/user.action"; 
+import { getUserByToken, userVerification } from "@/lib/actions/user.action";
 import { toast } from "sonner";
+import ForgerPasswordDialog from "../ForgetPasswordDialog";
 
 const SignIn = () => {
   const { setUser } = useAuth();
@@ -36,16 +37,15 @@ const SignIn = () => {
         password: values?.password,
       };
       const verified = await userVerification(user);
-      
+
       if (verified) {
-        const res = await getUserByToken();   
+        const res = await getUserByToken();
         // @ts-ignore
         const parsedUser = JSON.parse(res);
         setUser(parsedUser);
       } else {
-        toast("Invalid Credentials")
+        toast("Invalid Credentials");
       }
-
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -102,7 +102,7 @@ const SignIn = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage><ForgerPasswordDialog /></FormMessage>
               </FormItem>
             )}
           />

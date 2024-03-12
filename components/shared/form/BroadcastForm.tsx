@@ -62,37 +62,6 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
     },
   });
 
-  // async function onSubmit(values: z.infer<typeof BroadcastSchema>) {
-  //   setIsSubmitting(true);
-  //   try {
-  //     let resMail;
-  //     if (values.mailToStudentsOf.startsWith("event_")) {
-  //       // If an event is selected
-  //       resMail = await getSelectedEventMail({
-  //         eventId: values.mailToStudentsOf,
-  //       });
-  //     } else {
-  //       // If a GEC/VAC is selected
-  //       resMail = await getSelectedGecMail({
-  //         gecId: values.mailToStudentsOf,
-  //       });
-  //     }
-
-  //     await sendMail({
-  //       name: "GEC PORTAL",
-  //       subject: values.subject,
-  //       body: compileBroadcastMail(values.body),
-  //       to: resMail,
-  //     });
-  //     toast("Event has been created.");
-  //     onSubmitSuccess();
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // }
-
   async function onSubmit(values: z.infer<typeof BroadcastSchema>) {
     setIsSubmitting(true);
     try {
@@ -118,7 +87,7 @@ const BroadcastForm = ({ onSubmitSuccess, userId }: Props) => {
         to: resMail,
       });
 
-      toast("Event has been created.");
+      toast("Mails have been send to all students.");
       onSubmitSuccess();
     } catch (error) {
       console.error(error);
