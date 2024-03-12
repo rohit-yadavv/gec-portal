@@ -105,7 +105,7 @@ const ChangePasswordForm = ({ onSubmitSuccess }: FormProps) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="text-dark-400 dark:text-light-800">
-                Confirm Password
+                Confirm New Password
               </FormLabel>
               <FormControl>
                 <Input
