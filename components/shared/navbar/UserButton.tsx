@@ -25,8 +25,8 @@ const UserButton = () => {
   const onLogOut = async () => { 
     try {
       await removeCookie({ path });
-      router.push('/sign-in')
       setUser('');
+      router.push('/sign-in')
     } catch (error) {
       console.log("Error in logout")
     }
