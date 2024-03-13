@@ -79,6 +79,10 @@ export async function getUserByToken() {
 
     const cookie = cookies().get('token');
     const token = cookie?.value
+
+    if(!token){
+      return;
+    }
     // @ts-ignore
     const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!);
     const user = await User.findById(decodedToken.id).
@@ -130,10 +134,9 @@ export async function getUserById(userId: any) {
 
 export async function forgetPassword(params: any) {
   const { email, NewPassword } = params;
-  console.log(email, NewPassword);
 
   const user = await User.findOne({ email })
-console.log(user)
+
   if (!user) {
     return { success: false, message: "User Not Found" };
   }

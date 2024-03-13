@@ -1,3 +1,4 @@
+import Footer from "@/components/shared/footer/Footer";
 import LeftSideBar from "@/components/shared/navbar/LeftSideBar"; 
 import Navbar from "@/components/shared/navbar/Navbar";
 import React from "react";
@@ -12,7 +13,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="mx-auto w-full max-w-5xl">{children}</div>
         </section>
       </div>
-      {/* <Toaster/> */}
+      <Footer />
     </main>
   );
 };

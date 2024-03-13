@@ -6,7 +6,7 @@ import FeatureCard from "@/components/HomePage/FeatureCard";
 import Slider from "@/components/HomePage/Slider";
 import { countEnrollments } from "@/lib/actions/enrollment.action";
 import { countEvents } from "@/lib/actions/event.action";
-import { countUser } from "@/lib/actions/user.action"; 
+import { countUser } from "@/lib/actions/user.action";
 import React from "react";
 
 const Home = async () => {
@@ -47,13 +47,7 @@ const Home = async () => {
       <div className="mt-8">
         <CallToAction />
       </div>
-
-      <div className="w-full border-t-2 pt-3">
-        <div className="flex w-full flex-wrap items-center justify-center">
-          <p>© 2022 Central University Of Haryana.</p>
-          <p>Designed & Developed By CSE Dept. CUH</p>
-        </div>
-      </div>
+      
       <hr />
     </div>
   );

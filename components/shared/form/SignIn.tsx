@@ -37,8 +37,9 @@ const SignIn = () => {
         password: values?.password,
       };
       const verified = await userVerification(user);
-
+      
       if (verified) {
+        router.push("/");
         const res = await getUserByToken();
         // @ts-ignore
         const parsedUser = JSON.parse(res);
@@ -46,7 +47,6 @@ const SignIn = () => {
       } else {
         toast("Invalid Credentials");
       }
-      router.push("/");
     } catch (error) {
       console.log(error);
     } finally {
