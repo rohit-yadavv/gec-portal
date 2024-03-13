@@ -1,10 +1,10 @@
 "use client";
 import {
-  userSideLinks,
-  adminSideLinks,
+  userSideLinks, 
   bothAdminUserLinks,
   savedLinks,
   teacherSideLinks,
+  registerUser,
 } from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,6 +20,7 @@ const LeftSideBar = () => {
   if (!user) return;
   const isAdmin = user?.admin;
   const isTeacher = user?.teacher;
+  const ishod = user?.hod;
 
   return (
     <section className="custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r border-light-800 p-6 pt-28 dark:border-dark-200 dark:shadow-none max-sm:hidden lg:w-[266px]">
@@ -52,8 +53,8 @@ const LeftSideBar = () => {
           </p>
         </Link>
 
-        {isAdmin &&
-          adminSideLinks.map((item) => {
+        {(isAdmin || isTeacher || ishod) &&
+          registerUser.map((item) => {
             const isActive =
               (pathName.includes(item.route) && item.route.length > 1) ||
               pathName === item.route;
@@ -87,7 +88,7 @@ const LeftSideBar = () => {
               </Link>
             );
           })}
-          
+
         <hr />
 
         {bothAdminUserLinks.map((item) => {
@@ -233,9 +234,10 @@ const LeftSideBar = () => {
                 </Link>
               );
             })}
-        <hr />
+
         {isTeacher && (
           <>
+            <hr />
             <EnrollmentDialog />
             <EventDialog />
             <hr />

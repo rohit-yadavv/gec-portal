@@ -31,7 +31,7 @@ const EnrollmentDialog = () => {
             className="invert dark:invert-0"
           />
           <p className="block text-[18px] font-medium leading-[25.2px] sm:hidden lg:block">
-            Create Gec / Vac
+            Create GECs
           </p>
         </div>
       </DialogTrigger>

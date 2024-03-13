@@ -6,11 +6,18 @@ export const themes = [
   { value: "system", label: "System", icon: "/assets/icons/computer.svg" },
 ];
 
+export const registerUser: SidebarLink[] = [
+  {
+    imgURL: "/assets/icons/sign-up.svg",
+    route: "/register-users",
+    label: "Register Users",
+  }
+]
 export const teacherSideLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/your-forms.svg",
     route: "/my-forms",
-    label: "My Forms",
+    label: "My GECs",
   },
   {
     imgURL: "/assets/icons/your-event.svg",
@@ -46,7 +53,7 @@ export const bothAdminUserLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/all-forms.svg",
     route: "/all-forms",
-    label: "All Gec/Vac",
+    label: "All GECs",
   },
   {
     imgURL: "/assets/icons/all-events.svg",
@@ -59,7 +66,7 @@ export const savedLinks: SidebarLink[] = [
   {
     imgURL: "/assets/icons/form-saved.svg",
     route: "/saved-forms",
-    label: "Saved Gec / Vac",
+    label: "Saved GECs",
   },
   {
     imgURL: "/assets/icons/event.svg",
@@ -91,7 +98,7 @@ export const footerRoutesLinks: FooterRoutesLink[] = [
 ]
 
 export const MentorDetails: TeamDetail[] = [
-  { imgUrl: "/assets/images/team/anant.png", name: "Anant Rajee Bara", role: "Mentor" }, 
+  { imgUrl: "/assets/images/team/anant.png", name: "Anant Rajee Bara", role: "Mentor" },
 ]
 
 export const TeamDetails: TeamDetail[] = [

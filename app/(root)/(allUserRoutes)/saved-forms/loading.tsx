@@ -5,7 +5,7 @@ const Loading = () => {
   return (
     <section>
       <h1 className=" text-[30px] font-bold leading-[42px] tracking-tighter text-dark-100 dark:text-light-900">
-        Saved Gec/Vac
+        Saved GECs/VACs
       </h1>
       <div className="my-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <Skeleton className="h-14 flex-1" /> 
