@@ -50,6 +50,7 @@ export async function createUserByAdmin(userData: any) {
 
 export async function userVerification(params: any) {
   try {
+    connectToDatabase();
     const { email, password } = params;
     const user = await User.findOne({ email });
 

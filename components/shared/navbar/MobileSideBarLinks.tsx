@@ -8,19 +8,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-// import EnrollmentDialog from "../EnrollmentDialog";
-// import BroadcastDialog from "../BrodcastDialog";
-// import EventDialog from "../EventDialog";
 import { useAuth } from "@/context/AuthProvider";
 
 const MobileSideBarLinks = () => {
-  const { user } = useAuth();
-  const parsedUser = JSON.parse(user);
-  const isAdmin = parsedUser?.teacher;
-  const userId = parsedUser?._id;
   const pathName = usePathname();
-
+  const { user } = useAuth();
+  if (!user) return;
+  const isAdmin = user?.admin;
+  
   return (
     <section className="flex h-full flex-col gap-6  bg-light-900 pt-16 dark:bg-dark-100">
       {/* home route  */}
@@ -214,6 +209,7 @@ const MobileSideBarLinks = () => {
           <BroadcastDialog userId={userId} /> */}
         </>
       )}
+      
     </section>
   );
 };
