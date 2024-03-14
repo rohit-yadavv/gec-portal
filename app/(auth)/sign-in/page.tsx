@@ -1,4 +1,3 @@
-import Footer from "@/components/shared/footer/Footer";
 import SignIn from "@/components/shared/form/SignIn";
 import Navbar from "@/components/shared/navbar/Navbar";
 
@@ -11,9 +10,9 @@ export default function Page() {
           <SignIn />
         </div>
       </section>
-      <div className="absolute bottom-0 w-full">
+      {/* <div className="absolute bottom-0 w-full">
         <Footer />
-      </div>
+      </div> */}
     </main>
   );
 }
