@@ -72,7 +72,7 @@ const EventCard = ({ event }: EventCardProps) => {
                   value={event?.venue}
                   desc={`venue - ${event?.venue}`}
                 />
-                <CardBadge value={time} desc={`Time - ${time}`} />
+                <CardBadge value={time} desc={`Event Date - ${time}`} />
                 <CardBadge
                   value={event?.department}
                   desc={`Organized By - ${event?.department}`}
