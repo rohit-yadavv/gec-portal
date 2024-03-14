@@ -26,7 +26,7 @@ const ChangePasswordDialog = () => {
       </DialogTrigger>
       <DialogContent className="overflow-hidden">
         <DialogHeader>
-          <DialogTitle>Fill Form</DialogTitle>
+          <DialogTitle>Change Password</DialogTitle>
           <DialogDescription>
             <ChangePasswordForm
               onSubmitSuccess={handleFormSubmitSuccess} 
