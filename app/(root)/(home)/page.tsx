@@ -50,7 +50,7 @@ const Home = async () => {
 
       <div className="w-full border-t-2 pt-3">
         <div className="flex w-full flex-wrap items-center justify-center">
-          <p>© 2022 Central University Of Haryana.</p>
+          <p>© 2024 Central University Of Haryana.</p>
           <p>Designed & Developed By CSE Dept. CUH</p>
         </div>
       </div>
