@@ -98,14 +98,14 @@ export const footerRoutesLinks: FooterRoutesLink[] = [
 ]
 
 export const MentorDetails: TeamDetail[] = [
-  { imgUrl: "/assets/images/team/anant.png", name: "Anant Rajee Bara", role: "Mentor" },
+  { imgUrl: "/assets/images/team/anant.png", name: "Anant Rajee Bara", role: "Mentor", designation:"Asst. Professor" },
 ]
 
 export const TeamDetails: TeamDetail[] = [
-  { imgUrl: "/assets/images/team/rohit.png", name: "Rohit", role: "Team Lead (FullStack)" },
-  { imgUrl: "/assets/images/team/navin.png", name: "Navin", role: "Frontend" },
-  { imgUrl: "/assets/images/team/swati.jpg", name: "Swati", role: "Frontend" },
-  { imgUrl: "/assets/images/team/harshit.png", name: "Harshit", role: "Backend" },
-  { imgUrl: "/assets/images/team/raja.jpg", name: "Raja", role: "UI/UX" },
-  { imgUrl: "/assets/images/team/kirti.jpg", name: "Kirti", role: "UI/UX" },
+  { imgUrl: "/assets/images/team/rohit.png", name: "Rohit Yadav", role: "Developer", designation:"Student" },
+  // { imgUrl: "/assets/images/team/navin.png", name: "Navin", role: "Frontend" },
+  // { imgUrl: "/assets/images/team/swati.jpg", name: "Swati", role: "Frontend" },
+  // { imgUrl: "/assets/images/team/harshit.png", name: "Harshit", role: "Backend" },
+  // { imgUrl: "/assets/images/team/raja.jpg", name: "Raja", role: "UI/UX" },
+  // { imgUrl: "/assets/images/team/kirti.jpg", name: "Kirti", role: "UI/UX" },
 ]

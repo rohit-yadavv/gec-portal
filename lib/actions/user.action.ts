@@ -28,6 +28,7 @@ export async function createUserByAdmin(userData: any) {
     if (existingUser) {
       return;
     }
+    console.log("fjslkfjslkjfklsjflksjflksjkldajf;kajf;dladjf;akljfalkjfa;lfjlj;a")
 
     const password = await hashPassword(userData?.password)
 

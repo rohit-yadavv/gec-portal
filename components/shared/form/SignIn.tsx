@@ -1,4 +1,5 @@
 "use client";
+
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,7 +38,7 @@ const SignIn = () => {
         password: values?.password,
       };
       const verified = await userVerification(user);
-      
+
       if (verified) {
         router.push("/");
         const res = await getUserByToken();
@@ -53,6 +54,11 @@ const SignIn = () => {
       setIsSubmitting(false);
     }
   }
+
+  const handleTestPortalClick = () => {
+    form.setValue("email", "rewarrior532@gmail.com");
+    form.setValue("password", "t5x28j28");
+  };
 
   return (
     <>
@@ -102,12 +108,21 @@ const SignIn = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage><ForgerPasswordDialog /></FormMessage>
+                <FormMessage>
+                  <ForgerPasswordDialog />
+                </FormMessage>
               </FormItem>
             )}
           />
 
-          <div className="mt-7 flex justify-end">
+          <div className="mt-7 flex justify-end gap-4">
+            <Button
+              type="button"
+              onClick={handleTestPortalClick}
+              className="primary-gradient w-fit !text-light-900"
+            >
+              Test Portal (student Credentials)
+            </Button>
             <Button
               disabled={isSubmitting}
               type="submit"

@@ -5,6 +5,7 @@ interface Props {
     imgUrl: string;
     name: string;
     role: string;
+    designation: string;
   };
 }
 const TeamCard = async ({ user }: Props) => {
@@ -22,7 +23,10 @@ const TeamCard = async ({ user }: Props) => {
           {user.name}
         </h2>
         <p className="text-[13px] font-normal text-dark-100 dark:text-light-850">
-          {user.role}
+          ({user.designation})
+        </p>
+        <p className="text-[14px] font-normal text-dark-100 dark:text-light-850">
+          Role: {user.role}
         </p>
       </div>
     </article>

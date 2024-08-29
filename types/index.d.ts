@@ -17,4 +17,5 @@ export interface TeamDetail {
   imgUrl: string;
   name: string;
   role: string;
+  designation: string;
 }
