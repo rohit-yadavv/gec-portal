@@ -94,7 +94,7 @@ export const footerRoutesLinks: FooterRoutesLink[] = [
   { route: "/all-events", label: "All Events" },
   { route: "/saved-forms", label: "Saved GECs" },
   { route: "/saved-events", label: "Saved Events" },
-  { route: "/team", label: "The Team" },
+  // { route: "/team", label: "The Team" },
 ]
 
 export const MentorDetails: TeamDetail[] = [
